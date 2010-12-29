@@ -1,0 +1,120 @@
+<Package Name="xtime2" Group="com.virtuos.tnt">
+  <Versions>
+    <Version>1.0.0</Version>
+  </Versions>
+
+  <DirectoryStructure>
+    <Item Folder="docs\manuals"/>
+    <Item Folder="docs\references"/>
+    <Item Folder="source\main\cpp"/>
+    <Item Folder="source\main\include\xtime2"/>
+    <Item Folder="source\main\include\xtime2\private"/>
+    <Item Folder="source\main\resources"/>
+    <Item Folder="source\test\cpp"/>
+    <Item Folder="source\test\include\xtime2"/>
+    <Item Folder="source\test\include\xtime2\private"/>
+    <Item Folder="source\test\resources"/>
+    <Item Folder="target"/>
+    <Item Folder="tools"/>
+  </DirectoryStructure>
+  
+  <Content>
+		<Item Src="pom.*" Dst="" />  
+    <Item Src="source\main\cpp\**\*.cpp" Dst="source\main\cpp\" />
+    <Item Src="source\main\include\**\*.h" Dst="source\main\include\" />
+    <Item Src="source\main\resources\**\*.*" Dst="source\main\resources\" />
+    <Item Src="libs\**\*.*" Dst="libs\" />
+    <Item Src="docs\**\*.*" Dst="docs\" />
+    <Item Src="tools\**\*.*" Dst="Tools\" />
+    <Item Src="target\outdir\xtime2_*\xtime2_*_${Platform}.lib" Dst="libs\" />
+  </Content>
+  
+  <Dependency Package="example_package_name">
+    <Group>com.virtuos.tnt</Group>
+    <Version>[1.0,)</Version>
+    <Type>Package</Type>
+  </Dependency>
+
+  <Project Name="xtime2" Category="Main" Language="C++" Location="source\main\cpp" Scope="Public">
+    <ProjectFile>
+			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+			  <PropertyGroup Label="Globals">
+			    <ProjectGuid>{710d1d3a-d1a7-4325-8823-903fd483a312}</ProjectGuid>
+			  </PropertyGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#target\xtime2\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#target\xtime2\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#xtime2_DevDebug_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#target\xtime2\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#target\xtime2\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#xtime2_DevRelease_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#target\xtime2\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#target\xtime2\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#xtime2_DevFinal_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemGroup>
+			    <ClCompile Include="source\main\cpp\**\*.cpp" />
+			  </ItemGroup>
+			  <ItemGroup>
+			    <ClInclude Include="source\main\include\xtime2\**\*.h" />
+			  </ItemGroup>
+			</Project>				
+    </ProjectFile>
+  </Project>
+  <Project Name="xtime2_test" Category="UnitTest" Language="C++" Location="source\test\cpp" Scope="Private">
+    <ProjectFile>
+			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+			  <PropertyGroup Label="Globals">
+			    <ProjectGuid>{c0bcfc6f-9980-47c9-a4a3-bbd170ff2727}</ProjectGuid>
+			  </PropertyGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+				</ItemDefinitionGroup>
+			  <ItemGroup>
+			    <ClCompile Include="source\test\cpp\**\*.cpp" />
+			  </ItemGroup>
+			  <ItemGroup>
+			    <ClInclude Include="source\test\include\**\*.h" />
+			  </ItemGroup>				
+			</Project>
+    </ProjectFile>
+  </Project>
+</Package>
+
+
+
+

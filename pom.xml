@@ -41,7 +41,7 @@
     <Type>Package</Type>
   </Dependency>
 
-  <Project Name="xtime" Category="Main" Language="C++" Location="source\main\cpp" Scope="Public">
+  <Project Name="xtime" Group="Main" Language="C++" Location="source\main\cpp" Scope="Public">
     <ProjectFile>
 			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 			  <PropertyGroup Label="Globals">
@@ -86,29 +86,53 @@
 			</Project>				
     </ProjectFile>
   </Project>
-  <Project Name="xtime_test" Category="UnitTest" Language="C++" Location="source\test\cpp" Scope="Private">
+  <Project Name="xtime_test" Group="UnitTest" Language="C++" Location="source\test\cpp" Scope="Private" DependsOn="xtime">
     <ProjectFile>
 			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 			  <PropertyGroup Label="Globals">
 			    <ProjectGuid>{c0bcfc6f-9980-47c9-a4a3-bbd170ff2727}</ProjectGuid>
 			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
 			    <ClCompile>
-			      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include</AdditionalIncludeDirectories>
 					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
 			    <ClCompile>
-			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include</AdditionalIncludeDirectories>
 					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
 			    <ClCompile>
-			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include</AdditionalIncludeDirectories>
 					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemGroup>
 			    <ClCompile Include="source\test\cpp\**\*.cpp" />

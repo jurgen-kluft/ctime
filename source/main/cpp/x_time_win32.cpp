@@ -1,4 +1,4 @@
-#include "../x_target.h"
+#include "xbase\x_target.h"
 #ifdef TARGET_PC
 
 //==============================================================================
@@ -13,11 +13,12 @@
 #include <mmsystem.h>
 #include <time.h>
 
-#include "../x_types.h"
-#include "../x_debug.h"
-#include "../x_time.h"
-#include "../x_string.h"
-#include "../x_thread.h"
+#include "xbase\x_types.h"
+#include "xbase\x_debug.h"
+#include "xbase\x_string_std.h"
+
+#include "xtime\x_time.h"
+
 
 //==============================================================================
 // xCore namespace
@@ -106,8 +107,6 @@ namespace xcore
 	//  See Also:
 	//      QueryPerformanceCounter QueryPerformanceFrequency
 	//------------------------------------------------------------------------------
-	static xcritical_section sProtect;
-
 	void x_TimeInit(void)
 	{
 		LARGE_INTEGER counter;
@@ -154,8 +153,6 @@ namespace xcore
 	{
 		ASSERT(sBaseTimeTick != 0);
 
-		sProtect.beginAtomic();
-
 		LARGE_INTEGER   counter;
 		QueryPerformanceCounter(&counter);
 
@@ -167,8 +164,6 @@ namespace xcore
 			ticks = sLastTicks + 1;
 
 		sLastTicks = ticks;
-
-		sProtect.endAtomic();
 
 		return ticks;
 	}

@@ -1,10 +1,10 @@
 //==============================================================================
 // INCLUDES
 //==============================================================================
-#include "../x_types.h"
-#include "../x_debug.h"
-#include "../x_time.h"
-#include "../x_string.h"
+#include "xbase\x_types.h"
+#include "xbase\x_debug.h"
+#include "xbase\x_string_std.h"
+#include "xtime\x_time.h"
 
 //==============================================================================
 // xCore namespace

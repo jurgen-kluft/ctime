@@ -1,6 +1,6 @@
 #ifndef __X_TIME_H__
 #define __X_TIME_H__
-#include "x_target.h"
+#include "xbase\x_target.h"
 #ifdef USE_PRAGMA_ONCE 
 #pragma once 
 #endif
@@ -8,8 +8,8 @@
 //==============================================================================
 //  INCLUDES
 //==============================================================================
-#include "x_target.h"
-#include "x_string.h"
+#include "xbase\x_target.h"
+#include "xbase\x_string_std.h"
 
 //==============================================================================
 // xCore namespace
@@ -404,7 +404,7 @@ namespace xcore
 	//==============================================================================
 	// INLINE
 	//==============================================================================
-	#include "Implementation/x_time_inline.h"
+	#include "private/x_time_inline.h"
 
 
 	//==============================================================================

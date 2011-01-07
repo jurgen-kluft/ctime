@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageDir>$(MSBuildProjectDirectory)</PackageDir>
     <PackagePlatform>Win32</PackagePlatform>
-    <PackageName>xtime2</PackageName>
-    <PackageSolution>xtime2.sln</PackageSolution>
+    <PackageName>xtime</PackageName>
+    <PackageSolution>xtime.sln</PackageSolution>
   </PropertyGroup>
 </Project>

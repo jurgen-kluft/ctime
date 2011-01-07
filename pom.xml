@@ -50,30 +50,30 @@
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
 			    <ClCompile>
 			      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>#target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>#$(SolutionDir)target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalLibraryDirectories>#target\xtime\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\xtime\Win32\libs</AdditionalLibraryDirectories>
 			      <AdditionalDependencies>#xtime_DevDebug_Win32.lib</AdditionalDependencies>
 			    </Link>
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
 			    <ClCompile>
 			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>#target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>#$(SolutionDir)target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalLibraryDirectories>#target\xtime\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\xtime\Win32\libs</AdditionalLibraryDirectories>
 			      <AdditionalDependencies>#xtime_DevRelease_Win32.lib</AdditionalDependencies>
 			    </Link>
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
 			    <ClCompile>
 			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>#target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>#$(SolutionDir)target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalLibraryDirectories>#target\xtime\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\xtime\Win32\libs</AdditionalLibraryDirectories>
 			      <AdditionalDependencies>#xtime_DevFinal_Win32.lib</AdditionalDependencies>
 			    </Link>
 				</ItemDefinitionGroup>

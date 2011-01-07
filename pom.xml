@@ -26,7 +26,7 @@
     <Item Src="libs\**\*.*" Dst="libs\" />
     <Item Src="docs\**\*.*" Dst="docs\" />
     <Item Src="tools\**\*.*" Dst="Tools\" />
-    <Item Src="target\outdir\xtime_*\xtime_*_${Platform}.lib" Dst="libs\" />
+    <Item Src="target\xtime\outdir\xtime_*\xtime_*_${Platform}.lib" Dst="libs\" />
   </Content>
   
   <Dependency Package="xbase">
@@ -109,7 +109,7 @@
 					</ClCompile>
 			    <Link>
 			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
-			      <AdditionalLibraryDirectories>$(SolutionDir)target\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
 			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
@@ -120,7 +120,7 @@
 					</ClCompile>
 			    <Link>
 			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
-			      <AdditionalLibraryDirectories>$(SolutionDir)target\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
 			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
@@ -131,7 +131,7 @@
 					</ClCompile>
 			    <Link>
 			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
-			      <AdditionalLibraryDirectories>$(SolutionDir)target\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
 			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemGroup>

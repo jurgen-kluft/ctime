@@ -52,7 +52,7 @@ namespace xcore
 
 		while (xTRUE)
 		{
-			bool	boLeap			= false;
+			xbool	boLeap			= false;
 			u32		uNumDaysInYear	= 365;
 
 			if((uYear % 4) == 0)

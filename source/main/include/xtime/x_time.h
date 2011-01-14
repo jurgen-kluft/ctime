@@ -160,10 +160,10 @@ namespace xcore
 	class xtimespan
 	{
 	public:
-		xtimespan(u64 ticks);
-		xtimespan(s32 hours, s32 minutes, s32 seconds);
-		xtimespan(s32 days, s32 hours, s32 minutes, s32 seconds);
-		xtimespan(s32 days, s32 hours, s32 minutes, s32 seconds, s32 milliseconds);
+							xtimespan(u64 ticks);
+							xtimespan(s32 hours, s32 minutes, s32 seconds);
+							xtimespan(s32 days, s32 hours, s32 minutes, s32 seconds);
+							xtimespan(s32 days, s32 hours, s32 minutes, s32 seconds, s32 milliseconds);
 
 		///@name Binary
 		u64					ticks() const;
@@ -195,7 +195,7 @@ namespace xcore
 		xtimespan			operator  +(const xtimespan& inRHS) const					{ xtimespan t(*this); t.add(inRHS); return t; }
 
 		///@name Comparison
-		bool				equals(const xtimespan& inRHS) const						{ return sCompare(*this, inRHS) == 0; }
+		xbool				equals(const xtimespan& inRHS) const						{ return sCompare(*this, inRHS) == 0; }
 		s32					compareTo(const xtimespan& inRHS) const						{ return sCompare(*this, inRHS); }
 
 		///@name Static Methods
@@ -234,12 +234,12 @@ namespace xcore
 	extern xtimespan		operator  -(const xtimespan& t1, const xtimespan& t2);
 	extern xtimespan		operator  +(const xtimespan& t1, const xtimespan& t2);
 
-	extern bool				operator  <(const xtimespan& t1, const xtimespan& t2);
-	extern bool				operator  >(const xtimespan& t1, const xtimespan& t2);
-	extern bool				operator <=(const xtimespan& t1, const xtimespan& t2);
-	extern bool				operator >=(const xtimespan& t1, const xtimespan& t2);
-	extern bool				operator ==(const xtimespan& t1, const xtimespan& t2);
-	extern bool				operator !=(const xtimespan& t1, const xtimespan& t2);
+	extern xbool			operator  <(const xtimespan& t1, const xtimespan& t2);
+	extern xbool			operator  >(const xtimespan& t1, const xtimespan& t2);
+	extern xbool			operator <=(const xtimespan& t1, const xtimespan& t2);
+	extern xbool			operator >=(const xtimespan& t1, const xtimespan& t2);
+	extern xbool			operator ==(const xtimespan& t1, const xtimespan& t2);
+	extern xbool			operator !=(const xtimespan& t1, const xtimespan& t2);
 
 
 	//------------------------------------------------------------------------------
@@ -250,11 +250,11 @@ namespace xcore
 	class xdatetime
 	{
 	public:
-		xdatetime();
-		xdatetime(u64 ticks);
-		xdatetime(s32 year, s32 month, s32 day);
-		xdatetime(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second);
-		xdatetime(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second, s32 millisecond);
+							xdatetime();
+							xdatetime(u64 ticks);
+							xdatetime(s32 year, s32 month, s32 day);
+							xdatetime(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second);
+							xdatetime(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second, s32 millisecond);
 
 		xdatetime			date() const;
 		xtimespan			timeOfDay() const;
@@ -289,7 +289,7 @@ namespace xcore
 		xtimespan			subtract(xdatetime value) const;
 
 		s32					compareTo(const xdatetime& value) const							{ return sCompare(*this, value); }
-		bool				equals(const xdatetime& value) const							{ return sCompare(*this, value)==0; }
+		xbool				equals(const xdatetime& value) const							{ return sCompare(*this, value)==0; }
 
 		u64					toBinary() const;
 		u64					toFileTime() const;
@@ -302,7 +302,7 @@ namespace xcore
 
 		static s32			sDaysInMonth(s32 year, s32 month);
 		static s32			sDaysInYear(s32 year);
-		static bool			sIsLeapYear(s32 year);
+		static xbool			sIsLeapYear(s32 year);
 
 		static s32			sCompare(const xdatetime& t1, const xdatetime& t2);
 
@@ -338,12 +338,12 @@ namespace xcore
 
 	extern xtimespan		operator  -(const xdatetime& d1, const xdatetime& d2);
 
-	extern bool				operator  <(const xdatetime& t1, const xdatetime& t2);
-	extern bool				operator  >(const xdatetime& t1, const xdatetime& t2);
-	extern bool				operator <=(const xdatetime& t1, const xdatetime& t2);
-	extern bool				operator >=(const xdatetime& t1, const xdatetime& t2);
-	extern bool				operator !=(const xdatetime& d1, const xdatetime& d2);
-	extern bool				operator ==(const xdatetime& d1, const xdatetime& d2);
+	extern xbool			operator  <(const xdatetime& t1, const xdatetime& t2);
+	extern xbool			operator  >(const xdatetime& t1, const xdatetime& t2);
+	extern xbool			operator <=(const xdatetime& t1, const xdatetime& t2);
+	extern xbool			operator >=(const xdatetime& t1, const xdatetime& t2);
+	extern xbool			operator !=(const xdatetime& d1, const xdatetime& d2);
+	extern xbool			operator ==(const xdatetime& d1, const xdatetime& d2);
 
 
 
@@ -362,25 +362,25 @@ namespace xcore
 	class xtime_utc
 	{
 	public:
-		void          updateTime          (void);
-		void          clear               (void);
+		void				updateTime          (void);
+		void				clear               (void);
 
-		s32           getSeconds          (void) const;
-		s32           getMinutes          (void) const;
-		s32           getHours24          (void) const;
-		s32           getHours12          (void) const;
-		xdatetime     getDate             (void) const;
-		u64           getRawData          (void) const    { return miTime; }
-		void          setRawData          (u64 inData)    { miTime = inData; }
+		s32					getSeconds          (void) const;
+		s32					getMinutes          (void) const;
+		s32					getHours24          (void) const;
+		s32					getHours12          (void) const;
+		xdatetime			getDate             (void) const;
+		u64					getRawData          (void) const    { return miTime; }
+		void				setRawData          (u64 inData)    { miTime = inData; }
 
-		xbool         operator  <         (const xtime_utc inTime) const;
-		xbool         operator  <=        (const xtime_utc inTime) const;
-		xbool         operator  >         (const xtime_utc inTime) const;
-		xbool         operator  >=        (const xtime_utc inTime) const;
-		xbool         operator  ==        (const xtime_utc inTime) const;
+		xbool				operator  <         (const xtime_utc inTime) const;
+		xbool				operator  <=        (const xtime_utc inTime) const;
+		xbool				operator  >         (const xtime_utc inTime) const;
+		xbool				operator  >=        (const xtime_utc inTime) const;
+		xbool				operator  ==        (const xtime_utc inTime) const;
 
-		xtime_utc     operator +          (const xtime_utc inTime) const;
-		xtime_utc     operator -          (const xtime_utc inTime) const;
+		xtime_utc			operator +          (const xtime_utc inTime) const;
+		xtime_utc			operator -          (const xtime_utc inTime) const;
 
 		const xtime_utc&    operator +=         (const xtime_utc inTime);
 		const xtime_utc&    operator -=         (const xtime_utc inTime);

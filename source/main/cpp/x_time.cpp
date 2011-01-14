@@ -632,7 +632,7 @@ namespace xcore
 	// Returns:
 	//     true if year is a leap year; otherwise, false.
 	//
-	bool				xdatetime::sIsLeapYear(s32 year)
+	xbool				xdatetime::sIsLeapYear(s32 year)
 	{
 		ASSERTS((year >= 1) || (year <= 9999), "ArgumentOutOfRange_Year");
 		if ((year % 4) != 0)
@@ -741,32 +741,32 @@ namespace xcore
 		return xtimespan(ticks);
 	}
 
-	bool				operator  <(const xdatetime& t1, const xdatetime& t2)
+	xbool				operator  <(const xdatetime& t1, const xdatetime& t2)
 	{
 		return t1.ticks() < t2.ticks();
 	}
 
-	bool				operator  >(const xdatetime& t1, const xdatetime& t2)
+	xbool				operator  >(const xdatetime& t1, const xdatetime& t2)
 	{
 		return t1.ticks() > t2.ticks();
 	}
 
-	bool				operator <=(const xdatetime& t1, const xdatetime& t2)
+	xbool				operator <=(const xdatetime& t1, const xdatetime& t2)
 	{
 		return t1.ticks() <= t2.ticks();
 	}
 
-	bool				operator >=(const xdatetime& t1, const xdatetime& t2)
+	xbool				operator >=(const xdatetime& t1, const xdatetime& t2)
 	{
 		return t1.ticks() >= t2.ticks();
 	}
 
-	bool				operator !=(const xdatetime& d1, const xdatetime& d2)
+	xbool				operator !=(const xdatetime& d1, const xdatetime& d2)
 	{
 		return d1.ticks() != d2.ticks();
 	}
 
-	bool				operator ==(const xdatetime& d1, const xdatetime& d2)
+	xbool				operator ==(const xdatetime& d1, const xdatetime& d2)
 	{
 		return d1.ticks() == d2.ticks();
 	}
@@ -1258,12 +1258,12 @@ namespace xcore
 
 	xtimespan			operator  -(const xtimespan& t1, const xtimespan& t2)					{ xtimespan s(t1); s.substract(t2); return s; }
 	xtimespan			operator  +(const xtimespan& t1, const xtimespan& t2)					{ xtimespan s(t1); s.add(t2); return s; }
-	bool				operator  <(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() < t2.ticks(); }
-	bool				operator  >(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() > t2.ticks(); }
-	bool				operator <=(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() <= t2.ticks(); }
-	bool				operator >=(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() >= t2.ticks(); }
-	bool				operator ==(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() == t2.ticks(); }
-	bool				operator !=(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() != t2.ticks(); }
+	xbool				operator  <(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() < t2.ticks(); }
+	xbool				operator  >(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() > t2.ticks(); }
+	xbool				operator <=(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() <= t2.ticks(); }
+	xbool				operator >=(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() >= t2.ticks(); }
+	xbool				operator ==(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() == t2.ticks(); }
+	xbool				operator !=(const xtimespan& t1, const xtimespan& t2)					{ return t1.ticks() != t2.ticks(); }
 
 	//==============================================================================
 	// END xCore namespace

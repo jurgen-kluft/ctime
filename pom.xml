@@ -2,6 +2,13 @@
   <Versions>
     <Version>1.0.0</Version>
   </Versions>
+  
+  <Variables>
+  	<Name>xtime</Name>
+  	<Language>C++</Language>
+  	<GUID_Main>710d1d3a-d1a7-4325-8823-903fd483a312</GUID_Main>
+  	<GUID_UnitTest>c0bcfc6f-9980-47c9-a4a3-bbd170ff2727</GUID_UnitTest>
+  </Variables>
 
   <DirectoryStructure>
     <Item Folder="docs\manuals"/>
@@ -26,7 +33,7 @@
     <Item Src="libs\**\*.*" Dst="libs\" />
     <Item Src="docs\**\*.*" Dst="docs\" />
     <Item Src="tools\**\*.*" Dst="Tools\" />
-    <Item Src="target\xtime\outdir\xtime_*\xtime_*_${Platform}.lib" Dst="libs\" />
+    <Item Src="target\${Name}\outdir\${Name}_*\${Name}_*_${Platform}.lib" Dst="libs\" />
   </Content>
   
   <Dependency Package="xbase">
@@ -41,97 +48,318 @@
     <Type>Package</Type>
   </Dependency>
 
-  <Project Name="xtime" Group="Main" Language="C++" Location="source\main\cpp" Scope="Public">
+  <Project Name="${Name}" Group="Main" Language="${Language}" Location="source\main\cpp" Scope="Public">
     <ProjectFile>
 			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 			  <PropertyGroup Label="Globals">
-			    <ProjectGuid>{710d1d3a-d1a7-4325-8823-903fd483a312}</ProjectGuid>
+			    <ProjectGuid>{${GUID_Main}}</ProjectGuid>
 			  </PropertyGroup>
+			  <ImportGroup Label="TargetDirs">
+		  	  <Import Project="$(SolutionDir)target\xtime\xtime.$(Platform).props" Condition="exists('$(SolutionDir)target\xtime\xtime.$(Platform).props')" Label="xtime_TargetDir" />
+			  </ImportGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
 			    <ClCompile>
 			      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>#$(SolutionDir)target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalLibraryDirectories>#$(SolutionDir)target\xtime\Win32\libs</AdditionalLibraryDirectories>
-			      <AdditionalDependencies>#xtime_DevDebug_Win32.lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevDebug_Win32.lib</AdditionalDependencies>
 			    </Link>
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
 			    <ClCompile>
 			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>#$(SolutionDir)target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalLibraryDirectories>#$(SolutionDir)target\xtime\Win32\libs</AdditionalLibraryDirectories>
-			      <AdditionalDependencies>#xtime_DevRelease_Win32.lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevRelease_$(Platform).lib</AdditionalDependencies>
 			    </Link>
 				</ItemDefinitionGroup>
 			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
 			    <ClCompile>
 			      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>#$(SolutionDir)target\xtime\Win32\source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalLibraryDirectories>#$(SolutionDir)target\xtime\Win32\libs</AdditionalLibraryDirectories>
-			      <AdditionalDependencies>#xtime_DevFinal_Win32.lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevFinal_$(Platform).lib</AdditionalDependencies>
 			    </Link>
 				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|PS3'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\${Name}\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevDebug_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|PS3'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevRelease_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|PS3'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevFinal_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Xbox 360'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\${Name}\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevDebug_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Xbox 360'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevRelease_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Xbox 360'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevFinal_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>				
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|WII'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\${Name}\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevDebug_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|WII'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevRelease_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|WII'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevFinal_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|N3DS'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(SolutionDir)target\${Name}\Win32\libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevDebug_Win32.lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|N3DS'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevRelease_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|N3DS'">
+			    <ClCompile>
+			      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>#$(xtime_TargetDir)source\main\include;@$(SolutionDir)source\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalLibraryDirectories>#$(xtime_TargetDir)libs</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>#${Name}_DevFinal_$(Platform).lib</AdditionalDependencies>
+			    </Link>
+				</ItemDefinitionGroup>								
 			  <ItemGroup>
 			    <ClCompile Include="source\main\cpp\**\*.cpp" />
 			  </ItemGroup>
 			  <ItemGroup>
-			    <ClInclude Include="source\main\include\xtime\**\*.h" />
+			    <ClInclude Include="source\main\include\${Name}\**\*.h" />
 			  </ItemGroup>
 			</Project>				
     </ProjectFile>
   </Project>
-  <Project Name="xtime_test" Group="UnitTest" Language="C++" Location="source\test\cpp" Scope="Private" DependsOn="xtime">
+  <Project Name="${Name}_test" Group="UnitTest" Language="${Language}" Location="source\test\cpp" Scope="Private" DependsOn="${Name}">
     <ProjectFile>
 			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 			  <PropertyGroup Label="Globals">
-			    <ProjectGuid>{c0bcfc6f-9980-47c9-a4a3-bbd170ff2727}</ProjectGuid>
+			    <ProjectGuid>{${GUID_UnitTest}}</ProjectGuid>
 			  </PropertyGroup>
-			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'" Label="Configuration">
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Win32'" Label="Configuration">
 			    <ConfigurationType>Application</ConfigurationType>
 			  </PropertyGroup>
-			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'" Label="Configuration">
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Win32'" Label="Configuration">
 			    <ConfigurationType>Application</ConfigurationType>
 			  </PropertyGroup>
-			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'" Label="Configuration">
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|PS3'" Label="Configuration">
 			    <ConfigurationType>Application</ConfigurationType>
 			  </PropertyGroup>
-			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|PS3'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Xbox 360'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Xbox 360'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|WII'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|N3DS'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|N3DS'" Label="Configuration">
+			    <ConfigurationType>Application</ConfigurationType>
+			  </PropertyGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Win32'">
 			    <ClCompile>
 			      <ExceptionHandling>Sync</ExceptionHandling>
 			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
-			      <AdditionalLibraryDirectories>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
 			    </Link>					
 				</ItemDefinitionGroup>
-			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Win32'">
 			    <ClCompile>
 			      <ExceptionHandling>Sync</ExceptionHandling>
 			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
-			      <AdditionalLibraryDirectories>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
 			    </Link>					
 				</ItemDefinitionGroup>
-			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|PS3'">
 			    <ClCompile>
 			      <ExceptionHandling>Sync</ExceptionHandling>
 			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
-			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include</AdditionalIncludeDirectories>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 			    <Link>
-			      <AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
-			      <AdditionalLibraryDirectories>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|PS3'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Xbox 360'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Xbox 360'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|WII'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|N3DS'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
+			    </Link>					
+				</ItemDefinitionGroup>
+			  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|N3DS'">
+			    <ClCompile>
+			      <ExceptionHandling>Sync</ExceptionHandling>
+			      <PreprocessorDefinitions>%()</PreprocessorDefinitions>
+			      <AdditionalIncludeDirectories>$(SolutionDir)source\test\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+			    <Link>
+			      <AdditionalDependencies>${Name}_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+			      <AdditionalLibraryDirectories>$(SolutionDir)target\${Name}\outdir\${Name}_$(Configuration)_$(Platform)\</AdditionalLibraryDirectories>
 			    </Link>					
 				</ItemDefinitionGroup>
 			  <ItemGroup>

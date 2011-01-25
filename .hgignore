@@ -1,6 +1,9 @@
 syntax: glob
 
 ; VS files
+*.filters
+*.vcxproj
+*.sln
 *.ncb
 *.suo
 *.user
@@ -14,6 +17,7 @@ syntax: glob
 
 ; target
 *target\
+*ipch\
 
 ; HG files
 *.orig

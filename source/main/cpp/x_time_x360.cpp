@@ -70,8 +70,6 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 
-	static xcritical_section sProtect;
-
 	void x_TimeInit(void)
 	{
 		LARGE_INTEGER counter;
@@ -107,8 +105,6 @@ namespace xcore
 	{
 		ASSERT(sBaseTimeTick != 0);
 
-		sProtect.beginAtomic();
-
 		LARGE_INTEGER   counter;
 		QueryPerformanceCounter(&counter);
 
@@ -120,8 +116,6 @@ namespace xcore
 		    ticks = sLastTicks + 1;
 
 		sLastTicks = ticks;
-
-		sProtect.endAtomic();
 
 		return ticks;
 	}

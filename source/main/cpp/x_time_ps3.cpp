@@ -125,8 +125,6 @@ namespace xcore
     //==============================================================================
 
     //------------------------------------------------------------------------------
-    static xcritical_section sProtect;
-
     void x_TimeInit(void)
     {
         sPs3FreqPerSec  = CLOCKS_PER_SEC;
@@ -171,15 +169,10 @@ namespace xcore
     {
         ASSERT(sBaseTimeTick);
 
-        sProtect.beginAtomic();
-
         s64 ticks;
 		
 		ticks = clock();
-		
 		ticks -= sBaseTimeTick;
-
-        sProtect.endAtomic();
 
         return ticks;
     }

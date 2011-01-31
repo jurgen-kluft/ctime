@@ -226,7 +226,7 @@ namespace xcore
 	protected:
 		inline s64			__ticks() const											{ return (s64)mTicks; }
 
-		u64					mTicks;
+		s64					mTicks;
 	};
 
 

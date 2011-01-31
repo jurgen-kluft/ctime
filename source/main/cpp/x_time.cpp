@@ -16,12 +16,12 @@ namespace xcore
 	static const s32 DaysPer4Years			= 1461;
 	static const s32 DaysPerYear			= 365;
 
-	static const s32 DaysTo10000			= 3652059;
-	static const s32 DaysTo1601				= 584388;
-	static const s32 DaysTo1899				= 693593;
+	//static const s32 DaysTo10000			= 3652059;
+	//static const s32 DaysTo1601				= 584388;
+	//static const s32 DaysTo1899				= 693593;
 
-	static const s64 MinTicks				= 0;
-	static const s64 MaxTicks				= X_CONSTANT_64(0x2bca2875f4373fff);
+	//static const u64 MinTicks				= 0;
+	static const u64 MaxTicks				= X_CONSTANT_64(0x2bca2875f4373fff);
 
 	static const s64 MaxMillis				= X_CONSTANT_64(0x11efae44cb400);
 
@@ -31,7 +31,7 @@ namespace xcore
 	static const s64 TicksPerMinute			= 600000000;
 	static const s64 TicksPerSecond			= 10000000;
 
-	static const u64 TicksMask				= X_CONSTANT_64(0x3fffffffffffffff);
+	//static const u64 TicksMask				= X_CONSTANT_64(0x3fffffffffffffff);
 
 	static const s32 MillisPerDay			= 86400000;
 	static const s32 MillisPerHour			= 3600000;
@@ -120,13 +120,13 @@ namespace xcore
 	xdatetime::xdatetime()
 	:mTicks(sMinValue.mTicks)
 	{
-		ASSERTS(mTicks>=MinTicks && mTicks<=MaxTicks, "Error: out of range!");
+		ASSERTS(mTicks<=MaxTicks, "Error: out of range!");
 	}
 
 	xdatetime::xdatetime(u64 ticks)
 	:mTicks(ticks)
 	{
-		ASSERTS(mTicks>=MinTicks && mTicks<=MaxTicks, "Error: out of range!");
+		ASSERTS(mTicks<=MaxTicks, "Error: out of range!");
 	}
 
 
@@ -504,7 +504,7 @@ namespace xcore
 	xdatetime&			xdatetime::addTicks(u64 value)
 	{
 		s64 ticks = __ticks();
-		ASSERTS(((s64)value <= (MaxTicks - ticks)) && ((s64)value >= -ticks), "ArgumentOutOfRange_DateArithmetic");
+		ASSERTS(((s64)value <= (s64)(MaxTicks - ticks)) && ((s64)value >= -ticks), "ArgumentOutOfRange_DateArithmetic");
 		mTicks = ((u64) (ticks + value));
 		return *this;
 	}
@@ -615,7 +615,7 @@ namespace xcore
 	//     fileTime is less than 0 or represents a time greater than System.xdatetime.MaxValue.
 	xdatetime			xdatetime::sFromFileTime(u64 fileTime)
 	{
-		ASSERTS((fileTime >= 0) && (fileTime <= MaxTicks), "ArgumentOutOfRange_FileTimeInvalid");
+		ASSERTS(fileTime <= MaxTicks, "ArgumentOutOfRange_FileTimeInvalid");
 		u64 systemTime = sGetSystemTimeFromFileTime(fileTime);
 		return xdatetime(systemTime);
 	}
@@ -679,7 +679,7 @@ namespace xcore
 	{
 		s64 ticks = __ticks();
 		s64 num2 = value.ticks();
-		ASSERTS((ticks >= num2) && ((ticks - MaxTicks) <= num2), "ArgumentOutOfRange_DateArithmetic");
+		ASSERTS((ticks >= num2) && ((s64)(ticks - MaxTicks) <= num2), "ArgumentOutOfRange_DateArithmetic");
 		mTicks = ((u64) (ticks - num2));
 		return *this;
 	}
@@ -793,7 +793,7 @@ namespace xcore
 
 	static xtimespan	sInterval(u64 value, s32 scale)
 	{
-		u64 num = value * scale;
+		s64 num = value * scale;
 		ASSERTS((num <= MaxMilliSeconds) && (num >= MinMilliSeconds), "xtimespan::Overflow::TooLong");
 		return xtimespan(((s64)num) * xtimespan::sTicksPerMillisecond);
 	}
@@ -806,8 +806,8 @@ namespace xcore
 	// Parameters:
 	//   ticks:
 	//     A time period expressed in 100-nanosecond units.
-	xtimespan::xtimespan(u64 ticks) :
-	mTicks(ticks)
+	xtimespan::xtimespan(u64 ticks)
+		: mTicks(ticks)
 	{
 	}
 
@@ -989,7 +989,7 @@ namespace xcore
 	//     The total number of milliseconds represented by this instance.
 	u64				xtimespan::totalMilliseconds() const
 	{
-		u64 num = mTicks / sTicksPerMillisecond;
+		s64 num = mTicks / sTicksPerMillisecond;
 		if (num > MaxMilliSeconds)
 		{
 			return MaxMilliSeconds;

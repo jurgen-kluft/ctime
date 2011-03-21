@@ -63,7 +63,7 @@ namespace xcore
 	//==============================================================================
 	//------------------------------------------------------------------------------
 	//  Author:
-	//      Tomas Arce
+	//      Virtuos
 	//  Summary:
 	//      The three static variables in the following are represented system timer's
 	//      important states. They are all depend on the hardware installed. And here
@@ -85,7 +85,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	//  Author:
-	//      Tomas Arce
+	//      Virtuos
 	//  Summary:
 	//      Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
 	//      dependent.
@@ -136,7 +136,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	//  Author:
-	//      Tomas Arce
+	//      Virtuos
 	//  Summary:
 	//      Get elapsed time from timer initialized in second.
 	//  Arguments:

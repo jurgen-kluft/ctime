@@ -140,7 +140,7 @@ f64 xtimer::getAverageMs(void) const
 }
 //------------------------------------------------------------------------------
 //  Author:
-//      Tomas Arce
+//      Virtuos
 //  Summary:
 //      Convert a period of time's measurement from xtick to millisecond.
 //  Arguments:
@@ -157,7 +157,7 @@ f64 x_TicksToMs(xtick inTicks)
 }
 //------------------------------------------------------------------------------
 //  Author:
-//      Tomas Arce
+//      Virtuos
 //  Summary:
 //      Convert a period of time's measurement from xtick to second.
 //  Arguments:
@@ -174,7 +174,7 @@ f64 x_TicksToSec(xtick inTicks)
 }
 //------------------------------------------------------------------------------
 //  Author:
-//      Tomas Arce
+//      Virtuos
 //  Summary:
 //      Get elapsed time from timer initialized in second.
 //  Arguments:

@@ -85,7 +85,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	//  Author:
-	//      Tomas Arce
+	//      Virtuos
 	//  Summary:
 	//      Get elapsed time from timer initialized in second.
 	//  Arguments:

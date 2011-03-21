@@ -24,7 +24,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	// Author:
-	//     Tomas Arce
+	//     Virtuos
 	// Description:
 	//     The time class is a handy way to measure how long has past since a particular event.
 	//     It is most often used for performance measurement but could also be used for other 
@@ -152,7 +152,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	// Author:
-	//     Tomas Arce
+	//     Virtuos
 	// Description:
 	//      Provides a time interval.
 	//
@@ -244,7 +244,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	// Author:
-	//     Tomas Arce
+	//     Virtuos
 	// Description:
 	//------------------------------------------------------------------------------
 	class xdatetime
@@ -349,7 +349,7 @@ namespace xcore
 
 	//------------------------------------------------------------------------------
 	// Author:
-	//     Tomas Arce
+	//     Virtuos
 	// Description:
 	//      This class is a standard wrapper class around the Coordinated Universal 
 	//      time (UTC). In other words it contains how many seconds have elapsed 

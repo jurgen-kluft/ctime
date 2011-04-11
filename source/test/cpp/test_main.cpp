@@ -21,11 +21,6 @@ public:
 		mAllocator = allocator;
 	}
 
-	void	Release()
-	{
-		mAllocator->release();
-	}
-
 	void*	Allocate(int size)
 	{
 		++mNumAllocations;
@@ -38,38 +33,20 @@ public:
 	}
 };
 
-
-class UnitTestObserver : public UnitTest::Observer
-{
-public:
-	void	BeginFixture(const char* filename, const char* suite_name, const char* fixture_name)
-	{
-	}
-	void	EndFixture()
-	{
-	}
-};
-
-
-int main(int argc, char** argv)
+bool gRunUnitTest(UnitTest::TestReporter& reporter)
 {
 	xcore::x_iallocator* systemAllocator = xcore::gCreateSystemAllocator();
 
-	UnitTestAllocator unittestAllocator(systemAllocator);
-	UnitTestObserver unittestObserver;
+	UnitTestAllocator unittestAllocator( systemAllocator );
 	UnitTest::SetAllocator(&unittestAllocator);
-	UnitTest::SetObserver(&unittestObserver);
 
-	UnitTest::TestReporterStdout stdout_reporter;
-	UnitTest::TestReporter& reporter = stdout_reporter;
 	int r = UNITTEST_SUITE_RUN(reporter, xTimeUnitTest);
-
 	if (unittestAllocator.mNumAllocations!=0)
 	{
-		reporter.reportFailure(__FILE__, __LINE__, __FUNCTION__, "memory leaks detected!");
+		reporter.reportFailure(__FILE__, __LINE__, "xunittest", "memory leaks detected!");
 		r = -1;
 	}
 
 	systemAllocator->release();
-	return r;
+	return r==0;
 }

@@ -1,0 +1,432 @@
+<Package Name="xtime" Group="com.virtuos.tnt">
+	<Versions>
+		<Version>1.0.0</Version>
+	</Versions>
+
+	<Variables>
+		<Name>xtime</Name>
+		<Language>C++</Language>
+		<GUID_Main>710d1d3a-d1a7-4325-8823-903fd483a312</GUID_Main>
+		<GUID_UnitTest>c0bcfc6f-9980-47c9-a4a3-bbd170ff2727</GUID_UnitTest>
+	</Variables>
+
+	<DirectoryStructure>
+		<Item Folder="docs\manuals"/>
+		<Item Folder="docs\references"/>
+		<Item Folder="source\main\cpp"/>
+		<Item Folder="source\main\include\xtime"/>
+		<Item Folder="source\main\include\xtime\private"/>
+		<Item Folder="source\main\resources"/>
+		<Item Folder="source\test\cpp"/>
+		<Item Folder="source\test\include\xtime"/>
+		<Item Folder="source\test\include\xtime\private"/>
+		<Item Folder="source\test\resources"/>
+		<Item Folder="target"/>
+		<Item Folder="tools"/>
+	</DirectoryStructure>
+
+	<Content>
+		<Item Src="pom.xml" Dst="" Required="True" />
+		<Item Src="pom.props" Dst="" Required="True" />
+		<Item Src="pom.targets" Dst="" Required="True" />
+		<Item Src="source\main\cpp\**\*.cpp" Dst="source\main\cpp\" />
+		<Item Src="source\main\include\**\*.h" Dst="source\main\include\" />
+		<Item Src="source\main\resources\**\*.*" Dst="source\main\resources\" />
+		<Item Src="libs\**\*.*" Dst="libs\" />
+		<Item Src="docs\**\*.*" Dst="docs\" />
+		<Item Src="tools\**\*.*" Dst="Tools\" />
+		<Item Src="target\${Name}\outdir\${Name}_DevDebug_${Platform}\${Name}_DevDebug_${Platform}.lib" Dst="libs\" Required="True"/>
+		<Item Src="target\${Name}\outdir\${Name}_DevRelease_${Platform}\${Name}_DevRelease_${Platform}.lib" Dst="libs\" Required="True"/>
+		<Item Src="target\${Name}\outdir\${Name}_DevFinal_${Platform}\${Name}_DevFinal_${Platform}.lib" Dst="libs\" Required="True"/>
+		<Item Src="target\${Name}\outdir\${Name}_TestDebug_${Platform}\${Name}_TestDebug_${Platform}.lib" Dst="libs\" Required="True"/>
+		<Item Src="target\${Name}\outdir\${Name}_TestRelease_${Platform}\${Name}_TestRelease_${Platform}.lib" Dst="libs\" Required="True"/>
+	</Content>
+
+	<Dependency Package="xbase">
+		<Group>com.virtuos.tnt</Group>
+		<Version>[1.0,)</Version>
+		<Type>Package</Type>
+	</Dependency>
+
+	<Dependency Package="sdk_ps3" Platform="PS3">
+		<Group>com.virtuos.sdk</Group>
+		<Version>[300.0.01,)</Version>
+		<Type>Package</Type>
+	</Dependency>
+
+	<Dependency Package="sdk_360" Platform="Xbox 360">
+		<Group>com.virtuos.sdk</Group>
+		<Version>[1.0,)</Version>
+		<Type>Package</Type>
+	</Dependency>
+
+	<Dependency Package="sdk_wii" Platform="WII">
+		<Group>com.virtuos.sdk</Group>
+		<Version>[1.0,)</Version>
+		<Type>Package</Type>
+	</Dependency>
+
+	<Dependency Package="sdk_3ds" Platform="N3DS">
+		<Group>com.virtuos.sdk</Group>
+		<Version>[1.0,)</Version>
+		<Type>Package</Type>
+	</Dependency>
+	
+	<Dependency Package="xunittest">
+		<Group>com.virtuos.tnt</Group>
+		<Version>[1.0,)</Version>
+		<Type>Package</Type>
+	</Dependency>
+
+	<ProjectProperties>
+		<Properties DependencyType="Root" Platform="*">
+			<PropertyGroup Label="xtime_TargetDirs">
+				<xtime_RootDir>$(SolutionDir)</xtime_RootDir> 
+				<xtime_LibraryDir>$(SolutionDir)target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</xtime_LibraryDir>
+				<xtime_IncludeDir>$(SolutionDir)source\main\include\</xtime_IncludeDir>
+			</PropertyGroup>
+		</Properties>
+				
+		<Properties DependencyType="Package" Platform="*">
+			<PropertyGroup Label="xtime_TargetDirs">
+				<xtime_RootDir>${Location}</xtime_RootDir> 
+				<xtime_LibraryDir>${Location}libs\</xtime_LibraryDir>
+				<xtime_IncludeDir>${Location}source\main\include\</xtime_IncludeDir>
+			</PropertyGroup>
+		</Properties>
+	
+		<Properties DependencyType="Source" Platform="*">
+			<PropertyGroup Label="xtime_TargetDirs">
+				<xtime_RootDir>$(SolutionDir)target\xtime\</xtime_RootDir> 
+				<xtime_LibraryDir>$(SolutionDir)target\xtime\target\xtime\outdir\xtime_$(Configuration)_$(Platform)\</xtime_LibraryDir>
+				<xtime_IncludeDir>$(SolutionDir)target\xtime\source\main\include\</xtime_IncludeDir>
+			</PropertyGroup>
+		</Properties>
+	</ProjectProperties>
+	
+	<Project Name="${Name}" Language="${Language}" Location="source\main\cpp" Scope="Public" DependsOn="xbase:xbase;sdk_wii:sdk_wii;sdk_3ds:sdk_3ds;sdk_ps3:sdk_ps3;sdk_360:sdk_360">
+		<ProjectFile>
+			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+				<PropertyGroup Label="Globals">
+					<ProjectGuid>{${GUID_Main}}</ProjectGuid>
+				</PropertyGroup>
+				<ImportGroup Label="TargetDirs">
+					<Import Project="$(SolutionDir)target\xtime\xtime.$(Platform).props" Condition="exists('$(SolutionDir)target\xtime\xtime.$(Platform).props')" Label="xtime_TargetDir" />
+				</ImportGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevDebug_Win32.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevRelease_Win32.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevFinal_Win32.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestDebug_Win32.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestRelease_Win32.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevDebug_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevRelease_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevFinal_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestDebug_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestRelease_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevDebug_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevRelease_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevFinal_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestDebug_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestRelease_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevDebug_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevRelease_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevFinal_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestDebug_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestRelease_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemGroup>
+					<ClCompile Include="source\main\cpp\**\*.cpp" />
+				</ItemGroup>
+				<ItemGroup>
+					<ClInclude Include="source\main\include\${Name}\**\*.h" />
+				</ItemGroup>
+			</Project>
+		</ProjectFile>
+	</Project>
+	<Project Name="${Name}_test" Language="${Language}" Location="source\test\cpp" Scope="Private" DependsOn="xtime:xtime;xunittest:xunittest">
+		<ProjectFile>
+			<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+				<PropertyGroup Label="Globals">
+					<ProjectGuid>{${GUID_UnitTest}}</ProjectGuid>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Win32'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Win32'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|PS3'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|PS3'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|PS3'">
+				    <TargetExt>.self</TargetExt>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|PS3'">
+				    <TargetExt>.self</TargetExt>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Xbox 360'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Xbox 360'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|WII'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|WII'">
+				    <TargetExt>.elf</TargetExt>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'">
+				    <TargetExt>.elf</TargetExt>
+				</PropertyGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Win32'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_$(Platform).lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|PS3'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_PS3.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|Xbox 360'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_Xbox 360.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_WII.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>	
+				<ItemGroup>
+					<ClCompile Include="source\test\cpp\**\*.cpp" />
+				</ItemGroup>
+				<ItemGroup>
+					<ClInclude Include="source\test\include\**\*.h" />
+				</ItemGroup>
+			</Project>
+		</ProjectFile>
+	</Project>
+</Package>
+
+
+
+

@@ -26,7 +26,9 @@ namespace xcore
 	//static const u64 MinTicks				= 0;
 	static const u64 MaxTicks				= X_CONSTANT_64(0x2bca2875f4373fff);
 
+#ifdef X_DEBUG
 	static const s64 MaxMillis				= X_CONSTANT_64(0x11efae44cb400);
+#endif
 
 	static const s64 TicksPerDay			= X_CONSTANT_64(0xc92a69c000);
 	static const s64 TicksPerHour			= X_CONSTANT_64(0x861c46800);
@@ -791,8 +793,10 @@ namespace xcore
 	const s64		MaxMilliSeconds = X_CONSTANT_64(922337203685477);
 	const s64		MinMilliSeconds = X_CONSTANT_64(-922337203685477);
 
+#ifdef X_DEBUG
 	const s64		MaxSeconds = X_CONSTANT_64(922337203685);
 	const s64		MinSeconds = X_CONSTANT_64(-922337203685);
+#endif
 
 	static xtimespan	sInterval(u64 value, s32 scale)
 	{

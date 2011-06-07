@@ -12,6 +12,9 @@
 #include "xbase\x_string_std.h"
 
 #include "xtime\x_time.h"
+#include "xtime\x_timespan.h"
+#include "xtime\x_datetime.h"
+
 
 //==============================================================================
 // xCore namespace
@@ -133,7 +136,7 @@ namespace xcore
     }
 
     //------------------------------------------------------------------------------
-    void x_TimeKill(void)
+    void x_TimeExit(void)
     {
     }
 

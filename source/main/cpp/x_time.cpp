@@ -26,7 +26,7 @@ namespace xcore
 	//static const u64 MinTicks				= 0;
 	static const u64 MaxTicks				= X_CONSTANT_64(0x2bca2875f4373fff);
 
-#ifdef X_DEBUG
+#ifdef X_ASSERT
 	static const s64 MaxMillis				= X_CONSTANT_64(0x11efae44cb400);
 #endif
 
@@ -793,7 +793,7 @@ namespace xcore
 	const s64		MaxMilliSeconds = X_CONSTANT_64(922337203685477);
 	const s64		MinMilliSeconds = X_CONSTANT_64(-922337203685477);
 
-#ifdef X_DEBUG
+#ifdef X_ASSERT
 	const s64		MaxSeconds = X_CONSTANT_64(922337203685);
 	const s64		MinSeconds = X_CONSTANT_64(-922337203685);
 #endif

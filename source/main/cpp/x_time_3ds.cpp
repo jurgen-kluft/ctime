@@ -1,10 +1,11 @@
 #include "xbase\x_target.h"
-#ifdef TARGET_WII
+#ifdef TARGET_3DS
 
 //==============================================================================
 // INCLUDES
 //==============================================================================
-#include <revolution/os.h>
+#include <nn/os/os_Tick.h>
+#include <nn/fnd/fnd_DateTime.h>
 
 #include "xbase\x_types.h"
 #include "xbase\x_debug.h"
@@ -22,22 +23,18 @@ namespace xcore
 {
 	static xdatetime sGetDateTimeNow()
 	{
-		OSCalendarTime ct;
-
-		OSTime time = OSGetTime();
-		OSTicksToCalendarTime(time, &ct);
-
-		xdatetime xdt(1900 + ct.year, ct.mon + 1, ct.mday, ct.hour, ct.min, ct.sec);
+		nn::fnd::DateTime dt = nn::fnd::DateTime::GetNow();
+		xdatetime xdt(dt.GetYear(), dt.GetMonth(), dt.GetDay(), dt.GetHour(), dt.GetMinute(), dt.GetSecond(), dt.GetMilliSecond());
 		return xdt;
 	}
 
 	u64		xdatetime::sGetSystemTime()
 	{
-		xdatetime dt = sGetDateTimeNow();
-		return (u64)dt.ticks();
+		xdatetime xdt = sGetDateTimeNow();
+		return (u64)xdt.ticks();
 	}
 
-	// WII has no functionality to get the file time
+	// 3DS has no functionality to get the file time
 	u64		xdatetime::sGetSystemTimeAsFileTime()
 	{
 		return sGetSystemTime();
@@ -56,8 +53,8 @@ namespace xcore
     //==============================================================================
     // VARIABLES
     //==============================================================================
-    static s64              sWiiFreqPerSec = 0;
-    static s64              sWiiFreqPerMs = 0;
+    static s64              s3dsFreqPerSec = 0;
+    static s64              s3dsFreqPerMs = 0;
     static xtick            sBaseTimeTick = 0;
 
     //==============================================================================
@@ -67,27 +64,29 @@ namespace xcore
     //------------------------------------------------------------------------------
     void x_TimeInit(void)
     {
-        sWiiFreqPerSec  = OS_TIMER_CLOCK;
-        sWiiFreqPerMs   = OS_TIMER_CLOCK / 1000.0;
-        sBaseTimeTick   = (s64)OSGetTime();
+        s3dsFreqPerSec  = NN_HW_TICKS_PER_SECOND;
+        s3dsFreqPerMs   = NN_HW_TICKS_PER_SECOND / 1000;
+        sBaseTimeTick   = (s64)nn::os::Tick::GetSystemCurrent();
+		if (sBaseTimeTick==0)	sBaseTimeTick = 1;
     }
 
     //------------------------------------------------------------------------------
     void x_TimeExit(void)
     {
+		sBaseTimeTick = 0;
     }
 
     //------------------------------------------------------------------------------
     s64 x_GetTicksPerSecond(void)
     {
-        return sWiiFreqPerSec;
+        return s3dsFreqPerSec;
     }
 
     //------------------------------------------------------------------------------
 
     s64 x_GetTicksPerMs(void)
     {
-        return sWiiFreqPerMs;
+        return s3dsFreqPerMs;
     }
 
     //------------------------------------------------------------------------------
@@ -108,15 +107,14 @@ namespace xcore
     s64 x_GetTime(void)
     {
         ASSERT(sBaseTimeTick);
-
-        s64 ticks = OSGetTime() - sBaseTimeTick;
-
+        s64 ticks = (s64)nn::os::Tick::GetSystemCurrent() - sBaseTimeTick;
         return ticks;
     }
+
 
     //==============================================================================
     // END xCore namespace
     //==============================================================================
 };
 
-#endif /// TARGET_WII
+#endif /// TARGET_3DS

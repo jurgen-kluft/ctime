@@ -185,51 +185,6 @@ namespace xcore
 	extern xbool			operator ==(const xdatetime& d1, const xdatetime& d2);
 
 
-
-	//------------------------------------------------------------------------------
-	// Author:
-	//     Virtuos
-	// Description:
-	//      This class is a standard wrapper class around the Coordinated Universal 
-	//      time (UTC). In other words it contains how many seconds have elapsed 
-	//      since midnight (00:00:00), January 1, 1970. So there for it is not very 
-	//      accurate only seconds accuracy. The size of the structure is 64 bits to 
-	//      avoid failures after January 18, 2038. Make sure to remember that this 
-	//      class doesn't deal with any time prior to Jan 1, 1970.
-	//
-	//------------------------------------------------------------------------------
-	class xtime_utc
-	{
-	public:
-		void				updateTime          (void);
-		void				clear               (void);
-
-		s32					getSeconds          (void) const;
-		s32					getMinutes          (void) const;
-		s32					getHours24          (void) const;
-		s32					getHours12          (void) const;
-		xdatetime			getDate             (void) const;
-		u64					getRawData          (void) const    { return miTime; }
-		void				setRawData          (u64 inData)    { miTime = inData; }
-
-		xbool				operator  <         (const xtime_utc inTime) const;
-		xbool				operator  <=        (const xtime_utc inTime) const;
-		xbool				operator  >         (const xtime_utc inTime) const;
-		xbool				operator  >=        (const xtime_utc inTime) const;
-		xbool				operator  ==        (const xtime_utc inTime) const;
-
-		xtime_utc			operator +          (const xtime_utc inTime) const;
-		xtime_utc			operator -          (const xtime_utc inTime) const;
-
-		const xtime_utc&    operator +=         (const xtime_utc inTime);
-		const xtime_utc&    operator -=         (const xtime_utc inTime);
-
-	protected:
-
-		u64                    miTime;
-	};
-
-
 	//==============================================================================
 	// END xCore namespace
 	//==============================================================================

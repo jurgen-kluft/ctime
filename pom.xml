@@ -293,6 +293,51 @@
 						<AdditionalDependencies>#xtime_TestRelease_WII.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevDebug_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevRelease|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevRelease_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevFinal|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_DevFinal_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestDebug_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>#xtime_TestRelease_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
 				<ItemGroup>
 					<ClCompile Include="source\main\cpp\**\*.cpp" />
 				</ItemGroup>
@@ -344,6 +389,12 @@
 				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|WII'">
 				    <TargetExt>.elf</TargetExt>
 				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|N3DS'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>
+				<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|N3DS'" Label="Configuration">
+					<ConfigurationType>Application</ConfigurationType>
+				</PropertyGroup>				
 				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|Win32'">
 					<ClCompile>
 						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
@@ -415,7 +466,25 @@
 						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>xtime_$(Configuration)_WII.lib</AdditionalDependencies>
 					</Link>
-				</ItemDefinitionGroup>	
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestDebug|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>
+				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestRelease|N3DS'">
+					<ClCompile>
+						<AdditionalIncludeDirectories>$(${Name}_TargetDir)\source\test\include</AdditionalIncludeDirectories>
+					</ClCompile>
+					<Link>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalDependencies>xtime_$(Configuration)_N3DS.lib</AdditionalDependencies>
+					</Link>
+				</ItemDefinitionGroup>				
 				<ItemGroup>
 					<ClCompile Include="source\test\cpp\**\*.cpp" />
 				</ItemGroup>

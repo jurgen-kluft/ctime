@@ -21,12 +21,12 @@ public:
 		mAllocator = allocator;
 	}
 
-	void*	Allocate(int size)
+	virtual void*	Allocate(int size)
 	{
 		++mNumAllocations;
 		return mAllocator->allocate(size, 4);
 	}
-	void	Deallocate(void* ptr)
+	virtual void	Deallocate(void* ptr)
 	{
 		--mNumAllocations;
 		mAllocator->deallocate(ptr);

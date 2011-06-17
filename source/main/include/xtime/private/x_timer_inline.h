@@ -4,7 +4,7 @@ xtimer::xtimer(void)
 :mStartTime(0)
 ,mTotalTime(0)
 ,mIsRunning(xFALSE)
-,mNumSamples(0)
+,mNumTrips(0)
 {
 }
 
@@ -17,7 +17,7 @@ void xtimer::start(void)
 
     mStartTime = x_GetTime();
     mIsRunning = xTRUE;        
-    mNumSamples++;
+    mNumTrips++;
 }
 
 //------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ void xtimer::reset(void)
     mIsRunning  = xFALSE;
     mStartTime  = 0;
     mTotalTime  = 0;
-    mNumSamples = 0;
+    mNumTrips = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ xtick xtimer::trip(void)
         mTotalTime = 0;
         mStartTime = currentTime;
 
-        mNumSamples++;
+        mNumTrips++;
     }
     else
     {
@@ -80,9 +80,9 @@ xtick xtimer::trip(void)
 
 //------------------------------------------------------------------------------
 inline
-s32 xtimer::getSampleCount(void) const
+s32 xtimer::getNumTrips(void) const
 {
-    return mNumSamples;
+    return mNumTrips;
 }
 
 //------------------------------------------------------------------------------
@@ -133,8 +133,8 @@ f64 xtimer::stopMs(void)
 inline
 f64 xtimer::getAverageMs(void) const
 {
-    if(mNumSamples <= 0) 
+    if(mNumTrips <= 0) 
         return 0 ;
 
-    return readMs() / mNumSamples;
+    return readMs() / mNumTrips;
 }

@@ -30,12 +30,22 @@ namespace xcore
 	//==============================================================================
 	typedef		s64		xtick;
 
-	extern xtick   x_GetTime           (void);
-	extern f64     x_GetTimeSec        (void);
-	extern f64     x_TicksToMs         (xtick inTicks);
-	extern f64     x_TicksToSec        (xtick inTicks);
-	extern s64     x_GetTicksPerMs     (void);
-	extern s64     x_GetTicksPerSecond (void);
+	class xtime_source
+	{
+	public:
+		virtual xtick	getTimeInTicks() = 0;
+		virtual s64		getTicksPerMilliSecond() = 0;
+		virtual s64		getTicksPerSecond() = 0;
+	};
+	extern void		x_SetTimeSource		(xtime_source*);
+
+	extern f64		x_GetTimeSec        (void);
+	extern s64		x_GetTicksPerMs     (void);
+	extern s64		x_GetTicksPerSecond (void);
+
+	extern xtick	x_GetTime           (void);
+	extern f64		x_TicksToMs         (xtick inTicks);
+	extern f64		x_TicksToSec        (xtick inTicks);
 
 	//==============================================================================
 	// INLINE

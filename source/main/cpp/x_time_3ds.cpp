@@ -53,63 +53,75 @@ namespace xcore
     //==============================================================================
     // VARIABLES
     //==============================================================================
-    static s64              s3dsFreqPerSec = 0;
-    static s64              s3dsFreqPerMs = 0;
-    static xtick            sBaseTimeTick = 0;
+
 
     //==============================================================================
     // Functions
     //==============================================================================
+	class xtime_source_3ds : public xtime_source
+	{
+		s64              m3dsFreqPerSec;
+		s64              m3dsFreqPerMs;
+		xtick            mBaseTimeTick;
+
+	public:
+		void			init()
+		{
+			m3dsFreqPerSec  = NN_HW_TICKS_PER_SECOND;
+			m3dsFreqPerMs   = NN_HW_TICKS_PER_SECOND / 1000;
+			mBaseTimeTick   = (s64)nn::os::Tick::GetSystemCurrent();
+			if (mBaseTimeTick==0)	
+				mBaseTimeTick = 1;
+		}
+
+		//------------------------------------------------------------------------------
+		//  Author:
+		//      Virtuos
+		//  Summary:
+		//      Get elapsed time from timer initialized in second.
+		//  Arguments:
+		//      void
+		//  Returns:
+		//      Ticks that have elapsed from x_TimeInit called
+		//  Description:
+		//      use xcritical_section to make PerformanceCounter owned by only one thread
+		//      at a time.
+		//  See Also:
+		//      xcritical_section
+		//------------------------------------------------------------------------------
+		virtual xtick	getTimeInTicks()
+		{
+			ASSERT(mBaseTimeTick);
+			s64 ticks = (s64)nn::os::Tick::GetSystemCurrent() - mBaseTimeTick;
+			return ticks;
+		}
+
+		virtual s64		getTicksPerMilliSecond()
+		{
+			return (s64)m3dsFreqPerMs;
+		}
+
+		virtual s64		getTicksPerSecond()
+		{
+			return (s64)m3dsFreqPerSec;
+		}
+	};
+
 
     //------------------------------------------------------------------------------
     void x_TimeInit(void)
     {
-        s3dsFreqPerSec  = NN_HW_TICKS_PER_SECOND;
-        s3dsFreqPerMs   = NN_HW_TICKS_PER_SECOND / 1000;
-        sBaseTimeTick   = (s64)nn::os::Tick::GetSystemCurrent();
-		if (sBaseTimeTick==0)	sBaseTimeTick = 1;
+		static xtime_source_3ds sTimeSource;
+		sTimeSource.init();
+		x_SetTimeSource(&sTimeSource);
     }
 
     //------------------------------------------------------------------------------
     void x_TimeExit(void)
     {
-		sBaseTimeTick = 0;
+		x_SetTimeSource(NULL);
     }
 
-    //------------------------------------------------------------------------------
-    s64 x_GetTicksPerSecond(void)
-    {
-        return s3dsFreqPerSec;
-    }
-
-    //------------------------------------------------------------------------------
-
-    s64 x_GetTicksPerMs(void)
-    {
-        return s3dsFreqPerMs;
-    }
-
-    //------------------------------------------------------------------------------
-    //  Author:
-    //      Virtuos
-    //  Summary:
-    //      Get elapsed time from timer initialized in second.
-    //  Arguments:
-    //      void
-    //  Returns:
-    //      Ticks that have elapsed from x_TimeInit called
-    //  Description:
-    //      use xcritical_section to make PerformanceCounter owned by only one thread
-    //      at a time.
-    //  See Also:
-    //      xcritical_section
-    //------------------------------------------------------------------------------
-    s64 x_GetTime(void)
-    {
-        ASSERT(sBaseTimeTick);
-        s64 ticks = (s64)nn::os::Tick::GetSystemCurrent() - sBaseTimeTick;
-        return ticks;
-    }
 
 
     //==============================================================================

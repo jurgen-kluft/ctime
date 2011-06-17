@@ -3,6 +3,7 @@
 
 #include "xtime\x_datetime.h"
 
+#include "xtime\private\x_datetime_source.h"
 
 using namespace xcore;
 

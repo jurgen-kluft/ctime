@@ -21,6 +21,9 @@
 #include "xtime\x_timespan.h"
 #include "xtime\x_datetime.h"
 
+#include "xtime\private\x_time_source.h"
+#include "xtime\private\x_datetime_source.h"
+
 //==============================================================================
 // xCore namespace
 //==============================================================================

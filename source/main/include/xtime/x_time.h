@@ -22,22 +22,13 @@ namespace xcore
 	extern void    x_TimeExit (void);
 
 	//==============================================================================
-	// GLOBAL FUNCTIONS
-	//==============================================================================
-
-	//==============================================================================
 	// Types
 	//==============================================================================
 	typedef		s64		xtick;
 
-	class xtime_source
-	{
-	public:
-		virtual xtick	getTimeInTicks() = 0;
-		virtual s64		getTicksPerMilliSecond() = 0;
-		virtual s64		getTicksPerSecond() = 0;
-	};
-	extern void		x_SetTimeSource		(xtime_source*);
+	//==============================================================================
+	// GLOBAL FUNCTIONS
+	//==============================================================================
 
 	extern f64		x_GetTimeSec        (void);
 	extern s64		x_GetTicksPerMs     (void);

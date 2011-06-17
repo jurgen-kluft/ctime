@@ -18,95 +18,116 @@
 #include "xtime\x_timespan.h"
 #include "xtime\x_datetime.h"
 
+#include "xtime\private\x_time_source.h"
+#include "xtime\private\x_datetime_source.h"
 
 //==============================================================================
 // xCore namespace
 //==============================================================================
 namespace xcore
 {
-	u64		xdatetime::sGetSystemTime()
+	class xdatetime_source_psp : public xdatetime_source
 	{
-		ScePspDateTime localTime;
-		sceRtcGetCurrentClockLocalTime(&localTime);
+	public:
+		virtual u64			getSystemTime()
+		{
+			ScePspDateTime localTime;
+			sceRtcGetCurrentClockLocalTime(&localTime);
 
-		xdatetime dt(1900 + localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second);
-		return (u64)dt.ticks();
-	}
+			xdatetime dt(1900 + localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second);
+			return (u64)dt.ticks();
+		}
 
-	// ps3 has no functionality to get the file time
-	u64		xdatetime::sGetSystemTimeAsFileTime()
-	{
-		return sGetSystemTime();
-	}
+		virtual u64			getSystemTimeAsFileTime()
+		{
+			return getSystemTime();
+		}
 
-	u64		xdatetime::sGetSystemTimeFromFileTime(u64 inFileSystemTime)
-	{
-		return inFileSystemTime;
-	}
+		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime)
+		{
+			return inFileSystemTime;
+		}
 
-	u64		xdatetime::sGetFileTimeFromSystemTime(u64 inSystemTime)
-	{
-		return inSystemTime;
-	}
+		virtual u64			getFileTimeFromSystemTime(u64 inSystemTime)
+		{
+			return inSystemTime;
+		}
+	};
 
 	//==============================================================================
 	// VARIABLES
 	//==============================================================================
 	static const u64		PSP_FREQ_PER_SEC	=	1000000;
 
-	static f32              sPspFreqPerSec		=	PSP_FREQ_PER_SEC;
-	static f32              sPspFreqPerMs		=	PSP_FREQ_PER_SEC / 1000.0f;
-	static xtick            sBaseTimeTick		=	0;
-
 	//==============================================================================
 	// Functions
 	//==============================================================================
+	class xtime_source_psp : public xtime_source
+	{
+		f32				mFreqPerSec;
+		f32				mFreqPerMs;
+		xtick			mBaseTimeTick;
+		xtick			mLastTicks;
+
+	public:
+		void			init()
+		{
+			const u64		PSP_FREQ_PER_SEC	=	1000000;
+
+			mFreqPerSec  = PSP_FREQ_PER_SEC;
+			mFreqPerMs   = PSP_FREQ_PER_SEC / 1000.0f;
+			mBaseTimeTick= sceKernelGetSystemTimeWide();
+		}
+
+		//------------------------------------------------------------------------------
+		//  Author:
+		//      Virtuos
+		//  Summary:
+		//      Get elapsed time from timer initialized in second.
+		//  Arguments:
+		//      void
+		//  Returns:
+		//      Ticks that have elapsed from x_TimeInit called
+		//  Description:
+		//      use xcritical_section to make PerformanceCounter owned by only one thread
+		//      at a time.
+		//  See Also:
+		//      xcritical_section
+		//------------------------------------------------------------------------------
+		virtual xtick	getTimeInTicks()
+		{
+			s64 ticks = sceKernelGetSystemTimeWide() - mBaseTimeTick;
+			return ticks;
+		}
+
+		virtual s64		getTicksPerMilliSecond()
+		{
+			return mFreqPerMs;
+		}
+
+		virtual s64		getTicksPerSecond()
+		{
+			return mFreqPerSec;
+		}
+	};
 
 	//------------------------------------------------------------------------------
 	void x_TimeInit(void)
 	{
-		sBaseTimeTick	= sceKernelGetSystemTimeWide();
+		static xtime_source_psp sTimeSource;
+		sTimeSource.init();
+		x_SetTimeSource(&sTimeSource);
+
+		static xdatetime_source_psp sDateTimeSource;
+		x_SetDateTimeSource(&sDateTimeSource);
 	}
 
-	//------------------------------------------------------------------------------
 	void x_TimeExit(void)
 	{
+		x_SetTimeSource(NULL);
+		x_SetDateTimeSource(NULL);
 	}
 
-	//------------------------------------------------------------------------------
-	s64 x_GetTicksPerSecond(void)
-	{
-		return sPspFreqPerSec;
-	}
-
-	//------------------------------------------------------------------------------
-
-	s64 x_GetTicksPerMs(void)
-	{
-		return sPspFreqPerMs;
-	}
-
-	//------------------------------------------------------------------------------
-	//  Author:
-	//      Virtuos
-	//  Summary:
-	//      Get elapsed time from timer initialized in second.
-	//  Arguments:
-	//      void
-	//  Returns:
-	//      Ticks that have elapsed from x_TimeInit called
-	//  Description:
-	//      use xcritical_section to make PerformanceCounter owned by only one thread
-	//      at a time.
-	//  See Also:
-	//      xcritical_section
-	//------------------------------------------------------------------------------
-	s64 x_GetTime(void)
-	{
-		s64 ticks = sceKernelGetSystemTimeWide() - sBaseTimeTick;
-		ticks -= sBaseTimeTick;
-		return ticks;
-	}
 
 	//==============================================================================
 	// END xCore namespace

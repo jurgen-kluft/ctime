@@ -15,41 +15,45 @@
 #include "xtime\x_timespan.h"
 #include "xtime\x_datetime.h"
 
+#include "xtime\private\x_time_source.h"
+#include "xtime\private\x_datetime_source.h"
 
 //==============================================================================
 // xCore namespace
 //==============================================================================
 namespace xcore
 {
-	static xdatetime sGetDateTimeNow()
+	class xdatetime_source_3ds : public xdatetime_source
 	{
-		nn::fnd::DateTime dt = nn::fnd::DateTime::GetNow();
-		xdatetime xdt(dt.GetYear(), dt.GetMonth(), dt.GetDay(), dt.GetHour(), dt.GetMinute(), dt.GetSecond(), dt.GetMilliSecond());
-		return xdt;
-	}
+		xdatetime	GetDateTimeNow()
+		{
+			nn::fnd::DateTime dt = nn::fnd::DateTime::GetNow();
+			xdatetime xdt(dt.GetYear(), dt.GetMonth(), dt.GetDay(), dt.GetHour(), dt.GetMinute(), dt.GetSecond(), dt.GetMilliSecond());
+			return xdt;
+		}
 
-	u64		xdatetime::sGetSystemTime()
-	{
-		xdatetime xdt = sGetDateTimeNow();
-		return (u64)xdt.ticks();
-	}
+	public:
+		virtual u64			getSystemTime()
+		{
+			xdatetime dt = GetDateTimeNow();
+			return (u64)dt.ticks();
+		}
 
-	// 3DS has no functionality to get the file time
-	u64		xdatetime::sGetSystemTimeAsFileTime()
-	{
-		return sGetSystemTime();
-	}
+		virtual u64			getSystemTimeAsFileTime()
+		{
+			return getSystemTime();
+		}
 
-	u64		xdatetime::sGetSystemTimeFromFileTime(u64 inFileSystemTime)
-	{
-		return inFileSystemTime;
-	}
+		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime)
+		{
+			return inFileSystemTime;
+		}
 
-	u64		xdatetime::sGetFileTimeFromSystemTime(u64 inSystemTime)
-	{
-		return inSystemTime;
-	}
-
+		virtual u64			getFileTimeFromSystemTime(u64 inSystemTime)
+		{
+			return inSystemTime;
+		}
+	};
     //==============================================================================
     // VARIABLES
     //==============================================================================
@@ -109,21 +113,22 @@ namespace xcore
 
 
     //------------------------------------------------------------------------------
-    void x_TimeInit(void)
-    {
+	void x_TimeInit(void)
+	{
 		static xtime_source_3ds sTimeSource;
 		sTimeSource.init();
 		x_SetTimeSource(&sTimeSource);
-    }
 
-    //------------------------------------------------------------------------------
-    void x_TimeExit(void)
-    {
+		static xdatetime_source_3ds sDateTimeSource;
+		x_SetDateTimeSource(&sDateTimeSource);
+	}
+
+	void x_TimeExit(void)
+	{
 		x_SetTimeSource(NULL);
-    }
-
-
-
+		x_SetDateTimeSource(NULL);
+	}
+	
     //==============================================================================
     // END xCore namespace
     //==============================================================================

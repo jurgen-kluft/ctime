@@ -57,7 +57,7 @@ namespace xcore
 		void		markFrame			();
 		bool		getFrameRate		(f32& fps) const;							///< Return true when the frame-rate is up-to-date
 
-	protected:
+	private:
 		f32			m_fFrameRate;
 		u64			m_dwSecondCount;
 		f32			m_dwNumFrames;

@@ -80,8 +80,7 @@ namespace xcore
 
 		f64			getAverageMs        () const;
 
-	protected:
-
+	private:
 		xtick		mStartTime;
 		xtick		mTotalTime;
 		xbool		mIsRunning;

@@ -9,11 +9,18 @@
 #include "xtime\x_timespan.h"
 #include "xtime\x_datetime.h"
 
+#include "xtime\private\x_time_source.h"
+#include "xtime\private\x_datetime_source.h"
+
 //==============================================================================
 // xCore namespace
 //==============================================================================
 namespace xcore
 {
+	//==============================================================================
+	// xtime source
+	//==============================================================================
+
 	namespace xtime
 	{
 		static xtime_source*	sTimeSource;
@@ -40,7 +47,7 @@ namespace xcore
 	}
 
 	//==============================================================================
-	// xdatetime
+	// xdatetime source
 	//==============================================================================
 	static xdatetime_source*	sDateTimeSource = NULL;
 	void				x_SetDateTimeSource(xdatetime_source* src)
@@ -48,6 +55,9 @@ namespace xcore
 		sDateTimeSource = src;
 	}
 
+	//==============================================================================
+	// xdatetime
+	//==============================================================================
 
 	static const s32 DaysPer100Years		= 36524;
 	static const s32 DaysPer400Years		= 146097;

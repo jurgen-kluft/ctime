@@ -14,105 +14,123 @@
 #include "xtime\x_timespan.h"
 #include "xtime\x_datetime.h"
 
+#include "xtime\private\x_time_source.h"
+#include "xtime\private\x_datetime_source.h"
 
 //==============================================================================
 // xCore namespace
 //==============================================================================
 namespace xcore
 {
-	static xdatetime sGetDateTimeNow()
+	class xdatetime_source_wii : public xdatetime_source
 	{
-		OSCalendarTime ct;
+		xdatetime	GetDateTimeNow()
+		{
+			OSCalendarTime ct;
 
-		OSTime time = OSGetTime();
-		OSTicksToCalendarTime(time, &ct);
+			OSTime time = OSGetTime();
+			OSTicksToCalendarTime(time, &ct);
 
-		xdatetime xdt(1900 + ct.year, ct.mon + 1, ct.mday, ct.hour, ct.min, ct.sec);
-		return xdt;
-	}
+			xdatetime xdt(1900 + ct.year, ct.mon + 1, ct.mday, ct.hour, ct.min, ct.sec);
+			return xdt;
+		}
 
-	u64		xdatetime::sGetSystemTime()
-	{
-		xdatetime dt = sGetDateTimeNow();
-		return (u64)dt.ticks();
-	}
+	public:
+		virtual u64			getSystemTime()
+		{
+			xdatetime dt = GetDateTimeNow();
+			return (u64)dt.ticks();
+		}
 
-	// WII has no functionality to get the file time
-	u64		xdatetime::sGetSystemTimeAsFileTime()
-	{
-		return sGetSystemTime();
-	}
+		virtual u64			getSystemTimeAsFileTime()
+		{
+			return getSystemTime();
+		}
 
-	u64		xdatetime::sGetSystemTimeFromFileTime(u64 inFileSystemTime)
-	{
-		return inFileSystemTime;
-	}
+		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime)
+		{
+			return inFileSystemTime;
+		}
 
-	u64		xdatetime::sGetFileTimeFromSystemTime(u64 inSystemTime)
-	{
-		return inSystemTime;
-	}
+		virtual u64			getFileTimeFromSystemTime(u64 inSystemTime)
+		{
+			return inSystemTime;
+		}
+	};
+
 
     //==============================================================================
     // VARIABLES
     //==============================================================================
-    static s64              sWiiFreqPerSec = 0;
-    static s64              sWiiFreqPerMs = 0;
-    static xtick            sBaseTimeTick = 0;
 
     //==============================================================================
     // Functions
     //==============================================================================
+	class xtime_source_wii : public xtime_source
+	{
+		f64				mFreqPerSec;
+		f64				mFreqPerMs;
+		xtick			mBaseTimeTick;
+		xtick			mLastTicks;
+
+	public:
+		void			init()
+		{
+			mFreqPerSec  = OS_TIMER_CLOCK;
+			mFreqPerMs   = OS_TIMER_CLOCK / 1000.0;
+			mBaseTimeTick   = (s64)OSGetTime();
+		}
+
+		//------------------------------------------------------------------------------
+		//  Author:
+		//      Virtuos
+		//  Summary:
+		//      Get elapsed time from timer initialized in second.
+		//  Arguments:
+		//      void
+		//  Returns:
+		//      Ticks that have elapsed from x_TimeInit called
+		//  Description:
+		//      use xcritical_section to make PerformanceCounter owned by only one thread
+		//      at a time.
+		//  See Also:
+		//      xcritical_section
+		//------------------------------------------------------------------------------
+		virtual xtick	getTimeInTicks()
+		{
+			ASSERT(mBaseTimeTick);
+			s64 ticks = OSGetTime() - mBaseTimeTick;
+			return ticks;
+		}
+
+		virtual s64		getTicksPerMilliSecond()
+		{
+			return mFreqPerMs;
+		}
+
+		virtual s64		getTicksPerSecond()
+		{
+			return mFreqPerSec;
+		}
+	};
 
     //------------------------------------------------------------------------------
-    void x_TimeInit(void)
-    {
-        sWiiFreqPerSec  = OS_TIMER_CLOCK;
-        sWiiFreqPerMs   = OS_TIMER_CLOCK / 1000.0;
-        sBaseTimeTick   = (s64)OSGetTime();
-    }
+	void x_TimeInit(void)
+	{
+		static xtime_source_wii sTimeSource;
+		sTimeSource.init();
+		x_SetTimeSource(&sTimeSource);
 
-    //------------------------------------------------------------------------------
-    void x_TimeExit(void)
-    {
-    }
+		static xdatetime_source_wii sDateTimeSource;
+		x_SetDateTimeSource(&sDateTimeSource);
+	}
 
-    //------------------------------------------------------------------------------
-    s64 x_GetTicksPerSecond(void)
-    {
-        return sWiiFreqPerSec;
-    }
+	void x_TimeExit(void)
+	{
+		x_SetTimeSource(NULL);
+		x_SetDateTimeSource(NULL);
+	}
 
-    //------------------------------------------------------------------------------
-
-    s64 x_GetTicksPerMs(void)
-    {
-        return sWiiFreqPerMs;
-    }
-
-    //------------------------------------------------------------------------------
-    //  Author:
-    //      Virtuos
-    //  Summary:
-    //      Get elapsed time from timer initialized in second.
-    //  Arguments:
-    //      void
-    //  Returns:
-    //      Ticks that have elapsed from x_TimeInit called
-    //  Description:
-    //      use xcritical_section to make PerformanceCounter owned by only one thread
-    //      at a time.
-    //  See Also:
-    //      xcritical_section
-    //------------------------------------------------------------------------------
-    s64 x_GetTime(void)
-    {
-        ASSERT(sBaseTimeTick);
-
-        s64 ticks = OSGetTime() - sBaseTimeTick;
-
-        return ticks;
-    }
 
     //==============================================================================
     // END xCore namespace

@@ -98,7 +98,7 @@ namespace xcore
 		static const xtimespan	sMinValue;
 		static const xtimespan	sZero;
 
-	protected:
+	private:
 		inline s64			__ticks() const											{ return (s64)mTicks; }
 
 		s64					mTicks;

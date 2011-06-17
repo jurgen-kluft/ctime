@@ -4,6 +4,8 @@
 #include "xtime\x_time.h"
 #include "xtime\x_timer.h"
 
+#include "xtime\private\x_time_source.h"
+
 using namespace xcore;
 
 UNITTEST_SUITE_BEGIN(timer)

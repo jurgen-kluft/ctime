@@ -14,14 +14,49 @@
 //==============================================================================
 namespace xcore
 {
+	namespace xtime
+	{
+		static xtime_source*	sTimeSource;
+	};
+
+	void		x_SetTimeSource		(xtime_source* src)
+	{
+		xtime::sTimeSource = src;
+	}
+
+	xtick	x_GetTime           (void)
+	{
+		return xtime::sTimeSource->getTimeInTicks();
+	}
+
+	s64		x_GetTicksPerMs     (void)
+	{
+		return xtime::sTimeSource->getTicksPerMilliSecond();
+	}
+
+	s64		x_GetTicksPerSecond (void)
+	{
+		return xtime::sTimeSource->getTicksPerSecond();
+	}
+
+	//==============================================================================
+	// xdatetime
+	//==============================================================================
+	static xdatetime_source*	sDateTimeSource = NULL;
+	void				x_SetDateTimeSource(xdatetime_source* src)
+	{
+		sDateTimeSource = src;
+	}
+
+
 	static const s32 DaysPer100Years		= 36524;
 	static const s32 DaysPer400Years		= 146097;
 	static const s32 DaysPer4Years			= 1461;
 	static const s32 DaysPerYear			= 365;
 
 	//static const s32 DaysTo10000			= 3652059;
-	//static const s32 DaysTo1601				= 584388;
-	//static const s32 DaysTo1899				= 693593;
+	//static const s32 DaysTo1601			= 584388;
+	//static const s32 DaysTo1899			= 693593;
 
 	//static const u64 MinTicks				= 0;
 	static const u64 MaxTicks				= X_CONSTANT_64(0x2bca2875f4373fff);
@@ -284,7 +319,7 @@ namespace xcore
 	//     A System.xdatetime whose value is the current local date and time.
 	xdatetime			xdatetime::sNow()
 	{
-		return xdatetime(sGetSystemTime());
+		return xdatetime(sDateTimeSource->getSystemTime());
 	}
 
 	//
@@ -621,7 +656,7 @@ namespace xcore
 	xdatetime			xdatetime::sFromFileTime(u64 fileTime)
 	{
 		ASSERTS(fileTime <= MaxTicks, "ArgumentOutOfRange_FileTimeInvalid");
-		u64 systemTime = sGetSystemTimeFromFileTime(fileTime);
+		u64 systemTime = sDateTimeSource->getSystemTimeFromFileTime(fileTime);
 		return xdatetime(systemTime);
 	}
 
@@ -713,7 +748,7 @@ namespace xcore
 	//
 	u64				xdatetime::toFileTime() const
 	{
-		s64 fileTime = sGetFileTimeFromSystemTime(__ticks());
+		s64 fileTime = sDateTimeSource->getFileTimeFromSystemTime(__ticks());
 		ASSERTS((fileTime >= 0) && (fileTime <= MaxTicks), "ArgumentOutOfRange_FileTimeInvalid");
 		return (u64)fileTime;
 	}
@@ -777,9 +812,9 @@ namespace xcore
 	}
 
 
-
-
-
+	//==============================================================================
+	// xtimespan
+	//==============================================================================
 	const u64		xtimespan::sTicksPerDay = X_CONSTANT_64(864000000000);
 	const u64		xtimespan::sTicksPerHour = X_CONSTANT_64(36000000000);
 	const u64		xtimespan::sTicksPerMillisecond = 10000;

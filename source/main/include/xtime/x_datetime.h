@@ -83,10 +83,23 @@ namespace xcore
 		else return month;
 	}
 
+	class xdatetime_source
+	{
+	public:
+		// The platform specific part
+		virtual u64			getSystemTime() = 0;
+		virtual u64			getSystemTimeAsFileTime() = 0;
+		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime) = 0;
+		virtual u64			getFileTimeFromSystemTime(u64 inSystemTime) = 0;
+	};
+
+	extern void				x_SetDateTimeSource(xdatetime_source*);
+
 	//------------------------------------------------------------------------------
 	// Author:
 	//     Virtuos
 	// Description:
+	//     A class for date and time operations
 	//------------------------------------------------------------------------------
 	class xdatetime
 	{
@@ -155,12 +168,6 @@ namespace xcore
 
 		// 
 		xdatetime&			add(s32 value, s32 scale);
-
-		// The platform specific part
-		static u64			sGetSystemTime();
-		static u64			sGetSystemTimeAsFileTime();
-		static u64			sGetSystemTimeFromFileTime(u64 inFileSystemTime);
-		static u64			sGetFileTimeFromSystemTime(u64 inSystemTime);
 
 		union
 		{

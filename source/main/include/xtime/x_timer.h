@@ -67,7 +67,7 @@ namespace xcore
 		xtick		trip                ();
 
 		xbool		isRunning           () const;
-		s32			getSampleCount      () const;
+		s32			getNumTrips		    () const;
 
 		f64			stopMs              ();
 		f64			stopSec             ();
@@ -85,7 +85,7 @@ namespace xcore
 		xtick		mStartTime;
 		xtick		mTotalTime;
 		xbool		mIsRunning;
-		s32			mNumSamples;
+		s32			mNumTrips;
 	};
 	
 

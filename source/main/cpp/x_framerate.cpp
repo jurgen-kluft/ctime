@@ -36,7 +36,7 @@ namespace xcore
 		xtick tTime = x_GetTime();
 
 		// Only re-compute the FPS (frames per second) once per second
-		if ( (tTime - m_tLastFPSTime) > x_GetTicksPerSecond() )
+		if ( (tTime - m_tLastFPSTime) >= x_GetTicksPerSecond() )
 		{
 			m_fFrameRate = (f32)(m_dwNumFrames * x_GetTicksPerSecond()) / (f32)( tTime - m_tLastFPSTime );
 			m_tLastFPSTime = tTime;

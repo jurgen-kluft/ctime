@@ -281,7 +281,6 @@ namespace xcore
 	{
 		return xdatetime(sGetSystemTime());
 	}
-
 	//
 	// Summary:
 	//     Gets the seconds component of the date represented by this instance.
@@ -737,7 +736,7 @@ namespace xcore
 
 	xtimespan			operator  -(const xdatetime& d1, const xdatetime& d2)
 	{
-		s64 ticks = d1.ticks() + d2.ticks();
+		s64 ticks = d1.ticks() - d2.ticks();
 		return xtimespan(ticks);
 	}
 
@@ -1039,7 +1038,7 @@ namespace xcore
 	xtimespan&			xtimespan::add(const xtimespan& ts)
 	{
 		s64 ticks = mTicks + ts.mTicks;
-		ASSERTS(((mTicks >> 63) == (ts.mTicks >> 63)) && ((mTicks >> 63) != (mTicks >> 63)), "xtimespan::Overflow::TooLong");
+//		ASSERTS(((mTicks >> 63) == (ts.mTicks >> 63)) && ((mTicks >> 63) != (mTicks >> 63)), "xtimespan::Overflow::TooLong");
 		mTicks = ticks;
 		return *this;
 	}
@@ -1176,7 +1175,7 @@ namespace xcore
 	//     value is less than System.xtimespan.MinValue or greater than System.xtimespan.MaxValue.
 	xtimespan			xtimespan::sFromMinutes(u64 value)
 	{
-		return sInterval(value, 1);
+		return sInterval(value, MillisPerMinute);
 	}
 
 	//
@@ -1196,9 +1195,10 @@ namespace xcore
 
 	u64				xtimespan::sTimeToTicks(s32 hours, s32 minutes, s32 seconds)
 	{
-		s64 num = ((hours * 0xe10) + (minutes * 60)) + seconds;
-		ASSERTS((num <= MaxSeconds) && (num >= MinSeconds), "Overflow_TimeSpanTooLong");
-		return (u64)(num * sTicksPerSecond);
+		//s64 num = ((hours * 0xe10) + (minutes * 60)) + seconds;
+		//ASSERTS((num <= MaxSeconds) && (num >= MinSeconds), "Overflow_TimeSpanTooLong");
+		//return (u64)(num * sTicksPerSecond);
+        return sTimeToTicks(0, hours, minutes, seconds, 0);
 	}
 
 	u64				xtimespan::sTimeToTicks(s32 hours, s32 minutes, s32 seconds, s32 milliseconds)
@@ -1208,7 +1208,7 @@ namespace xcore
 
 	u64				xtimespan::sTimeToTicks(s32 days, s32 hours, s32 minutes, s32 seconds, s32 milliseconds)
 	{
-		s64 num = ((((((days*24+hours) * 3600)) + (minutes * 60)) + seconds) * MillisPerSecond) + milliseconds;
+		s64 num = ((((((s64(days)*24+s64(hours)) * 3600)) + (s64(minutes) * 60)) + s64(seconds)) * MillisPerSecond) + s64(milliseconds);
 		ASSERTS((num <= MaxMilliSeconds) && (num >= MinMilliSeconds), "Overflow_TimeSpanTooLong");
 		return (u64)(num * sTicksPerMillisecond);
 	}
@@ -1227,7 +1227,7 @@ namespace xcore
 	//     that is, the value of this instance is System.xtimespan.MinValue.
 	xtimespan&			xtimespan::negate()
 	{
-		ASSERTS(mTicks == sMinValue.mTicks, "Overflow_NegateTwosCompNum");
+		ASSERTS(mTicks != sMinValue.mTicks, "Overflow_NegateTwosCompNum");
 		mTicks = -__ticks();
 		return *this;
 	}

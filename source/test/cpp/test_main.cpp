@@ -8,6 +8,7 @@ using namespace xcore;
 
 UNITTEST_SUITE_LIST(xTimeUnitTest);
 UNITTEST_SUITE_DECLARE(xTimeUnitTest, datetime);
+UNITTEST_SUITE_DECLARE(xTimeUnitTest, timespan);
 
 class UnitTestAllocator : public UnitTest::Allocator
 {

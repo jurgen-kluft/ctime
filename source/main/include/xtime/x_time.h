@@ -91,7 +91,7 @@ namespace xcore
 	};
 
 	enum EDayOfWeek
-	{
+	{   
 		Sunday		= 0,
 		Monday		= 1,
 		Tuesday		= 2,
@@ -191,15 +191,15 @@ namespace xcore
 		///@name Operators
 		xtimespan&			operator  -=(const xtimespan& inRHS)						{ return substract(inRHS); }
 		xtimespan&			operator  +=(const xtimespan& inRHS)						{ return add(inRHS); }
-		xtimespan			operator  -(const xtimespan& inRHS) const					{ xtimespan t(*this); t.substract(inRHS); return t; }
-		xtimespan			operator  +(const xtimespan& inRHS) const					{ xtimespan t(*this); t.add(inRHS); return t; }
+//		xtimespan			operator  -(const xtimespan& inRHS) const					{ xtimespan t(*this); t.substract(inRHS); return t; }
+//		xtimespan			operator  +(const xtimespan& inRHS) const					{ xtimespan t(*this); t.add(inRHS); return t; }
 
 		///@name Comparison
 		xbool				equals(const xtimespan& inRHS) const						{ return sCompare(*this, inRHS) == 0; }
 		s32					compareTo(const xtimespan& inRHS) const						{ return sCompare(*this, inRHS); }
 
 		///@name Static Methods
-		static xtimespan	sNow();
+//		static xtimespan	sNow(); 
 		static xtimespan	sFromDays(u64 value);
 		static xtimespan	sFromHours(u64 value);
 		static xtimespan	sFromMinutes(u64 value);

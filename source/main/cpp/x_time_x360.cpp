@@ -60,6 +60,30 @@ namespace xcore
 		}
 	};
 
+	//------------------------------------------------------------------------------
+	//  Author:
+	//      Virtuos
+	//  Summary:
+	//      Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
+	//      dependent.
+	//  Arguments:
+	//      void
+	//  Returns:
+	//      void
+	//  Description:
+	//      Local variable counter is used to refer to an incrementing variable,
+	//      and represents the current value of the high-resolution performance counter.
+	//      Often used to compute the elapsed counters while a section of code executed.
+	//      sBaseTimeTick is the start counter of the timer.
+	//
+	//<P>   sPCFreqPerSec and sPCFreqPerMs both are frequency of the counter above, but
+	//      with different units per second and permilliseconde.Their values are 
+	//      processor dependent.On some processors, for example, their values might be
+	//      the cycle rate of the processor clock. So there is a local variable named
+	//      clockFreq.
+	//  See Also:
+	//      QueryPerformanceCounter QueryPerformanceFrequency
+	//------------------------------------------------------------------------------
 	class xtime_source_x360 : public xtime_source
 	{
 		f64				mPCFreqPerSec;
@@ -124,28 +148,7 @@ namespace xcore
 	};
 
 	//------------------------------------------------------------------------------
-	//  Author:
-	//      Virtuos
-	//  Summary:
-	//      Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
-	//      dependent.
-	//  Arguments:
-	//      void
-	//  Returns:
-	//      void
-	//  Description:
-	//      Local variable counter is used to refer to an incrementing variable,
-	//      and represents the current value of the high-resolution performance counter.
-	//      Often used to compute the elapsed counters while a section of code executed.
-	//      sBaseTimeTick is the start counter of the timer.
-	//
-	//<P>   sPCFreqPerSec and sPCFreqPerMs both are frequency of the counter above, but
-	//      with different units per second and permilliseconde.Their values are 
-	//      processor dependent.On some processors, for example, their values might be
-	//      the cycle rate of the processor clock. So there is a local variable named
-	//      clockFreq.
-	//  See Also:
-	//      QueryPerformanceCounter QueryPerformanceFrequency
+	// xtime, Init and Exit
 	//------------------------------------------------------------------------------
 	void x_TimeInit(void)
 	{

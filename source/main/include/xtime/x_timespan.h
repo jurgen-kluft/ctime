@@ -66,8 +66,6 @@ namespace xcore
 		///@name Operators
 		xtimespan&			operator  -=(const xtimespan& inRHS)						{ return substract(inRHS); }
 		xtimespan&			operator  +=(const xtimespan& inRHS)						{ return add(inRHS); }
-		xtimespan			operator  - (const xtimespan& inRHS) const					{ xtimespan t(*this); t.substract(inRHS); return t; }
-		xtimespan			operator  + (const xtimespan& inRHS) const					{ xtimespan t(*this); t.add(inRHS); return t; }
 
 		///@name Comparison
 		xbool				equals(const xtimespan& inRHS) const						{ return sCompare(*this, inRHS) == 0; }

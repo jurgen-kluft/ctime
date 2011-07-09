@@ -66,28 +66,30 @@ namespace xcore
 		}
 	};
 
-
-	//==============================================================================
-	//  VARIABLES
-	//==============================================================================
 	//------------------------------------------------------------------------------
 	//  Author:
 	//      Virtuos
 	//  Summary:
-	//      The three static variables in the following are represented system timer's
-	//      important states. They are all depend on the hardware installed. And here
-	//      what we used is High-Resolution Timer, suppose that the system we used 
-	//      include a high-resolution performance counter that provides high-resolution
-	//      elapsed times.      
+	//      Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
+	//      dependent.
+	//  Arguments:
+	//      void
+	//  Returns:
+	//      void
 	//  Description:
-	//      The three static variables are initialized in function x_TimeInit.
+	//      Local variable counter is used to refer to an incrementing variable,
+	//      and represents the current value of the high-resolution performance counter.
+	//      Often used to compute the elapsed counters while a section of code executed.
+	//      sBaseTimeTick is the start counter of the timer.
+	//
+	//<P>   sPCFreqPerSec and sPCFreqPerMs both are frequency of the counter above, but
+	//      with different units per second and permilliseconde.Their values are 
+	//      processor dependent.On some processors, for example, their values might be
+	//      the cycle rate of the processor clock. So there is a local variable named
+	//      clockFreq.
 	//  See Also:
-	//      x_TimeInit x_GetTicksPerSecond x_GetTicksPerMs x_GetTime
+	//      QueryPerformanceCounter QueryPerformanceFrequency
 	//------------------------------------------------------------------------------
-
-	//==============================================================================
-	// Functions
-	//==============================================================================
 	class xtime_source_win32 : public xtime_source
 	{
 		f64				mPCFreqPerSec;
@@ -152,28 +154,7 @@ namespace xcore
 	};
 
 	//------------------------------------------------------------------------------
-	//  Author:
-	//      Virtuos
-	//  Summary:
-	//      Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
-	//      dependent.
-	//  Arguments:
-	//      void
-	//  Returns:
-	//      void
-	//  Description:
-	//      Local variable counter is used to refer to an incrementing variable,
-	//      and represents the current value of the high-resolution performance counter.
-	//      Often used to compute the elapsed counters while a section of code executed.
-	//      sBaseTimeTick is the start counter of the timer.
-	//
-	//<P>   sPCFreqPerSec and sPCFreqPerMs both are frequency of the counter above, but
-	//      with different units per second and permilliseconde.Their values are 
-	//      processor dependent.On some processors, for example, their values might be
-	//      the cycle rate of the processor clock. So there is a local variable named
-	//      clockFreq.
-	//  See Also:
-	//      QueryPerformanceCounter QueryPerformanceFrequency
+	// xtime, Init and Exit
 	//------------------------------------------------------------------------------
 	void x_TimeInit(void)
 	{

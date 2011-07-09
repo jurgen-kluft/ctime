@@ -55,12 +55,7 @@ namespace xcore
 	};
 
 	//==============================================================================
-	// VARIABLES
-	//==============================================================================
-	static const u64		PSP_FREQ_PER_SEC	=	1000000;
-
-	//==============================================================================
-	// Functions
+	// Time source for the Sony PSP
 	//==============================================================================
 	class xtime_source_psp : public xtime_source
 	{
@@ -70,9 +65,18 @@ namespace xcore
 		xtick			mLastTicks;
 
 	public:
+		xtime_source_psp()
+			: mFreqPerSec(0)
+			, mFreqPerMs(0)
+			, mBaseTimeTick(0)
+			, mLastTicks(0)
+		{
+
+		}
+
 		void			init()
 		{
-			const u64		PSP_FREQ_PER_SEC	=	1000000;
+			const u64		PSP_FREQ_PER_SEC = 1000000;
 
 			mFreqPerSec  = PSP_FREQ_PER_SEC;
 			mFreqPerMs   = PSP_FREQ_PER_SEC / 1000.0f;
@@ -111,6 +115,8 @@ namespace xcore
 		}
 	};
 
+	//------------------------------------------------------------------------------
+	// xtime, Init and Exit
 	//------------------------------------------------------------------------------
 	void x_TimeInit(void)
 	{

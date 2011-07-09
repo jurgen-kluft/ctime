@@ -27,6 +27,11 @@ UNITTEST_SUITE_BEGIN(timer)
 				mTicks = 0;
 			}
 
+			void			set(xtick t)
+			{
+				mTicks = t;
+			}
+
 			void			update(xtick ticks)
 			{
 				mTicks += ticks;
@@ -147,7 +152,62 @@ UNITTEST_SUITE_BEGIN(timer)
 			CHECK_EQUAL(1 + 3*10, timer.getNumTrips());
 		}
 
+		UNITTEST_TEST(global_x_GetTime)
+		{
+			sTimeSource.reset();
+			xtick tps = x_GetTicksPerSecond();
+			sTimeSource.set(tps);
 
+			xtick time1 = x_GetTime();
+			xtick time2 = x_GetTime();
+
+			CHECK_TRUE(time1 == tps);
+			CHECK_TRUE(time1 == time2);
+		}
+		UNITTEST_TEST(global_x_GetTimeSec)
+		{
+			sTimeSource.reset();
+			xtick tps = x_GetTicksPerSecond();
+			sTimeSource.set(tps);
+
+			f64 timeSec1 = x_GetTimeSec();
+			CHECK_TRUE(timeSec1 == 1);
+
+			f64 timeSec2 = x_GetTimeSec();
+			CHECK_TRUE(timeSec1 == timeSec2);
+		}
+		UNITTEST_TEST(global_x_TicksToMs)
+		{
+			f64 ms1 = x_TicksToMs(200);
+			f64 ms2 = ((f64)200)/x_GetTicksPerMs();
+
+			CHECK_TRUE(ms1);
+			CHECK_TRUE(ms1 == ms2);
+		}
+		UNITTEST_TEST(global_x_TicksToSec)
+		{
+			f64 ms1 = x_TicksToSec(200);
+			f64 ms2 = (f64(200))/x_GetTicksPerSecond();
+
+			CHECK_TRUE(ms1);
+			CHECK_TRUE(ms1 == ms2);
+		}
+		UNITTEST_TEST(global_x_GetTicksPerMs)
+		{
+			s64 tickPerMs1 = x_GetTicksPerMs();
+			s64 tickPerMs2 = x_GetTicksPerSecond();
+
+			CHECK_TRUE(tickPerMs1);
+			CHECK_TRUE(tickPerMs1 == tickPerMs2/1000);
+		}
+		UNITTEST_TEST(global_x_GetTicksPerSecond)
+		{
+			s64 tickPerSecond1 = x_GetTicksPerSecond();
+			s64 tickPerSecond2 = x_GetTicksPerMs();
+
+			CHECK_TRUE(tickPerSecond1);
+			CHECK_TRUE(tickPerSecond1/1000 == tickPerSecond2);
+		}
 	}
 }
 UNITTEST_SUITE_END

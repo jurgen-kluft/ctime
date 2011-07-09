@@ -10,6 +10,7 @@ UNITTEST_SUITE_LIST(xTimeUnitTest);
 UNITTEST_SUITE_DECLARE(xTimeUnitTest, datetime);
 UNITTEST_SUITE_DECLARE(xTimeUnitTest, timer);
 UNITTEST_SUITE_DECLARE(xTimeUnitTest, framerate);
+UNITTEST_SUITE_DECLARE(xTimeUnitTest, timespan);
 
 class UnitTestAllocator : public UnitTest::Allocator
 {

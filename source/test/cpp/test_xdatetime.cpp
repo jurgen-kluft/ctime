@@ -117,7 +117,9 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 			CHECK_TRUE(dt1.dayOfWeek() == 1);
 
-			sDateTimeSource.update(TicksPerHour);
+			xdatetime dt2(2011,4,27);
+
+			CHECK_TRUE(dt2.dayOfWeek() == 3);
 		}
 		UNITTEST_TEST(dayOfWeekShort)
 		{

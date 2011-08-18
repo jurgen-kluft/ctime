@@ -42,7 +42,7 @@ namespace xcore
 			return getFileTimeFromSystemTime(systemTime);
 		}
 
-		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime)
+		virtual u64			getSystemTimeFromFileTime(u64 inTime)
 		{
 			u32 second, minute, hour, year, month, day;
 

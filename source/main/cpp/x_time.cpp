@@ -1247,9 +1247,6 @@ namespace xcore
 
 	u64				xtimespan::sTimeToTicks(s32 hours, s32 minutes, s32 seconds)
 	{
-		//s64 num = ((hours * 0xe10) + (minutes * 60)) + seconds;
-		//ASSERTS((num <= MaxSeconds) && (num >= MinSeconds), "Overflow_TimeSpanTooLong");
-		//return (u64)(num * sTicksPerSecond);
         return sTimeToTicks(0, hours, minutes, seconds, 0);
 	}
 

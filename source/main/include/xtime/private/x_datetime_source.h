@@ -18,6 +18,8 @@ namespace xcore
 	class xdatetime_source
 	{
 	public:
+		virtual				~xdatetime_source()	{}
+
 		// The platform specific part
 		virtual u64			getSystemTime() = 0;
 		virtual u64			getSystemTimeAsFileTime() = 0;

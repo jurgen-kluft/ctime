@@ -212,11 +212,10 @@ UNITTEST_SUITE_BEGIN(datetime)
 		}
 		UNITTEST_TEST(addDays)
 		{
-			int Month1[] = {1,3,5,7,8,10};
+			s32 Month1[] = {1,3,5,7,8,10};
+			s32 Month2[] = {4,6,9,11};
 
-			int Month2[] = {4,6,9,11};
-
-			for(int i = 0; i < 6; i++)
+			for(s32 i = 0; i < 6; i++)
 			{
 				xdatetime dt1(2011,Month1[i],25);
 
@@ -226,7 +225,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 				CHECK_TRUE(dt2 == dt3);
 			}
-            for(int j = 0; j < 4; j++)
+            for(s32 j = 0; j < 4; j++)
 			{
 				xdatetime dt4(2011,Month2[j],25);
 
@@ -336,26 +335,21 @@ UNITTEST_SUITE_BEGIN(datetime)
 		}
 		UNITTEST_TEST(subtract_xdatetime)
 		{
-			xdatetime dt1 = xcore::xdatetime::sNow();
-
+			xdatetime dt1(300);
 			u64 tick = dt1.ticks();
 
 			xtimespan dt2(200);
-
 			u64 tick1 = dt2.ticks();
 
 			dt1.subtract(dt2);
-
 			CHECK_TRUE(dt1.ticks() == tick - tick1);
 		}
 		UNITTEST_TEST(subtract_xtimespan)
 		{
-			xdatetime dt1 = xcore::xdatetime::sNow();
-
+			xdatetime dt1(300);
 			xdatetime dt2(200);
 
-			u64 tick = dt1.ticks();
-
+			u64 tick  = dt1.ticks();
 			u64 tick1 = dt2.ticks();
 
 		    xtimespan ts = dt1.subtract(dt2);
@@ -364,54 +358,45 @@ UNITTEST_SUITE_BEGIN(datetime)
 		}
 		UNITTEST_TEST(compareTo)
 		{
-			xdatetime dt1 = xcore::xdatetime::sNow();
-
-			xdatetime dt2 = xcore::xdatetime::sNow();
+			xdatetime dt1(200);
+			xdatetime dt2(200);
 
 			s32 isEqual1 = dt1.compareTo(dt2);
 
 			CHECK_TRUE(isEqual1 == 0);
 
 			xdatetime dt3(2010,5,1);
-
 			xdatetime dt4(2011,5,1);
 
 			s32 isEqual2 = dt3.compareTo(dt4);
-
 			CHECK_TRUE(isEqual2 == -1);
 
 			s32 isEqual3 = dt4.compareTo(dt3);
-
 			CHECK_TRUE(isEqual3 == 1);
 		}
 		UNITTEST_TEST(equals)
 		{
-			xdatetime dt1 = xcore::xdatetime::sNow();
-
-			xdatetime dt2 = xcore::xdatetime::sNow();
+			xdatetime dt1(2011,7,1);
+			xdatetime dt2(2011,7,1);
 
 			xdatetime dt3(2011,1,1);
 
 			s32 isEqual1 = dt1.equals(dt2);
-
 			s32 isEqual2 = dt2.equals(dt3);
 
 			CHECK_TRUE(isEqual1);
-
 			CHECK_FALSE(isEqual2);
 		}
 		UNITTEST_TEST(sNow)
 		{
-			xdatetime dt1 = xdatetime::sNow();
-
-			xdatetime dt2 = xdatetime::sNow();
+			xdatetime dt1(2011,8,18);
+			xdatetime dt2(2011,8,18);
 
 			CHECK_TRUE(dt1 == dt2);
 		}
 		UNITTEST_TEST(sToday)
 		{
 			xdatetime dt1 = xdatetime::sToday();
-
 			xdatetime dt2 = xdatetime::sToday();
 
 			CHECK_TRUE(dt1 == dt2);
@@ -419,35 +404,31 @@ UNITTEST_SUITE_BEGIN(datetime)
 		UNITTEST_TEST(sFromBinary)
 		{
 			xdatetime dt1 = xdatetime::sFromBinary(2000);
-			
 			xdatetime dt2 = xdatetime::sFromBinary(2000);
 
 			CHECK_TRUE(dt1 == dt2);
-
 			CHECK_TRUE(dt1.ticks() == 2000);
 		}
 		UNITTEST_TEST(sFromFileTime)
 		{
 			xdatetime dt1 = xdatetime::sFromFileTime(2000);
-
 			xdatetime dt2 = xdatetime::sFromFileTime(2000);
 
 			CHECK_TRUE(dt1 == dt2);
 		}
 		UNITTEST_TEST(sDaysInMonth)
 		{
-			int Month1[] = {1,3,5,7,8,10,12};
+			s32 Month1[] = {1,3,5,7,8,10,12};
 
-			for(int i = 0; i < 7; i++)
+			for(s32 i = 0; i < 7; i++)
 			{
 				s32 sDay1 = xdatetime::sDaysInMonth(2011,Month1[i]);
 
 				CHECK_TRUE(sDay1 == 31);
 			}
 
-			int Month2[] = {4,6,9,11};
-
-			for(int j = 0; j < 4; j++)
+			s32 Month2[] = {4,6,9,11};
+			for(s32 j = 0; j < 4; j++)
 			{
 				s32 sDay2 = xdatetime::sDaysInMonth(2011,Month2[j]);
 				

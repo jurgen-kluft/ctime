@@ -33,7 +33,7 @@ namespace xcore
 			::time( &aclock );
 			::localtime_s( &localTime, &aclock );
 
-			xdatetime dt(1900 + localTime.tm_year, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
+			xdatetime dt(localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
 			return (u64)dt.ticks();
 		}
 
@@ -47,15 +47,15 @@ namespace xcore
 
 		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime)
 		{
-			u64 systemTime = sGetSystemTime();
-			u64 fileTime = sGetSystemTimeAsFileTime();
+			u64 systemTime = getSystemTime();
+			u64 fileTime = getSystemTimeAsFileTime();
 			return inFileSystemTime - (fileTime - systemTime);
 		}
 
 		virtual u64			getFileTimeFromSystemTime(u64 inSystemTime)
 		{
-			u64 systemTime = sGetSystemTime();
-			u64 fileTime = sGetSystemTimeAsFileTime();
+			u64 systemTime = getSystemTime();
+			u64 fileTime = getSystemTimeAsFileTime();
 			return inSystemTime + (fileTime - systemTime);
 		}
 	};

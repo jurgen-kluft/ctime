@@ -8,9 +8,9 @@
 #include "xtime\x_time.h"
 #include "xtime\x_frame_rate.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
+/**
+ * xCore namespace
+ */
 namespace xcore
 {
 	xframerate::xframerate()

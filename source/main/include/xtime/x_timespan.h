@@ -10,14 +10,14 @@
 //==============================================================================
 #include "xbase\x_types.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
+/**
+ * xCore namespace
+ */
 namespace xcore
 {
-	//==============================================================================
-	// Classes
-	//==============================================================================
+	/**
+	 * Classes
+	 */
 	class xdatetime;
 
 	//==============================================================================
@@ -25,13 +25,15 @@ namespace xcore
 	//==============================================================================
 	typedef s64 xtick;
 
-	//------------------------------------------------------------------------------
-	// Author:
-	//     Virtuos
-	// Description:
-	//      Provides a time interval.
-	//
-	//<P>   
+    /**
+     * ------------------------------------------------------------------------------
+	 *  Author:
+	 *      Virtuos
+	 *  Description:
+	 *       Provides a time interval.
+	 * 
+	 * <P>   
+	 */
 	class xtimespan
 	{
 	public:
@@ -102,8 +104,9 @@ namespace xcore
 		s64					mTicks;
 	};
 
-
-	// Global operators
+	/**
+	 * Global operators
+	 */
 	extern xtimespan		operator  -(const xtimespan& t1, const xtimespan& t2);
 	extern xtimespan		operator  +(const xtimespan& t1, const xtimespan& t2);
 

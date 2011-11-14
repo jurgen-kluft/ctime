@@ -18,9 +18,9 @@
 #include "xtime\private\x_time_source.h"
 #include "xtime\private\x_datetime_source.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
+/**
+ * xCore namespace
+ */
 namespace xcore
 {
 	class xdatetime_source_3ds : public xdatetime_source
@@ -55,9 +55,9 @@ namespace xcore
 		}
 	};
 
-	//==============================================================================
-	// Time source for the Nintendo 3DS
-	//==============================================================================
+	/**
+	 * Time source for the Nintendo 3DS
+	 */
 	class xtime_source_3ds : public xtime_source
 	{
 		s64              m3dsFreqPerSec;
@@ -74,21 +74,23 @@ namespace xcore
 				mBaseTimeTick = 1;
 		}
 
-		//------------------------------------------------------------------------------
-		//  Author:
-		//      Virtuos
-		//  Summary:
-		//      Get elapsed time from timer initialized in second.
-		//  Arguments:
-		//      void
-		//  Returns:
-		//      Ticks that have elapsed from x_TimeInit called
-		//  Description:
-		//      use xcritical_section to make PerformanceCounter owned by only one thread
-		//      at a time.
-		//  See Also:
-		//      xcritical_section
-		//------------------------------------------------------------------------------
+		/**
+         * ------------------------------------------------------------------------------
+		 *   Author:
+		 *       Virtuos
+		 *   Summary:
+		 *       Get elapsed time from timer initialized in second.
+		 *   Arguments:
+		 *       void
+		 *   Returns:
+		 *       Ticks that have elapsed from x_TimeInit called
+		 *   Description:
+		 *       use xcritical_section to make PerformanceCounter owned by only one thread
+		 *       at a time.
+		 *   See Also:
+		 *       xcritical_section
+		 * ------------------------------------------------------------------------------
+		 */
 		virtual xtick	getTimeInTicks()
 		{
 			ASSERT(mBaseTimeTick);
@@ -107,9 +109,9 @@ namespace xcore
 		}
 	};
 
-	//------------------------------------------------------------------------------
-	// xtime, Init and Exit
-	//------------------------------------------------------------------------------
+	/**
+	 * xtime, Init and Exit
+	 */
 	void x_TimeInit(void)
 	{
 		static xtime_source_3ds sTimeSource;

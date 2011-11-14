@@ -121,9 +121,9 @@ namespace xcore
 		}
 	};
 
-	//==============================================================================
-	// Time source for the Sony PS3
-	//==============================================================================
+	/**
+	 * Time source for the Sony PS3
+	 */
 	class xtime_source_ps3 : public xtime_source
 	{
 		f64				mFreqPerSec;
@@ -139,21 +139,23 @@ namespace xcore
 			mBaseTimeTick = clock();
 		}
 
-		//------------------------------------------------------------------------------
-		//  Author:
-		//      Virtuos
-		//  Summary:
-		//      Get elapsed time from timer initialized in second.
-		//  Arguments:
-		//      void
-		//  Returns:
-		//      Ticks that have elapsed from x_TimeInit called
-		//  Description:
-		//      use xcritical_section to make PerformanceCounter owned by only one thread
-		//      at a time.
-		//  See Also:
-		//      xcritical_section
-		//------------------------------------------------------------------------------
+		/**
+         * ------------------------------------------------------------------------------
+		 *   Author:
+		 *       Virtuos
+		 *   Summary:
+		 *       Get elapsed time from timer initialized in second.
+		 *   Arguments:
+		 *       void
+		 *   Returns:
+		 *       Ticks that have elapsed from x_TimeInit called
+		 *   Description:
+		 *       use xcritical_section to make PerformanceCounter owned by only one thread
+		 *       at a time.
+		 *   See Also:
+		 *       xcritical_section
+		 * ------------------------------------------------------------------------------
+		 */
 		virtual xtick	getTimeInTicks()
 		{
 			ASSERT(mBaseTimeTick);
@@ -174,9 +176,9 @@ namespace xcore
 	};
 
 
-	//------------------------------------------------------------------------------
-	// xtime, Init and Exit
-	//------------------------------------------------------------------------------
+	/**
+	 * xtime, Init and Exit
+	 */
 	void x_TimeInit(void)
 	{
 		static xtime_source_ps3 sTimeSource;

@@ -21,9 +21,9 @@
 #include "xtime\private\x_time_source.h"
 #include "xtime\private\x_datetime_source.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
+/**
+ * xCore namespace
+ */
 namespace xcore
 {
 	class xdatetime_source_psp : public xdatetime_source
@@ -54,9 +54,9 @@ namespace xcore
 		}
 	};
 
-	//==============================================================================
-	// Time source for the Sony PSP
-	//==============================================================================
+	/**
+	 * Time source for the Sony PSP
+	 */
 	class xtime_source_psp : public xtime_source
 	{
 		f32				mFreqPerSec;
@@ -83,21 +83,23 @@ namespace xcore
 			mBaseTimeTick= sceKernelGetSystemTimeWide();
 		}
 
-		//------------------------------------------------------------------------------
-		//  Author:
-		//      Virtuos
-		//  Summary:
-		//      Get elapsed time from timer initialized in second.
-		//  Arguments:
-		//      void
-		//  Returns:
-		//      Ticks that have elapsed from x_TimeInit called
-		//  Description:
-		//      use xcritical_section to make PerformanceCounter owned by only one thread
-		//      at a time.
-		//  See Also:
-		//      xcritical_section
-		//------------------------------------------------------------------------------
+		/**
+         * ------------------------------------------------------------------------------
+		 *   Author:
+		 *       Virtuos
+		 *   Summary:
+		 *       Get elapsed time from timer initialized in second.
+		 *   Arguments:
+		 *       void
+		 *   Returns:
+		 *       Ticks that have elapsed from x_TimeInit called
+		 *   Description:
+		 *       use xcritical_section to make PerformanceCounter owned by only one thread
+		 *       at a time.
+		 *   See Also:
+		 *       xcritical_section
+		 * ------------------------------------------------------------------------------
+		 */
 		virtual xtick	getTimeInTicks()
 		{
 			s64 ticks = sceKernelGetSystemTimeWide() - mBaseTimeTick;
@@ -115,9 +117,9 @@ namespace xcore
 		}
 	};
 
-	//------------------------------------------------------------------------------
-	// xtime, Init and Exit
-	//------------------------------------------------------------------------------
+	/**
+	 * xtime, Init and Exit
+	 */
 	void x_TimeInit(void)
 	{
 		static xtime_source_psp sTimeSource;

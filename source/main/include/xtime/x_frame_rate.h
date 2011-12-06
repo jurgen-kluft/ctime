@@ -20,33 +20,35 @@ namespace xcore
 	//==============================================================================
 	typedef s64 xtick;
 
-	//------------------------------------------------------------------------------
-	// Author:
-	//     Virtuos
-	// Description:
-	//     The xframerate class is a handy way to measure the frame-rate of an application.
-	//     The frame rate is computed as a number of frames per second and this class computes
-	//     the frame rate every second.
-	//
-	// Example:
-	//<CODE>
-	//      void main(void)
-	//      {
-	//          xframerate fps;
-	//
-	//          while (game_loop)
-	//          {
-	//              // Game logic
-	//				fps.markFrame();
-	//				// Game rendering
-	//				// Display frame rate
-	//				f32 frame_rate;
-	//				if (fps.getFrameRate(frame_rate))
-	//					x_printf("Frame rate = %0.02f fps", frame_rate);
-	//          }
-	//      }
-	//</CODE>
-	//------------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------------
+	 *  Author:
+	 *      Virtuos
+	 *  Description:
+	 *      The xframerate class is a handy way to measure the frame-rate of an application.
+	 *      The frame rate is computed as a number of frames per second and this class computes
+	 *      the frame rate every second.
+	 * 
+	 *  Example:
+	 * <CODE>
+	 *       void main(void)
+	 *       {
+	 *           xframerate fps;
+	 * 
+	 *           while (game_loop)
+	 *           {
+	 *                *  Game logic
+	 * 				fps.markFrame();
+	 * 				 *  Game rendering
+	 * 				 *  Display frame rate
+	 * 				f32 frame_rate;
+	 * 				if (fps.getFrameRate(frame_rate))
+	 * 					x_printf("Frame rate = %0.02f fps", frame_rate);
+	 *           }
+	 *       }
+	 * </CODE>
+	 * ------------------------------------------------------------------------------
+	 */
 	class xframerate
 	{
 	public:

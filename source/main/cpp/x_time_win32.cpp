@@ -24,9 +24,9 @@
 #include "xtime\private\x_time_source.h"
 #include "xtime\private\x_datetime_source.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
+/**
+ * xCore namespace
+ */
 namespace xcore
 {
 	class xdatetime_source_win32 : public xdatetime_source
@@ -66,30 +66,32 @@ namespace xcore
 		}
 	};
 
-	//------------------------------------------------------------------------------
-	//  Author:
-	//      Virtuos
-	//  Summary:
-	//      Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
-	//      dependent.
-	//  Arguments:
-	//      void
-	//  Returns:
-	//      void
-	//  Description:
-	//      Local variable counter is used to refer to an incrementing variable,
-	//      and represents the current value of the high-resolution performance counter.
-	//      Often used to compute the elapsed counters while a section of code executed.
-	//      sBaseTimeTick is the start counter of the timer.
-	//
-	//<P>   sPCFreqPerSec and sPCFreqPerMs both are frequency of the counter above, but
-	//      with different units per second and permilliseconde.Their values are 
-	//      processor dependent.On some processors, for example, their values might be
-	//      the cycle rate of the processor clock. So there is a local variable named
-	//      clockFreq.
-	//  See Also:
-	//      QueryPerformanceCounter QueryPerformanceFrequency
-	//------------------------------------------------------------------------------
+	/**
+     * ------------------------------------------------------------------------------
+	 *   Author:
+	 *       Virtuos
+	 *   Summary:
+	 *       Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
+	 *       dependent.
+	 *   Arguments:
+	 *       void
+	 *   Returns:
+	 *       void
+	 *   Description:
+	 *       Local variable counter is used to refer to an incrementing variable,
+	 *       and represents the current value of the high-resolution performance counter.
+	 *       Often used to compute the elapsed counters while a section of code executed.
+	 *       sBaseTimeTick is the start counter of the timer.
+	 * 
+	 * <P>   sPCFreqPerSec and sPCFreqPerMs both are frequency of the counter above, but
+	 *       with different units per second and permilliseconde.Their values are 
+	 *       processor dependent.On some processors, for example, their values might be
+	 *       the cycle rate of the processor clock. So there is a local variable named
+	 *       clockFreq.
+	 *   See Also:
+	 *       QueryPerformanceCounter QueryPerformanceFrequency
+	 * ------------------------------------------------------------------------------
+	 */
 	class xtime_source_win32 : public xtime_source
 	{
 		f64				mPCFreqPerSec;
@@ -112,21 +114,23 @@ namespace xcore
 			mLastTicks		= 0;
 		}
 
-		//------------------------------------------------------------------------------
-		//  Author:
-		//      Virtuos
-		//  Summary:
-		//      Get elapsed time from timer initialized in second.
-		//  Arguments:
-		//      void
-		//  Returns:
-		//      Ticks that have elapsed from x_TimeInit called
-		//  Description:
-		//      use xcritical_section to make PerformanceCounter owned by only one thread
-		//      at a time.
-		//  See Also:
-		//      xcritical_section
-		//------------------------------------------------------------------------------
+		/**
+         * ------------------------------------------------------------------------------
+		 *   Author:
+		 *       Virtuos
+		 *   Summary:
+		 *       Get elapsed time from timer initialized in second.
+		 *   Arguments:
+		 *       void
+		 *   Returns:
+		 *       Ticks that have elapsed from x_TimeInit called
+		 *   Description:
+		 *       use xcritical_section to make PerformanceCounter owned by only one thread
+		 *       at a time.
+		 *   See Also:
+		 *       xcritical_section
+		 * ------------------------------------------------------------------------------
+		 */
 		virtual xtick	getTimeInTicks()
 		{
 			ASSERT(mBaseTimeTick != 0);
@@ -153,9 +157,9 @@ namespace xcore
 		}
 	};
 
-	//------------------------------------------------------------------------------
-	// xtime, Init and Exit
-	//------------------------------------------------------------------------------
+	/**
+	 * xtime, Init and Exit
+	 */
 	void x_TimeInit(void)
 	{
 		static xtime_source_win32 sTimeSource;

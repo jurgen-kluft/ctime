@@ -20,40 +20,42 @@ namespace xcore
 	//==============================================================================
 	typedef s64 xtick;
 
-	//------------------------------------------------------------------------------
-	// Author:
-	//     Virtuos
-	// Description:
-	//     The time class is a handy way to measure how long has past since a particular event.
-	//     It is most often used for performance measurement but could also be used for other 
-	//     things as well. Usually the game time is based on one of these and then the delta
-	//     time is passed to the onAdvanceLogic to each of the objects. 
-	//
-	//<P>  The functions work as expected. The only tricky ones are the trip function
-	//     which are similar to a stop, reset, start sequence of calls. This trip 
-	//     function is especially handy to measure performance.
-	//
-	// Example:
-	//<CODE>
-	//      void main(void)
-	//      {
-	//          xticks Acc=0;
-	//          xtimer timer;
-	//          xtimer wholeTime;
-	//
-	//          // Start counting how long the whole thing is going to last
-	//          wholeTime.start();
-	//          
-	//          for(s32 i=0; i<100; i++)
-	//          {
-	//              Acc += timer.trip();   // Note that the first trip will be zero
-	//              someFunction();
-	//          }
-	//          
-	//          x_printf("Whole Time %f average time %f", wholeTime.stopSec(), x_TicksToSec(Acc) / (i-1));
-	//      }
-	//</CODE>
-	//------------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------------
+	 *  Author:
+	 *      Virtuos
+	 *  Description:
+	 *      The time class is a handy way to measure how long has past since a particular event.
+	 *      It is most often used for performance measurement but could also be used for other 
+	 *      things as well. Usually the game time is based on one of these and then the delta
+	 *      time is passed to the onAdvanceLogic to each of the objects. 
+	 * 
+	 * <P>  The functions work as expected. The only tricky ones are the trip function
+	 *      which are similar to a stop, reset, start sequence of calls. This trip 
+	 *      function is especially handy to measure performance.
+	 * 
+	 *  Example:
+	 * <CODE>
+	 *       void main(void)
+	 *       {
+	 *           xticks Acc=0;
+	 *           xtimer timer;
+	 *           xtimer wholeTime;
+	 * 
+	 *            *  Start counting how long the whole thing is going to last
+	 *           wholeTime.start();
+	 *           
+	 *           for(s32 i=0; i<100; i++)
+	 *           {
+	 *               Acc += timer.trip();    *  Note that the first trip will be zero
+	 *               someFunction();
+	 *           }
+	 *           
+	 *           x_printf("Whole Time %f average time %f", wholeTime.stopSec(), x_TicksToSec(Acc) / (i-1));
+	 *       }
+	 * </CODE>
+	 * ------------------------------------------------------------------------------
+	 */
 	class xtimer
 	{
 	public:

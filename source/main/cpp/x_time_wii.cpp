@@ -17,9 +17,9 @@
 #include "xtime\private\x_time_source.h"
 #include "xtime\private\x_datetime_source.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
+/**
+ * xCore namespace
+ */
 namespace xcore
 {
 	class xdatetime_source_wii : public xdatetime_source
@@ -59,9 +59,9 @@ namespace xcore
 	};
 
 
-    //==============================================================================
-    // Time source for the Nintendo WII
-    //==============================================================================
+    /**
+     * Time source for the Nintendo WII
+     */
 	class xtime_source_wii : public xtime_source
 	{
 		f64				mFreqPerSec;
@@ -77,21 +77,23 @@ namespace xcore
 			mBaseTimeTick   = (s64)OSGetTime();
 		}
 
-		//------------------------------------------------------------------------------
-		//  Author:
-		//      Virtuos
-		//  Summary:
-		//      Get elapsed time from timer initialized in second.
-		//  Arguments:
-		//      void
-		//  Returns:
-		//      Ticks that have elapsed from x_TimeInit called
-		//  Description:
-		//      use xcritical_section to make PerformanceCounter owned by only one thread
-		//      at a time.
-		//  See Also:
-		//      xcritical_section
-		//------------------------------------------------------------------------------
+		/**
+         * ------------------------------------------------------------------------------
+		 *   Author:
+		 *       Virtuos
+		 *   Summary:
+		 *       Get elapsed time from timer initialized in second.
+		 *   Arguments:
+		 *       void
+		 *   Returns:
+		 *       Ticks that have elapsed from x_TimeInit called
+		 *   Description:
+		 *       use xcritical_section to make PerformanceCounter owned by only one thread
+		 *       at a time.
+		 *   See Also:
+		 *       xcritical_section
+		 * ------------------------------------------------------------------------------
+		 */
 		virtual xtick	getTimeInTicks()
 		{
 			ASSERT(mBaseTimeTick);
@@ -110,9 +112,9 @@ namespace xcore
 		}
 	};
 
-	//------------------------------------------------------------------------------
-	// xtime, Init and Exit
-	//------------------------------------------------------------------------------
+	/**
+	 * xtime, Init and Exit
+	 */
 	void x_TimeInit(void)
 	{
 		static xtime_source_wii sTimeSource;

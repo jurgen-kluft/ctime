@@ -32,12 +32,37 @@ namespace xcore
 	class xdatetime_source_win32 : public xdatetime_source
 	{
 	public:
-		virtual u64			getSystemTime()
+		virtual u64			getSystemTimeUtc()
 		{
-			struct ::tm localTime;
-			::time_t aclock;
-			::time( &aclock );
-			::localtime_s( &localTime, &aclock );
+			::time_t rawtime;
+			::time( &rawtime );
+
+			::tm gmTime = (*gmtime( &rawtime ));
+
+			xdatetime dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
+			return (u64)dt.ticks();
+		}
+
+		// Time difference between local and UTC
+		virtual s64			getSystemTimeZone()
+		{
+			tm local_time, gmt_time;
+			time_t t = time(NULL);
+			local_time = *localtime(&t);
+			s64 y = mktime(&local_time);
+			gmt_time = *gmtime(&t);
+			s64 x = mktime(&gmt_time);       
+			s64 tzone_diff = y - x;
+			return tzone_diff;
+		}
+
+		virtual u64			getSystemTimeLocal()
+		{
+			::time_t rawtime;
+			::time( &rawtime );
+
+			::tm localTime;
+			::localtime_s( &localTime, &rawtime );
 
 			xdatetime dt(localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
 			return (u64)dt.ticks();
@@ -53,14 +78,14 @@ namespace xcore
 
 		virtual u64			getSystemTimeFromFileTime(u64 inFileSystemTime)
 		{
-			u64 systemTime = getSystemTime();
+			u64 systemTime = getSystemTimeLocal();
 			u64 fileTime = getSystemTimeAsFileTime();
 			return inFileSystemTime - (fileTime - systemTime);
 		}
 
 		virtual u64			getFileTimeFromSystemTime(u64 inSystemTime)
 		{
-			u64 systemTime = getSystemTime();
+			u64 systemTime = getSystemTimeLocal();
 			u64 fileTime = getSystemTimeAsFileTime();
 			return inSystemTime + (fileTime - systemTime);
 		}

@@ -14,6 +14,12 @@ UNITTEST_SUITE_BEGIN(datetime)
 {
 	UNITTEST_FIXTURE(main)
 	{
+		static const s64 TicksPerDay			= X_CONSTANT_64(0xc92a69c000);
+		static const s64 TicksPerHour			= X_CONSTANT_64(0x861c46800);
+		static const s64 TicksPerMillisecond	= 10000;
+		static const s64 TicksPerMinute			= 600000000;
+		static const s64 TicksPerSecond			= 10000000;
+
 		class xdatetime_source_test : public xdatetime_source
 		{
 			u64					mDateTimeTicks;
@@ -31,10 +37,20 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 			void				reset()
 			{
-				mDateTimeTicks = 0;
+				mDateTimeTicks = TicksPerDay;
 			}
 
-			virtual u64			getSystemTime()
+			virtual u64			getSystemTimeUtc()
+			{
+				return mDateTimeTicks - (TicksPerHour * 8);
+			}
+
+			virtual s64			getSystemTimeZone()
+			{
+				return (TicksPerHour * 8);
+			}
+
+			virtual u64			getSystemTimeLocal()
 			{
 				return mDateTimeTicks;
 			}
@@ -56,11 +72,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 		};
 		static xdatetime_source_test sDateTimeSource;
 
-		static const s64 TicksPerDay			= X_CONSTANT_64(0xc92a69c000);
-		static const s64 TicksPerHour			= X_CONSTANT_64(0x861c46800);
-		static const s64 TicksPerMillisecond	= 10000;
-		static const s64 TicksPerMinute			= 600000000;
-		static const s64 TicksPerSecond			= 10000000;
+
 
 		UNITTEST_FIXTURE_SETUP() 
 		{

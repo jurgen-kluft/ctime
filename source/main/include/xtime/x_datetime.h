@@ -8,7 +8,7 @@
 //==============================================================================
 //  INCLUDES
 //==============================================================================
-#include "xbase\x_types.h"
+
 
 //==============================================================================
 // xCore namespace
@@ -138,7 +138,10 @@ namespace xcore
 		u64					toBinary() const;
 		u64					toFileTime() const;
 
-		static xdatetime	sNow();
+		void				swap(xdatetime& t);
+
+		static xdatetime	sNow();												// Local time
+		static xdatetime	sNowUtc();											// UTC time
 		static xdatetime	sToday();
 
 		static xdatetime	sFromBinary(u64 binary)											{ return xdatetime(binary); }

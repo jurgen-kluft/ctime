@@ -26,14 +26,32 @@ namespace xcore
 	class xdatetime_source_ps3 : public xdatetime_source
 	{
 	public:
-		virtual u64			getSystemTime()
+		virtual u64			getSystemTimeUtc()
+		{
+			time_t curTime;
+			time( &curTime );
+
+			tm		gmTime = (*gmtime( &curTime ));
+
+			xdatetime dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
+			return (u64)dt.ticks();
+		}
+
+		virtual u64			getSystemTimeLocal()
 		{
 			time_t	curTime;
 			time(&curTime);
+
 			tm		localTime = (*localtime(&curTime));
 
 			xdatetime dt(1900 + localTime.tm_year, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
 			return (u64)dt.ticks();
+		}
+
+		virtual s64			getSystemTimeZone()
+		{
+			// NOT implemented yet
+			return 0;
 		}
 
 		virtual u64			getSystemTimeAsFileTime()

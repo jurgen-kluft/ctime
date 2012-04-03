@@ -33,7 +33,19 @@ namespace xcore
 		}
 
 	public:
-		virtual u64			getSystemTime()
+		virtual u64			getSystemTimeUtc()
+		{
+			// NOT implemented
+			return 0;
+		}
+
+		// Time difference between local and UTC
+		virtual s64			getSystemTimeZone()
+		{
+			return 0;
+		}
+
+		virtual u64			getSystemTimeLocal()
 		{
 			xdatetime dt = GetDateTimeNow();
 			return (u64)dt.ticks();

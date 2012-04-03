@@ -94,6 +94,11 @@ namespace xcore
 		static const u64	sTicksPerMinute;
 		static const u64	sTicksPerSecond;
 
+		static const s32	sMillisPerDay;
+		static const s32	sMillisPerHour;
+		static const s32	sMillisPerMinute;
+		static const s32	sMillisPerSecond;
+
 		static const xtimespan	sMaxValue;
 		static const xtimespan	sMinValue;
 		static const xtimespan	sZero;

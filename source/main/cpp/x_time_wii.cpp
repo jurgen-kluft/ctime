@@ -36,10 +36,22 @@ namespace xcore
 		}
 
 	public:
-		virtual u64			getSystemTime()
+		virtual u64			getSystemTimeUtc()
 		{
 			xdatetime dt = GetDateTimeNow();
 			return (u64)dt.ticks();
+		}
+
+		virtual u64			getSystemTimeLocal()
+		{
+			xdatetime dt = GetDateTimeNow();
+			return (u64)dt.ticks();
+		}
+
+		virtual s64			getSystemTimeZone()
+		{
+			// NOT implemented yet
+			return 0;
 		}
 
 		virtual u64			getSystemTimeAsFileTime()

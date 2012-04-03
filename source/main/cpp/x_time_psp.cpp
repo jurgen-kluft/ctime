@@ -29,13 +29,24 @@ namespace xcore
 	class xdatetime_source_psp : public xdatetime_source
 	{
 	public:
-		virtual u64			getSystemTime()
+		virtual u64			getSystemTimeUtc()
+		{
+			return (u64)0;
+		}
+
+		virtual u64			getSystemTimeLocal()
 		{
 			ScePspDateTime localTime;
 			sceRtcGetCurrentClockLocalTime(&localTime);
 
 			xdatetime dt(1900 + localTime.year, localTime.month, localTime.day, localTime.hour, localTime.minute, localTime.second);
 			return (u64)dt.ticks();
+		}
+
+		virtual s64			getSystemTimeZone()
+		{
+			// NOT implemented yet
+			return 0;
 		}
 
 		virtual u64			getSystemTimeAsFileTime()

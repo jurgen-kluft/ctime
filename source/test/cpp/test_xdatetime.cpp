@@ -8,6 +8,8 @@
 
 #include "xtime\x_time.h"
 
+#include <Windows.h>
+
 using namespace xcore;
 
 UNITTEST_SUITE_BEGIN(datetime)
@@ -81,6 +83,22 @@ UNITTEST_SUITE_BEGIN(datetime)
 		UNITTEST_FIXTURE_TEARDOWN() 
 		{
 			x_SetDateTimeSource(NULL);
+		}
+
+		UNITTEST_TEST(RealNow)
+		{
+			x_TimeInit();
+
+			xdatetime start = xdatetime::sNow();
+			Sleep(200);
+			xdatetime end = xdatetime::sNow();
+
+			xtimespan span = end - start;
+			s32 ms = span.totalMilliseconds();
+			CHECK_TRUE(ms >= 150 && ms < 250);
+
+			x_TimeExit();
+			x_SetDateTimeSource(&sDateTimeSource);
 		}
 
 		UNITTEST_TEST(Now)

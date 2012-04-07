@@ -35,14 +35,19 @@ UNITTEST_SUITE_BEGIN(framerate)
 				return mTicks;
 			}
 
+			virtual s64		getTicksPerSecond()
+			{
+				return 1000 * 1000;
+			}
+
 			virtual s64		getTicksPerMilliSecond()
 			{
 				return 1000;
 			}
 
-			virtual s64		getTicksPerSecond()
+			virtual s64		getTicksPerMicroSecond()
 			{
-				return 1000 * 1000;
+				return 1;
 			}
 		};
 

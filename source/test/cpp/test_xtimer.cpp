@@ -1,5 +1,6 @@
 #include "xbase\x_types.h"
 #include "xunittest\xunittest.h"
+#include "xunittest\private\ut_Thread.h"
 
 #include "xtime\x_time.h"
 #include "xtime\x_timer.h"
@@ -42,11 +43,6 @@ UNITTEST_SUITE_BEGIN(timer)
 				return mTicks;
 			}
 
-			virtual s64		getTicksPerMilliSecond()
-			{
-				return 1000;
-			}
-
 			virtual s64		getTicksPerSecond()
 			{
 				return 1000 * 1000;
@@ -72,6 +68,28 @@ UNITTEST_SUITE_BEGIN(timer)
 			xtimer timer;
 			CHECK_FALSE(timer.isRunning());
 			CHECK_EQUAL(0, timer.read());
+		}
+
+		UNITTEST_TEST(RealTest)
+		{
+			x_TimeInit();
+
+			xtimer t1;
+
+			t1.start();
+			UnitTest::gSleep(200);
+			f64 ms1 = t1.stopMs();
+			CHECK_TRUE(ms1 > 180.0 && ms1 < 220.0);
+			f64 us1 = t1.stopUs();
+			CHECK_TRUE(us1 > 180000.0 && us1 < 220000.0);
+
+			f64 ms = t1.readMs();
+			CHECK_TRUE(ms > 180.0 && ms < 220.0);
+			f64 us = t1.readUs();
+			CHECK_TRUE(us > 180000.0 && us < 220000.0);
+
+			x_TimeExit();
+			x_SetTimeSource(&sTimeSource);
 		}
 
 		UNITTEST_TEST(start)
@@ -176,10 +194,18 @@ UNITTEST_SUITE_BEGIN(timer)
 			f64 timeSec2 = x_GetTimeSec();
 			CHECK_TRUE(timeSec1 == timeSec2);
 		}
+		UNITTEST_TEST(global_x_TicksToUs)
+		{
+			f64 us1 = x_TicksToUs(200);
+			f64 us2 = (((f64)200 * 1000000)/x_GetTicksPerSecond());
+
+			CHECK_TRUE(us1);
+			CHECK_TRUE(us1 == us2);
+		}
 		UNITTEST_TEST(global_x_TicksToMs)
 		{
 			f64 ms1 = x_TicksToMs(200);
-			f64 ms2 = ((f64)200)/x_GetTicksPerMs();
+			f64 ms2 = (((f64)200 * 1000)/x_GetTicksPerSecond());
 
 			CHECK_TRUE(ms1);
 			CHECK_TRUE(ms1 == ms2);
@@ -191,22 +217,6 @@ UNITTEST_SUITE_BEGIN(timer)
 
 			CHECK_TRUE(ms1);
 			CHECK_TRUE(ms1 == ms2);
-		}
-		UNITTEST_TEST(global_x_GetTicksPerMs)
-		{
-			s64 tickPerMs1 = x_GetTicksPerMs();
-			s64 tickPerMs2 = x_GetTicksPerSecond();
-
-			CHECK_TRUE(tickPerMs1);
-			CHECK_TRUE(tickPerMs1 == tickPerMs2/1000);
-		}
-		UNITTEST_TEST(global_x_GetTicksPerSecond)
-		{
-			s64 tickPerSecond1 = x_GetTicksPerSecond();
-			s64 tickPerSecond2 = x_GetTicksPerMs();
-
-			CHECK_TRUE(tickPerSecond1);
-			CHECK_TRUE(tickPerSecond1/1000 == tickPerSecond2);
 		}
 	}
 }

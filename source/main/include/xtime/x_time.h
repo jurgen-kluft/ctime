@@ -31,12 +31,12 @@ namespace xcore
 	//==============================================================================
 
 	extern f64		x_GetTimeSec        (void);
-	extern s64		x_GetTicksPerMs     (void);
 	extern s64		x_GetTicksPerSecond (void);
 
 	extern xtick	x_GetTime           (void);
-	extern f64		x_TicksToMs         (xtick inTicks);
 	extern f64		x_TicksToSec        (xtick inTicks);
+	extern f64		x_TicksToMs         (xtick inTicks);
+	extern f64		x_TicksToUs         (xtick inTicks);
 
 	//==============================================================================
 	// INLINE

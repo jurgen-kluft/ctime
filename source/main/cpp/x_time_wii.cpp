@@ -77,16 +77,14 @@ namespace xcore
 	class xtime_source_wii : public xtime_source
 	{
 		f64				mFreqPerSec;
-		f64				mFreqPerMs;
 		xtick			mBaseTimeTick;
 		xtick			mLastTicks;
 
 	public:
 		void			init()
 		{
-			mFreqPerSec  = OS_TIMER_CLOCK;
-			mFreqPerMs   = OS_TIMER_CLOCK / 1000.0;
-			mBaseTimeTick   = (s64)OSGetTime();
+			mFreqPerSec   = OS_TIMER_CLOCK;
+			mBaseTimeTick = (s64)OSGetTime();
 		}
 
 		/**
@@ -111,11 +109,6 @@ namespace xcore
 			ASSERT(mBaseTimeTick);
 			s64 ticks = OSGetTime() - mBaseTimeTick;
 			return ticks;
-		}
-
-		virtual s64		getTicksPerMilliSecond()
-		{
-			return mFreqPerMs;
 		}
 
 		virtual s64		getTicksPerSecond()

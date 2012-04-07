@@ -2,8 +2,8 @@
 #include "xunittest\xunittest.h"
 #include "xunittest\private\ut_Thread.h"
 
-#include "xtime\x_time.h"
 #include "xtime\x_timer.h"
+#include "xtime\x_time.h"
 
 #include "xtime\private\x_time_source.h"
 

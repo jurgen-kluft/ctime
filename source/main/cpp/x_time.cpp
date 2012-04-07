@@ -36,15 +36,11 @@ namespace xcore
 		return xtime::sTimeSource->getTimeInTicks();
 	}
 
-	s64		x_GetTicksPerMs     (void)
-	{
-		return xtime::sTimeSource->getTicksPerMilliSecond();
-	}
-
 	s64		x_GetTicksPerSecond (void)
 	{
 		return xtime::sTimeSource->getTicksPerSecond();
 	}
+
 
 	/**
 	 * xdatetime source

@@ -119,7 +119,6 @@ namespace xcore
 	class xtime_source_win32 : public xtime_source
 	{
 		f64				mPCFreqPerSec;
-		f64				mPCFreqPerMs;
 		xtick			mBaseTimeTick;
 		xtick			mLastTicks;
 
@@ -132,7 +131,6 @@ namespace xcore
 			QueryPerformanceCounter(&counter);
 			QueryPerformanceFrequency(&clockFreq); 
 
-			mPCFreqPerMs    = (f64)clockFreq.QuadPart / 1000.0;
 			mPCFreqPerSec   = (f64)clockFreq.QuadPart;
 			mBaseTimeTick   = (xtick)counter.QuadPart;
 			mLastTicks		= 0;
@@ -168,11 +166,6 @@ namespace xcore
 				ticks = mLastTicks + 1;
 			mLastTicks = ticks;
 			return ticks;
-		}
-
-		virtual s64		getTicksPerMilliSecond()
-		{
-			return (s64)mPCFreqPerMs;
 		}
 
 		virtual s64		getTicksPerSecond()

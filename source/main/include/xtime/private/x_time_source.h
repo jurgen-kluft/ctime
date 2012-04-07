@@ -21,7 +21,6 @@ namespace xcore
 		virtual			~xtime_source()		{}
 
 		virtual s64		getTimeInTicks() = 0;
-		virtual s64		getTicksPerMilliSecond() = 0;
 		virtual s64		getTicksPerSecond() = 0;
 	};
 	

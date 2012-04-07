@@ -73,14 +73,12 @@ namespace xcore
 	class xtime_source_3ds : public xtime_source
 	{
 		s64              m3dsFreqPerSec;
-		s64              m3dsFreqPerMs;
 		xtick            mBaseTimeTick;
 
 	public:
 		void			init()
 		{
 			m3dsFreqPerSec  = NN_HW_TICKS_PER_SECOND;
-			m3dsFreqPerMs   = NN_HW_TICKS_PER_SECOND / 1000;
 			mBaseTimeTick   = (s64)nn::os::Tick::GetSystemCurrent();
 			if (mBaseTimeTick==0)	
 				mBaseTimeTick = 1;
@@ -108,11 +106,6 @@ namespace xcore
 			ASSERT(mBaseTimeTick);
 			s64 ticks = (s64)nn::os::Tick::GetSystemCurrent() - mBaseTimeTick;
 			return ticks;
-		}
-
-		virtual s64		getTicksPerMilliSecond()
-		{
-			return (s64)m3dsFreqPerMs;
 		}
 
 		virtual s64		getTicksPerSecond()

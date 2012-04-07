@@ -71,14 +71,12 @@ namespace xcore
 	class xtime_source_psp : public xtime_source
 	{
 		f32				mFreqPerSec;
-		f32				mFreqPerMs;
 		xtick			mBaseTimeTick;
 		xtick			mLastTicks;
 
 	public:
 		xtime_source_psp()
 			: mFreqPerSec(0)
-			, mFreqPerMs(0)
 			, mBaseTimeTick(0)
 			, mLastTicks(0)
 		{
@@ -90,7 +88,6 @@ namespace xcore
 			const u64		PSP_FREQ_PER_SEC = 1000000;
 
 			mFreqPerSec  = PSP_FREQ_PER_SEC;
-			mFreqPerMs   = PSP_FREQ_PER_SEC / 1000.0f;
 			mBaseTimeTick= sceKernelGetSystemTimeWide();
 		}
 
@@ -115,11 +112,6 @@ namespace xcore
 		{
 			s64 ticks = sceKernelGetSystemTimeWide() - mBaseTimeTick;
 			return ticks;
-		}
-
-		virtual s64		getTicksPerMilliSecond()
-		{
-			return mFreqPerMs;
 		}
 
 		virtual s64		getTicksPerSecond()

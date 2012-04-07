@@ -145,7 +145,6 @@ namespace xcore
 	class xtime_source_ps3 : public xtime_source
 	{
 		f64				mFreqPerSec;
-		f64				mFreqPerMs;
 		xtick			mBaseTimeTick;
 		xtick			mLastTicks;
 
@@ -153,7 +152,6 @@ namespace xcore
 		void			init()
 		{
 			mFreqPerSec  = CLOCKS_PER_SEC;
-			mFreqPerMs   = mFreqPerSec / 1000;
 			mBaseTimeTick = clock();
 		}
 
@@ -180,11 +178,6 @@ namespace xcore
 			s64 ticks = clock();
 			ticks -= mBaseTimeTick;
 			return ticks;
-		}
-
-		virtual s64		getTicksPerMilliSecond()
-		{
-			return mFreqPerMs;
 		}
 
 		virtual s64		getTicksPerSecond()

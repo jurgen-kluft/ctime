@@ -105,6 +105,12 @@ f64 xtimer::tripMs(void)
     return x_TicksToMs(trip());
 }
 //------------------------------------------------------------------------------
+inline
+f64 xtimer::tripUs(void)
+{
+    return x_TicksToUs(trip());
+}
+//------------------------------------------------------------------------------
 
 inline
 f64 xtimer::readSec(void) const
@@ -119,6 +125,12 @@ f64 xtimer::readMs(void) const
 }
 //------------------------------------------------------------------------------
 inline
+f64 xtimer::readUs(void) const
+{
+    return x_TicksToUs(read());
+}
+//------------------------------------------------------------------------------
+inline
 f64 xtimer::stopSec(void)
 {
     return x_TicksToSec(stop());
@@ -128,6 +140,12 @@ inline
 f64 xtimer::stopMs(void)
 {
     return x_TicksToMs(stop());
+}
+//------------------------------------------------------------------------------
+inline
+f64 xtimer::stopUs(void)
+{
+    return x_TicksToUs(stop());
 }
 //------------------------------------------------------------------------------
 inline

@@ -1,4 +1,4 @@
-#include "xbase\x_types.h"
+
 #include "xunittest\xunittest.h"
 #include "xunittest\private\ut_Thread.h"
 
@@ -93,7 +93,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 			xdatetime end = xdatetime::sNow();
 
 			xtimespan span = end - start;
-			u32 ms = span.totalMilliseconds();
+			u32 ms = (u32)span.totalMilliseconds();
 			CHECK_TRUE(ms >= 150 && ms < 250);
 
 			x_TimeExit();

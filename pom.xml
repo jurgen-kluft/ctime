@@ -40,8 +40,6 @@
 		<Item Src="target\${Name}\outdir\${Name}_DevFinal_${Platform}\${Name}_DevFinal_${Platform}.lib" Dst="libs\" Required="True"/>
 		<Item Src="target\${Name}\outdir\${Name}_TestDebug_${Platform}\${Name}_TestDebug_${Platform}.lib" Dst="libs\" Required="True"/>
 		<Item Src="target\${Name}\outdir\${Name}_TestRelease_${Platform}\${Name}_TestRelease_${Platform}.lib" Dst="libs\" Required="True"/>
-		<Item Src="target\${Name}\outdir\${Name}_EditorDebug_${Platform}\${Name}_EditorDebug_${Platform}.lib" Dst="libs\" Required="True"/>
-		<Item Src="target\${Name}\outdir\${Name}_EditorRelease_${Platform}\${Name}_EditorRelease_${Platform}.lib" Dst="libs\" Required="True"/>
 	</Content>
 
 	<Dependency Package="xbase">
@@ -120,7 +118,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevDebug_Win32.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -129,7 +127,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevRelease_Win32.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -138,7 +136,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevFinal_Win32.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -147,7 +145,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestDebug_Win32.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -156,34 +154,16 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestRelease_Win32.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
-				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|Win32'">
-					<ClCompile>
-						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-					</ClCompile>
-					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
-						<AdditionalDependencies>#xtime_EditorDebug_Win32.lib</AdditionalDependencies>
-					</Link>
-				</ItemDefinitionGroup>
-				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|Win32'">
-					<ClCompile>
-						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-					</ClCompile>
-					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
-						<AdditionalDependencies>#xtime_EditorRelease_Win32.lib</AdditionalDependencies>
-					</Link>
-				</ItemDefinitionGroup>				
 				<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DevDebug|PS3'">
 					<ClCompile>
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevDebug_PS3.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -192,7 +172,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevRelease_PS3.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -201,7 +181,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevFinal_PS3.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -210,7 +190,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestDebug_PS3.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -219,7 +199,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestRelease_PS3.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -228,7 +208,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevDebug_Xbox 360.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -237,7 +217,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevRelease_Xbox 360.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -246,7 +226,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevFinal_Xbox 360.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -255,7 +235,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestDebug_Xbox 360.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -264,7 +244,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestRelease_Xbox 360.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -273,7 +253,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevDebug_WII.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -282,7 +262,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevRelease_WII.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -291,7 +271,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevFinal_WII.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -300,7 +280,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestDebug_WII.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -309,7 +289,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestRelease_WII.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -318,7 +298,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevDebug_N3DS.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -327,7 +307,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevRelease_N3DS.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -336,7 +316,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_DevFinal_N3DS.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -345,7 +325,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestDebug_N3DS.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>
@@ -354,7 +334,7 @@
 						<AdditionalIncludeDirectories>$(xtime_IncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 					</ClCompile>
 					<Link>
-						<AdditionalLibraryDirectories>$(xtime_LibraryDir)</AdditionalLibraryDirectories>
+						<AdditionalLibraryDirectories>$(xtime_LibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 						<AdditionalDependencies>#xtime_TestRelease_N3DS.lib</AdditionalDependencies>
 					</Link>
 				</ItemDefinitionGroup>

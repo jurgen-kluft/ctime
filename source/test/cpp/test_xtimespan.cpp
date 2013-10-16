@@ -1,4 +1,4 @@
-#include "xbase\x_types.h"
+
 #include "xtime\x_timespan.h"
 #include "xunittest\xunittest.h"
 

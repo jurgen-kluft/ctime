@@ -1,4 +1,4 @@
-#include "xbase\x_types.h"
+
 #include "xunittest\xunittest.h"
 #include "xunittest\private\ut_Thread.h"
 

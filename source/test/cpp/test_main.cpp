@@ -24,7 +24,7 @@ public:
 		mAllocator = allocator;
 	}
 
-	virtual void*	Allocate(int size)
+	virtual void*	Allocate(size_t size)
 	{
 		++mNumAllocations;
 		return mAllocator->allocate(size, 4);

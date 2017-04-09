@@ -2,11 +2,11 @@
 // INCLUDES
 //==============================================================================
 
-#include "xbase\x_debug.h"
-#include "xbase\x_string_ascii.h"
+#include "xbase/x_debug.h"
+#include "xbase/x_string_ascii.h"
 
-#include "xtime\x_time.h"
-#include "xtime\x_frame_rate.h"
+#include "xtime/x_time.h"
+#include "xtime/x_frame_rate.h"
 
 /**
  * xCore namespace
@@ -20,7 +20,7 @@ namespace xcore
 	{
 		m_tLastFPSTime = x_GetTime();
 	}
-	
+
 	void		xframerate::restart()
 	{
 		m_fFrameRate = 0.0f;

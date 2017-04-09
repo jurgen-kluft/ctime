@@ -1,4 +1,4 @@
-package xallocator
+package xtime
 
 import (
 	"github.com/jurgen-kluft/xbase/package"

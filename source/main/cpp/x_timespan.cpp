@@ -1,11 +1,11 @@
 //==============================================================================
 // INCLUDES
 //==============================================================================
-#include "xbase\x_debug.h"
-#include "xbase\x_string_ascii.h"
+#include "xbase/x_debug.h"
+#include "xbase/x_string_ascii.h"
 
-#include "xtime\x_time.h"
-#include "xtime\x_timespan.h"
+#include "xtime/x_time.h"
+#include "xtime/x_timespan.h"
 
 /**
  * xCore namespace

@@ -1,4 +1,4 @@
-#include "xbase\x_target.h"
+#include "xbase/x_target.h"
 #ifdef TARGET_3DS
 
 //==============================================================================
@@ -8,15 +8,15 @@
 #include <nn/fnd/fnd_DateTime.h>
 
 
-#include "xbase\x_debug.h"
-#include "xbase\x_string_std.h"
+#include "xbase/x_debug.h"
+#include "xbase/x_string_std.h"
 
-#include "xtime\x_time.h"
-#include "xtime\x_timespan.h"
-#include "xtime\x_datetime.h"
+#include "xtime/x_time.h"
+#include "xtime/x_timespan.h"
+#include "xtime/x_datetime.h"
 
-#include "xtime\private\x_time_source.h"
-#include "xtime\private\x_datetime_source.h"
+#include "xtime/private/x_time_source.h"
+#include "xtime/private/x_datetime_source.h"
 
 /**
  * xCore namespace

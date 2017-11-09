@@ -1,12 +1,11 @@
 #include "xbase/x_target.h"
-#ifdef TARGET_PS3
+#ifdef TARGET_OSX
 
 //==============================================================================
 // INCLUDES
 //==============================================================================
 #include <time.h>
 #include <sys/sys_time.h>
-
 
 #include "xbase/x_debug.h"
 #include "xbase/x_string_std.h"
@@ -213,4 +212,4 @@ namespace xcore
     //==============================================================================
 };
 
-#endif /// TARGET_WII
+#endif /// TARGET_OSX

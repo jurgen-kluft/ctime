@@ -1,6 +1,6 @@
 #ifndef __X_TIME_TIMER_H__
 #define __X_TIME_TIMER_H__
-#include "xbase\x_target.h"
+#include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE 
 #pragma once 
 #endif
@@ -9,7 +9,7 @@
 //  INCLUDES
 //==============================================================================
 
-#include "xtime\x_time.h"
+#include "xtime/x_time.h"
 
 //==============================================================================
 // xCore namespace

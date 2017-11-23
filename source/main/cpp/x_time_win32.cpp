@@ -37,7 +37,8 @@ namespace xcore
 			::time_t rawtime;
 			::time( &rawtime );
 
-			::tm gmTime = (*gmtime( &rawtime ));
+			::tm gmTime;
+			gmtime_s(&gmTime, &rawtime);
 
 			xdatetime dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
 			return (u64)dt.ticks();

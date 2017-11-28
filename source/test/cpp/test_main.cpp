@@ -1,8 +1,9 @@
-#include "xbase\x_target.h"
-
-#include "xbase\x_allocator.h"
-
-#include "xunittest\xunittest.h"
+#include "xbase/x_base.h"
+#include "xbase/x_allocator.h"
+#include "xbase/x_console.h"
+#include "xtime/x_time.h"
+#include "xunittest/xunittest.h"
+#include "xunittest/private/ut_ReportAssert.h"
 
 using namespace xcore;
 
@@ -12,44 +13,112 @@ UNITTEST_SUITE_DECLARE(xTimeUnitTest, timer);
 UNITTEST_SUITE_DECLARE(xTimeUnitTest, framerate);
 UNITTEST_SUITE_DECLARE(xTimeUnitTest, timespan);
 
-class UnitTestAllocator : public UnitTest::Allocator
+namespace xcore
 {
-public:
-	xcore::x_iallocator*	mAllocator;
-	int						mNumAllocations;
+	// Our own assert handler
+	class UnitTestAssertHandler : public xcore::x_asserthandler
+	{
+	public:
+		UnitTestAssertHandler()
+		{
+			NumberOfAsserts = 0;
+		}
 
-	UnitTestAllocator(xcore::x_iallocator* allocator)
-		: mNumAllocations(0)
-	{
-		mAllocator = allocator;
-	}
+		virtual xcore::xbool	HandleAssert(u32& flags, const char* fileName, s32 lineNumber, const char* exprString, const char* messageString)
+		{
+			UnitTest::reportAssert(exprString, fileName, lineNumber);
+			NumberOfAsserts++;
+			return false;
+		}
 
-	virtual void*	Allocate(size_t size)
+
+		xcore::s32		NumberOfAsserts;
+	};
+
+	class UnitTestAllocator : public UnitTest::Allocator
 	{
-		++mNumAllocations;
-		return mAllocator->allocate(size, 4);
-	}
-	virtual void	Deallocate(void* ptr)
+		xcore::x_iallocator*	mAllocator;
+	public:
+		UnitTestAllocator(xcore::x_iallocator* allocator) { mAllocator = allocator; }
+		virtual void*	Allocate(xsize_t size) { return mAllocator->allocate((u32)size, 4); }
+		virtual void	Deallocate(void* ptr) { mAllocator->deallocate(ptr); }
+	};
+
+	class TestAllocator : public x_iallocator
 	{
-		--mNumAllocations;
-		mAllocator->deallocate(ptr);
-	}
-};
+		x_iallocator*		mAllocator;
+	public:
+		TestAllocator(x_iallocator* allocator) : mAllocator(allocator) { }
+
+		virtual const char*	name() const { return "xbase unittest test heap allocator"; }
+
+		virtual void*		allocate(xsize_t size, u32 alignment)
+		{
+			UnitTest::IncNumAllocations();
+			return mAllocator->allocate(size, alignment);
+		}
+
+		virtual void*		reallocate(void* mem, xsize_t size, u32 alignment)
+		{
+			if (mem == NULL)
+				return allocate(size, alignment);
+			else
+				return mAllocator->reallocate(mem, size, alignment);
+		}
+
+		virtual void		deallocate(void* mem)
+		{
+			UnitTest::DecNumAllocations();
+			mAllocator->deallocate(mem);
+		}
+
+		virtual void		release()
+		{
+			mAllocator->release();
+			mAllocator = NULL;
+		}
+	};
+}
+
+xcore::x_iallocator* gTestAllocator = NULL;
+xcore::UnitTestAssertHandler gAssertHandler;
 
 bool gRunUnitTest(UnitTest::TestReporter& reporter)
 {
-	xcore::x_iallocator* systemAllocator = xcore::gCreateSystemAllocator();
+#ifdef SPU
+	xcore::s32 progSize;
+	xcore::s32 stackSize;
 
-	UnitTestAllocator unittestAllocator( systemAllocator );
+	::getProgramAndStackSizeForSPU(&progSize, &stackSize);
+
+	xcore::gSetSPUConfig(progSize, stackSize);
+#endif
+
+	xbase::x_Init();
+	xtime::x_Init();
+
+#ifdef TARGET_DEBUG
+	xcore::x_asserthandler::sRegisterHandler(&gAssertHandler);
+#endif
+
+	xcore::x_iallocator* systemAllocator = xcore::x_iallocator::get_default();
+	xcore::UnitTestAllocator unittestAllocator(systemAllocator);
 	UnitTest::SetAllocator(&unittestAllocator);
 
-	int r = UNITTEST_SUITE_RUN(reporter, xTimeUnitTest);
-	if (unittestAllocator.mNumAllocations!=0)
-	{
-		reporter.reportFailure(__FILE__, __LINE__, "xunittest", "memory leaks detected!");
-		r = -1;
-	}
+	xcore::xconsole::write("Configuration: ");
+	xcore::xconsole::writeLine(TARGET_FULL_DESCR_STR);
 
-	systemAllocator->release();
-	return r==0;
+	xcore::TestAllocator testAllocator(systemAllocator);
+	gTestAllocator = &testAllocator;
+
+	int r = UNITTEST_SUITE_RUN(reporter, xTimeUnitTest);
+
+	gTestAllocator->release();
+
+	UnitTest::SetAllocator(NULL);
+
+	xtime::x_Exit();
+	xbase::x_Exit();
+	return r == 0;
 }
+

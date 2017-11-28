@@ -175,29 +175,31 @@ namespace xcore
 		}
 	};
 
-	/**
-	 * xtime, Init and Exit
-	 */
-	void x_TimeInit(void)
-	{
-		static xtime_source_win32 sTimeSource;
-		sTimeSource.init();
-		x_SetTimeSource(&sTimeSource);
-
-		static xdatetime_source_win32 sDateTimeSource;
-		x_SetDateTimeSource(&sDateTimeSource);
-	}
-	
-	void x_TimeExit(void)
-	{
-		x_SetTimeSource(NULL);
-		x_SetDateTimeSource(NULL);
-	}
-
-
 	//==============================================================================
 	// END xCore namespace
 	//==============================================================================
 };
+
+namespace xtime
+{
+	/**
+	* xtime, Init and Exit
+	*/
+	void x_Init(void)
+	{
+		static xcore::xtime_source_win32 sTimeSource;
+		sTimeSource.init();
+		xcore::x_SetTimeSource(&sTimeSource);
+
+		static xcore::xdatetime_source_win32 sDateTimeSource;
+		xcore::x_SetDateTimeSource(&sDateTimeSource);
+	}
+
+	void x_Exit(void)
+	{
+		xcore::x_SetTimeSource(NULL);
+		xcore::x_SetDateTimeSource(NULL);
+	}
+}
 
 #endif // TARGET_PC

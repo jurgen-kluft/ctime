@@ -1,6 +1,6 @@
 
-#include "xtime\x_timespan.h"
-#include "xunittest\xunittest.h"
+#include "xtime/x_timespan.h"
+#include "xunittest/xunittest.h"
 
 using namespace xcore;
 

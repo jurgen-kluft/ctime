@@ -1,11 +1,9 @@
 
-#include "xunittest\xunittest.h"
-#include "xunittest\private\ut_Thread.h"
+#include "xunittest/xunittest.h"
 
-#include "xtime\x_timer.h"
-#include "xtime\x_time.h"
-
-#include "xtime\private\x_time_source.h"
+#include "xtime/x_timer.h"
+#include "xtime/x_time.h"
+#include "xtime/private/x_time_source.h"
 
 using namespace xcore;
 
@@ -77,7 +75,9 @@ UNITTEST_SUITE_BEGIN(timer)
 			xtimer t1;
 
 			t1.start();
-			UnitTest::gSleep(200);
+			while (t1.readMs() < 180.0) {
+				
+			}
 			f64 ms1 = t1.stopMs();
 			CHECK_TRUE(ms1 > 180.0 && ms1 < 220.0);
 			f64 us1 = t1.stopUs();

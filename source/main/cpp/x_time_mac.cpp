@@ -1,15 +1,13 @@
 #include "xbase/x_target.h"
-#ifdef TARGET_PS3
+#ifdef TARGET_MAC
 
 //==============================================================================
 // INCLUDES
 //==============================================================================
 #include <time.h>
-#include <sys/sys_time.h>
-
 
 #include "xbase/x_debug.h"
-#include "xbase/x_string_std.h"
+#include "xbase/x_string_ascii.h"
 
 #include "xtime/x_time.h"
 #include "xtime/x_timespan.h"
@@ -23,7 +21,7 @@
 //==============================================================================
 namespace xcore
 {
-	class xdatetime_source_ps3 : public xdatetime_source
+	class xdatetime_source_osx : public xdatetime_source
 	{
 	public:
 		virtual u64			getSystemTimeUtc()
@@ -56,7 +54,7 @@ namespace xcore
 
 		virtual u64			getSystemTimeAsFileTime()
 		{
-			u64 systemTime = getSystemTime();
+			u64 systemTime = getSystemTimeLocal();
 			return getFileTimeFromSystemTime(systemTime);
 		}
 
@@ -140,9 +138,9 @@ namespace xcore
 	};
 
 	/**
-	 * Time source for the Sony PS3
+	 * Time source for OSX
 	 */
-	class xtime_source_ps3 : public xtime_source
+	class xtime_source_osx : public xtime_source
 	{
 		f64				mFreqPerSec;
 		xtick			mBaseTimeTick;
@@ -192,11 +190,11 @@ namespace xcore
 	 */
 	void x_TimeInit(void)
 	{
-		static xtime_source_ps3 sTimeSource;
+		static xtime_source_osx sTimeSource;
 		sTimeSource.init();
 		x_SetTimeSource(&sTimeSource);
 
-		static xdatetime_source_ps3 sDateTimeSource;
+		static xdatetime_source_osx sDateTimeSource;
 		x_SetDateTimeSource(&sDateTimeSource);
 	}
 
@@ -213,4 +211,4 @@ namespace xcore
     //==============================================================================
 };
 
-#endif /// TARGET_WII
+#endif /// TARGET_OSX

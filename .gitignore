@@ -1,6 +1,7 @@
 #ignore all files
 *.*
 vendor/
+target/
 tags
 
 #except the following files

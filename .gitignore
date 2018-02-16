@@ -12,6 +12,7 @@ tags
 !*.inl
 
 !*.pl
+!*.lua
 
 !*.go
 

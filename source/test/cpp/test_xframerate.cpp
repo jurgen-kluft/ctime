@@ -1,4 +1,3 @@
-
 #include "xunittest/xunittest.h"
 
 #include "xtime/x_frame_rate.h"

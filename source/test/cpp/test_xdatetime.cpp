@@ -1,11 +1,7 @@
-
 #include "xunittest/xunittest.h"
-
 #include "xtime/x_datetime.h"
 #include "xtime/private/x_datetime_source.h"
-
 #include "xtime/x_timespan.h"
-
 #include "xtime/x_time.h"
 
 using namespace xcore;
@@ -85,20 +81,24 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 		UNITTEST_TEST(RealNow)
 		{
-			x_TimeInit();
+			xtime::x_Init();
 
 			xdatetime start = xdatetime::sNow();
-			while (xdatetime::sNow().subtract(start).totalMilliseconds() < 150)
+			xdatetime end;
+			while (true)
 			{
-				
+				end = xdatetime::sNow();
+				xtimespan span = end - start;
+				u32 ms = (u32)span.totalMilliseconds();
+				if (ms >= 150)
+					break;
 			}
-			xdatetime end = xdatetime::sNow();
 
 			xtimespan span = end - start;
 			u32 ms = (u32)span.totalMilliseconds();
 			CHECK_TRUE(ms >= 150);
 
-			x_TimeExit();
+			xtime::x_Exit();
 			x_SetDateTimeSource(&sDateTimeSource);
 		}
 

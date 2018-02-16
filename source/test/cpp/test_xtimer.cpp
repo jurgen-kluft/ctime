@@ -3,6 +3,7 @@
 
 #include "xtime/x_timer.h"
 #include "xtime/x_time.h"
+
 #include "xtime/private/x_time_source.h"
 
 using namespace xcore;
@@ -70,7 +71,7 @@ UNITTEST_SUITE_BEGIN(timer)
 
 		UNITTEST_TEST(RealTest)
 		{
-			x_TimeInit();
+			xtime::x_Init();
 
 			xtimer t1;
 
@@ -88,7 +89,7 @@ UNITTEST_SUITE_BEGIN(timer)
 			f64 us = t1.readUs();
 			CHECK_TRUE(us > 180000.0 && us < 220000.0);
 
-			x_TimeExit();
+			xtime::x_Exit();
 			x_SetTimeSource(&sTimeSource);
 		}
 

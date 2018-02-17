@@ -5,6 +5,8 @@ target/
 tags
 
 #except the following files
+!tundra.lua
+
 !*.cpp
 !*.hpp
 !*.c
@@ -12,7 +14,6 @@ tags
 !*.inl
 
 !*.pl
-!*.lua
 
 !*.go
 

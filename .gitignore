@@ -1,7 +1,8 @@
 #ignore all files
 *.*
-vendor/
 target/
+t2-output/
+vendor/
 tags
 
 #except the following files

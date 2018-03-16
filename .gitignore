@@ -1,9 +1,13 @@
 #ignore all files
 *.*
+target/
+t2-output/
 vendor/
 tags
 
 #except the following files
+!tundra.lua
+
 !*.cpp
 !*.hpp
 !*.c

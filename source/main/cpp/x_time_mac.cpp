@@ -5,10 +5,9 @@
 // INCLUDES
 //==============================================================================
 #include <time.h>
-#include <sys/sys_time.h>
 
 #include "xbase/x_debug.h"
-#include "xbase/x_string_std.h"
+#include "xbase/x_string_ascii.h"
 
 #include "xtime/x_time.h"
 #include "xtime/x_timespan.h"
@@ -22,7 +21,7 @@
 //==============================================================================
 namespace xcore
 {
-	class xdatetime_source_osx : public xdatetime_source
+	class xdatetime_source_mac : public xdatetime_source
 	{
 	public:
 		virtual u64			getSystemTimeUtc()
@@ -55,7 +54,7 @@ namespace xcore
 
 		virtual u64			getSystemTimeAsFileTime()
 		{
-			u64 systemTime = getSystemTime();
+			u64 systemTime = getSystemTimeLocal();
 			return getFileTimeFromSystemTime(systemTime);
 		}
 
@@ -139,9 +138,9 @@ namespace xcore
 	};
 
 	/**
-	 * Time source for OSX
+	 * Time source for Mac OS
 	 */
-	class xtime_source_osx : public xtime_source
+	class xtime_source_mac : public xtime_source
 	{
 		f64				mFreqPerSec;
 		xtick			mBaseTimeTick;
@@ -193,16 +192,13 @@ namespace xcore
 
 namespace xtime
 {
-	/**
-	* xtime, Init and Exit
-	*/
 	void x_Init(void)
 	{
-		static xcore::xtime_source_win32 sTimeSource;
+		static xcore::xtime_source_mac sTimeSource;
 		sTimeSource.init();
 		xcore::x_SetTimeSource(&sTimeSource);
 
-		static xcore::xdatetime_source_win32 sDateTimeSource;
+		static xcore::xdatetime_source_mac sDateTimeSource;
 		xcore::x_SetDateTimeSource(&sDateTimeSource);
 	}
 

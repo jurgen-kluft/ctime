@@ -84,7 +84,6 @@ UNITTEST_SUITE_BEGIN(datetime)
 			xtime::x_Init();
 
 			xdatetime start = xdatetime::sNow();
-
 			xdatetime end;
 			while (true)
 			{

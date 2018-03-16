@@ -1,5 +1,5 @@
 #include "xbase/x_target.h"
-#ifdef TARGET_OSX
+#ifdef TARGET_MAC
 
 //==============================================================================
 // INCLUDES
@@ -213,4 +213,4 @@ namespace xtime
 	}
 }
 
-#endif /// TARGET_OSX
+#endif /// TARGET_MAC

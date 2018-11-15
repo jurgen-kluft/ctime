@@ -209,4 +209,4 @@ namespace xtime
 	}
 }
 
-#endif /// TARGET_OSX
+#endif /// TARGET_MAC

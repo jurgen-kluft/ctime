@@ -1,13 +1,9 @@
 #include "xbase/x_target.h"
 #ifdef TARGET_MAC
 
-//==============================================================================
-// INCLUDES
-//==============================================================================
 #include <time.h>
 
 #include "xbase/x_debug.h"
-#include "xbase/x_string_ascii.h"
 
 #include "xtime/x_time.h"
 #include "xtime/x_timespan.h"
@@ -16,9 +12,6 @@
 #include "xtime/private/x_time_source.h"
 #include "xtime/private/x_datetime_source.h"
 
-//==============================================================================
-// xCore namespace
-//==============================================================================
 namespace xcore
 {
 	class xdatetime_source_mac : public xdatetime_source
@@ -183,11 +176,6 @@ namespace xcore
 			return mFreqPerSec;
 		}
 	};
-
-
-    //==============================================================================
-    // END xCore namespace
-    //==============================================================================
 };
 
 namespace xtime

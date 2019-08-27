@@ -1,9 +1,6 @@
 #include "xbase/x_target.h"
 #ifdef TARGET_PC
 
-//==============================================================================
-// INCLUDES
-//==============================================================================
 #define WIN32_LEAN_AND_MEAN
 #define NOGDI
 #define NOMB
@@ -13,9 +10,7 @@
 #include <mmsystem.h>
 #include <time.h>
 
-
 #include "xbase/x_debug.h"
-#include "xbase/x_string_ascii.h"
 
 #include "xtime/x_time.h"
 #include "xtime/x_timespan.h"
@@ -24,9 +19,6 @@
 #include "xtime/private/x_time_source.h"
 #include "xtime/private/x_datetime_source.h"
 
-/**
- * xCore namespace
- */
 namespace xcore
 {
 	class xdatetime_source_win32 : public xdatetime_source
@@ -174,17 +166,10 @@ namespace xcore
 			return (s64)mPCFreqPerSec;
 		}
 	};
-
-	//==============================================================================
-	// END xCore namespace
-	//==============================================================================
 };
 
 namespace xtime
 {
-	/**
-	* xtime, Init and Exit
-	*/
 	void x_Init(void)
 	{
 		static xcore::xtime_source_win32 sTimeSource;

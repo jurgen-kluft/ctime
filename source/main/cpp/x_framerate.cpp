@@ -1,16 +1,8 @@
-//==============================================================================
-// INCLUDES
-//==============================================================================
-
 #include "xbase/x_debug.h"
-#include "xbase/x_string_ascii.h"
 
 #include "xtime/x_time.h"
 #include "xtime/x_frame_rate.h"
 
-/**
- * xCore namespace
- */
 namespace xcore
 {
 	xframerate::xframerate()
@@ -51,7 +43,4 @@ namespace xcore
 		return (m_dwSecondCount > 0);
 	}
 
-	//==============================================================================
-	// END xCore namespace
-	//==============================================================================
 };

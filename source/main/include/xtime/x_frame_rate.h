@@ -18,14 +18,14 @@ namespace xcore
 	//==============================================================================
 	// Types
 	//==============================================================================
-	typedef s64 xtick;
+	typedef s64 tick_t;
 
     /**
      * ------------------------------------------------------------------------------
 	 *  Author:
 	 *      Virtuos
 	 *  Description:
-	 *      The xframerate class is a handy way to measure the frame-rate of an application.
+	 *      The framerate_t class is a handy way to measure the frame-rate of an application.
 	 *      The frame rate is computed as a number of frames per second and this class computes
 	 *      the frame rate every second.
 	 * 
@@ -33,7 +33,7 @@ namespace xcore
 	 * <CODE>
 	 *       void main(void)
 	 *       {
-	 *           xframerate fps;
+	 *           framerate_t fps;
 	 * 
 	 *           while (game_loop)
 	 *           {
@@ -49,10 +49,10 @@ namespace xcore
 	 * </CODE>
 	 * ------------------------------------------------------------------------------
 	 */
-	class xframerate
+	class framerate_t
 	{
 	public:
-					xframerate			();
+					framerate_t			();
 
 		void		restart				();
 
@@ -63,7 +63,7 @@ namespace xcore
 		f32			m_fFrameRate;
 		u64			m_dwSecondCount;
 		f32			m_dwNumFrames;
-		xtick		m_tLastFPSTime;
+		tick_t		m_tLastFPSTime;
 	};
 
 	//==============================================================================

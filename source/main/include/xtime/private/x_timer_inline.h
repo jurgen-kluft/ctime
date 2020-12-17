@@ -1,67 +1,58 @@
 //------------------------------------------------------------------------------
-inline
-xtimer::xtimer(void)
-:mStartTime(0)
-,mTotalTime(0)
-,mIsRunning(xFALSE)
-,mNumTrips(0)
+inline timer_t::timer_t(void)
+    : mStartTime(0), mTotalTime(0), mIsRunning(xFALSE), mNumTrips(0)
 {
 }
 
 //------------------------------------------------------------------------------
-inline
-void xtimer::start(void)
+inline void timer_t::start(void)
 {
     if (mIsRunning)
         return;
 
     mStartTime = x_GetTime();
-    mIsRunning = xTRUE;        
+    mIsRunning = xTRUE;
     mNumTrips++;
 }
 
 //------------------------------------------------------------------------------
-inline
-void xtimer::reset(void)
+inline void timer_t::reset(void)
 {
-    mIsRunning  = xFALSE;
-    mStartTime  = 0;
-    mTotalTime  = 0;
+    mIsRunning = xFALSE;
+    mStartTime = 0;
+    mTotalTime = 0;
     mNumTrips = 0;
 }
 
 //------------------------------------------------------------------------------
-inline
-xtick xtimer::stop(void)
+inline tick_t timer_t::stop(void)
 {
-    if(mIsRunning)
+    if (mIsRunning)
     {
         mTotalTime += x_GetTime() - mStartTime;
-        mIsRunning  = xFALSE;
+        mIsRunning = xFALSE;
     }
 
     return mTotalTime;
 }
 
 //------------------------------------------------------------------------------
-inline
-xtick xtimer::read(void) const
+inline tick_t timer_t::read(void) const
 {
-    if(mIsRunning) 
+    if (mIsRunning)
         return mTotalTime + (x_GetTime() - mStartTime);
 
     return mTotalTime;
 }
 
 //------------------------------------------------------------------------------
-inline
-xtick xtimer::trip(void)
+inline tick_t timer_t::trip(void)
 {
-    xtick ticks;
+    tick_t ticks;
 
-    if(mIsRunning)
+    if (mIsRunning)
     {
-        xtick currentTime = x_GetTime();
+        tick_t currentTime = x_GetTime();
 
         ticks = mTotalTime + (currentTime - mStartTime);
 
@@ -79,80 +70,68 @@ xtick xtimer::trip(void)
 }
 
 //------------------------------------------------------------------------------
-inline
-s32 xtimer::getNumTrips(void) const
+inline s32 timer_t::getNumTrips(void) const
 {
     return mNumTrips;
 }
 
 //------------------------------------------------------------------------------
-inline
-xbool xtimer::isRunning(void) const
+inline bool timer_t::isRunning(void) const
 {
-    return mIsRunning; 
-} 
+    return mIsRunning;
+}
 
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::tripSec(void)
+inline f64 timer_t::tripSec(void)
 {
     return x_TicksToSec(trip());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::tripMs(void)
+inline f64 timer_t::tripMs(void)
 {
     return x_TicksToMs(trip());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::tripUs(void)
+inline f64 timer_t::tripUs(void)
 {
     return x_TicksToUs(trip());
 }
 //------------------------------------------------------------------------------
 
-inline
-f64 xtimer::readSec(void) const
+inline f64 timer_t::readSec(void) const
 {
     return x_TicksToSec(read());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::readMs(void) const
+inline f64 timer_t::readMs(void) const
 {
     return x_TicksToMs(read());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::readUs(void) const
+inline f64 timer_t::readUs(void) const
 {
     return x_TicksToUs(read());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::stopSec(void)
+inline f64 timer_t::stopSec(void)
 {
     return x_TicksToSec(stop());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::stopMs(void)
+inline f64 timer_t::stopMs(void)
 {
     return x_TicksToMs(stop());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::stopUs(void)
+inline f64 timer_t::stopUs(void)
 {
     return x_TicksToUs(stop());
 }
 //------------------------------------------------------------------------------
-inline
-f64 xtimer::getAverageMs(void) const
+inline f64 timer_t::getAverageMs(void) const
 {
-    if(mNumTrips <= 0) 
-        return 0 ;
+    if (mNumTrips <= 0)
+        return 0;
 
     return readMs() / mNumTrips;
 }

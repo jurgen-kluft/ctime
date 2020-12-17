@@ -14,7 +14,7 @@
 
 namespace xcore
 {
-	class xdatetime_source_mac : public xdatetime_source
+	class xdatetime_source_mac : public datetime_source_t
 	{
 	public:
 		virtual u64			getSystemTimeUtc()
@@ -24,7 +24,7 @@ namespace xcore
 
 			tm		gmTime = (*gmtime( &curTime ));
 
-			xdatetime dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
+			datetime_t dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
 			return (u64)dt.ticks();
 		}
 
@@ -35,7 +35,7 @@ namespace xcore
 
 			tm		localTime = (*localtime(&curTime));
 
-			xdatetime dt(1900 + localTime.tm_year, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
+			datetime_t dt(1900 + localTime.tm_year, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
 			return (u64)dt.ticks();
 		}
 
@@ -68,7 +68,7 @@ namespace xcore
 
 			while (xTRUE)
 			{
-				xbool	boLeap			= false;
+				bool	boLeap			= false;
 				u32		uNumDaysInYear	= 365;
 
 				if((uYear % 4) == 0)
@@ -120,7 +120,7 @@ namespace xcore
 			month	= uMonth;
 			year	= uYear;
 
-			xdatetime dt = xdatetime(year, month, day, hour, minute, second);
+			datetime_t dt = datetime_t(year, month, day, hour, minute, second);
 			return dt.ticks();
 		}
 
@@ -133,11 +133,11 @@ namespace xcore
 	/**
 	 * Time source for Mac OS
 	 */
-	class xtime_source_mac : public xtime_source
+	class xtime_source_mac : public time_source_t
 	{
 		f64				mFreqPerSec;
-		xtick			mBaseTimeTick;
-		xtick			mLastTicks;
+		tick_t			mBaseTimeTick;
+		tick_t			mLastTicks;
 
 	public:
 		void			init()
@@ -163,7 +163,7 @@ namespace xcore
 		 *       xcritical_section
 		 * ------------------------------------------------------------------------------
 		 */
-		virtual xtick	getTimeInTicks()
+		virtual tick_t	getTimeInTicks()
 		{
 			ASSERT(mBaseTimeTick);
 			s64 ticks = clock();

@@ -13,8 +13,8 @@ UNITTEST_SUITE_BEGIN(timespan)
 
 		UNITTEST_TEST(Now)
 		{
-			xtimespan ts1(15,20,30,40,500);
-			xtimespan ts2(15,20,30,40,500);
+			timespan_t ts1(15,20,30,40,500);
+			timespan_t ts2(15,20,30,40,500);
 			CHECK_TRUE(ts1.ticks() == ts2.ticks());
 			CHECK_TRUE(ts1.days() == ts2.days());
 			CHECK_TRUE(ts1.days() == 15);
@@ -39,11 +39,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(add)
 		{
-			xtimespan ts1(10,0,20,0);
+			timespan_t ts1(10,0,20,0);
 
-			xtimespan ts2(40,0,50,0);
+			timespan_t ts2(40,0,50,0);
 			
-			xtimespan ts3(50,1,10,0);
+			timespan_t ts3(50,1,10,0);
 			
 			ts1.add(ts2);
 
@@ -51,11 +51,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(substract)
 		{
-			xtimespan ts1(50,1,10,0);
+			timespan_t ts1(50,1,10,0);
 
-			xtimespan ts2(10,0,20,0);
+			timespan_t ts2(10,0,20,0);
 
-			xtimespan ts3(40,0,50,0);
+			timespan_t ts3(40,0,50,0);
 
 			ts1.substract(ts2);
 
@@ -63,13 +63,13 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(duration)
 		{
-            xtimespan ts1(2000);
+            timespan_t ts1(2000);
 
-			xtimespan ts2 = ts1.duration();
+			timespan_t ts2 = ts1.duration();
 
-			xtimespan ts3(-2000);
+			timespan_t ts3(-2000);
 
-			xtimespan ts4 = ts3.duration();
+			timespan_t ts4 = ts3.duration();
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -77,17 +77,17 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(negate)
 		{
-			xtimespan ts1(1000);
+			timespan_t ts1(1000);
 
-			xtimespan ts2(-1000);
+			timespan_t ts2(-1000);
 
 			ts1.negate();
 
 			CHECK_TRUE(ts1 == ts2);
 
-			xtimespan ts3(2000);
+			timespan_t ts3(2000);
 
-			xtimespan ts4(-2000);
+			timespan_t ts4(-2000);
 
 			ts4.negate();
 
@@ -95,11 +95,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
         UNITTEST_TEST(equal)
 		{
-			xtimespan ts1(3000);
+			timespan_t ts1(3000);
 
-			xtimespan ts2(3000);
+			timespan_t ts2(3000);
 
-			xtimespan ts3(4000);
+			timespan_t ts3(4000);
 
 			CHECK_TRUE(ts1.equals(ts2));
 
@@ -107,11 +107,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(compareTo)
 		{
-			xtimespan ts1(2000);
+			timespan_t ts1(2000);
 
-			xtimespan ts2(3000);
+			timespan_t ts2(3000);
 
-			xtimespan ts3(3000);
+			timespan_t ts3(3000);
 
 			CHECK_TRUE(ts1.compareTo(ts2) == -1);
 
@@ -121,15 +121,15 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sFromDays)
 		{
-			xtimespan ts1 = xtimespan::sFromDays(20);
+			timespan_t ts1 = timespan_t::sFromDays(20);
 
-			xtimespan ts2 = xtimespan::sFromDays(20);
+			timespan_t ts2 = timespan_t::sFromDays(20);
 
-			xtimespan ts3(20,0,0,0);
+			timespan_t ts3(20,0,0,0);
 
-			xtimespan ts4 = xtimespan::sFromDays(100);
+			timespan_t ts4 = timespan_t::sFromDays(100);
 
-			xtimespan ts5(100,0,0,0);
+			timespan_t ts5(100,0,0,0);
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -139,15 +139,15 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
         UNITTEST_TEST(sFromHours)
 		{
-			xtimespan ts1 = xtimespan::sFromHours(20);
+			timespan_t ts1 = timespan_t::sFromHours(20);
 
-			xtimespan ts2 = xtimespan::sFromHours(20);
+			timespan_t ts2 = timespan_t::sFromHours(20);
 			
-			xtimespan ts3(20,0,0);
+			timespan_t ts3(20,0,0);
 
-			xtimespan ts4 = xtimespan::sFromHours(2400);
+			timespan_t ts4 = timespan_t::sFromHours(2400);
 
-			xtimespan ts5(100,0,0,0);
+			timespan_t ts5(100,0,0,0);
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -157,11 +157,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sFromMinutes)
 		{
-            xtimespan ts1 = xtimespan::sFromMinutes(100);
+            timespan_t ts1 = timespan_t::sFromMinutes(100);
 
-			xtimespan ts2 = xtimespan::sFromMinutes(100);
+			timespan_t ts2 = timespan_t::sFromMinutes(100);
 
-			xtimespan ts3(1,40,0);
+			timespan_t ts3(1,40,0);
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -169,11 +169,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sFromSeconds)
 		{
-			xtimespan ts1 = xtimespan::sFromSeconds(25);
+			timespan_t ts1 = timespan_t::sFromSeconds(25);
 
-			xtimespan ts2 = xtimespan::sFromSeconds(25);
+			timespan_t ts2 = timespan_t::sFromSeconds(25);
 
-			xtimespan ts3(0,0,25);
+			timespan_t ts3(0,0,25);
 
 			CHECK_TRUE(ts1 == ts2);
 		
@@ -181,11 +181,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sFromMilliseconds)
 		{
-			xtimespan ts1 = xtimespan::sFromMilliseconds(450);
+			timespan_t ts1 = timespan_t::sFromMilliseconds(450);
 
-			xtimespan ts2 = xtimespan::sFromMilliseconds(450);
+			timespan_t ts2 = timespan_t::sFromMilliseconds(450);
 
-			xtimespan ts3(0,0,0,0,450);
+			timespan_t ts3(0,0,0,0,450);
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -193,11 +193,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sFromTicks)
 		{
-			xtimespan ts1 = xtimespan::sFromTicks(2000);
+			timespan_t ts1 = timespan_t::sFromTicks(2000);
 
-			xtimespan ts2 = xtimespan::sFromTicks(2000);
+			timespan_t ts2 = timespan_t::sFromTicks(2000);
 
-			xtimespan ts3(2000);
+			timespan_t ts3(2000);
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -205,23 +205,23 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sTimeToTicks)
 		{
-			u64 ticks1 = xtimespan::sTimeToTicks(2,20,20);
+			u64 ticks1 = timespan_t::sTimeToTicks(2,20,20);
 
-			u64 ticks2 = xtimespan::sTimeToTicks(2,20,20);
+			u64 ticks2 = timespan_t::sTimeToTicks(2,20,20);
 
-			u64 ticks3 = xtimespan::sTimeToTicks(2,20,20,20);
+			u64 ticks3 = timespan_t::sTimeToTicks(2,20,20,20);
 
-			u64 ticks4 = xtimespan::sTimeToTicks(2,20,20,20);
+			u64 ticks4 = timespan_t::sTimeToTicks(2,20,20,20);
 
-			u64 ticks5 = xtimespan::sTimeToTicks(2,20,20,20,20);
+			u64 ticks5 = timespan_t::sTimeToTicks(2,20,20,20,20);
 
-			u64 ticks6 = xtimespan::sTimeToTicks(2,20,20,20,20);
+			u64 ticks6 = timespan_t::sTimeToTicks(2,20,20,20,20);
 
-			xtimespan ts1(2,20,20);
+			timespan_t ts1(2,20,20);
 
-			xtimespan ts2(0,2,20,20,20);
+			timespan_t ts2(0,2,20,20,20);
 
-			xtimespan ts3(2,20,20,20,20);
+			timespan_t ts3(2,20,20,20,20);
 
 			CHECK_TRUE(ticks1 == ticks2);
 
@@ -237,17 +237,17 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(sCompare)
 		{
-			xtimespan ts1(2000);
+			timespan_t ts1(2000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
-			xtimespan ts3(3000);
+			timespan_t ts3(3000);
 
-			s32 isCompare1 = xtimespan::sCompare(ts1,ts2);
+			s32 isCompare1 = timespan_t::sCompare(ts1,ts2);
 
-			s32 isCompare2 = xtimespan::sCompare(ts2,ts3);
+			s32 isCompare2 = timespan_t::sCompare(ts2,ts3);
 
-			s32 isCompare3 = xtimespan::sCompare(ts3,ts2);
+			s32 isCompare3 = timespan_t::sCompare(ts3,ts2);
 			
 			CHECK_TRUE(isCompare1 == 0);
 			
@@ -257,25 +257,25 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(operator_subtration_equal)
 		{
-			xtimespan ts1(3000);
+			timespan_t ts1(3000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
 			ts1 -= ts2;
 
-			xtimespan ts3(1000);
+			timespan_t ts3(1000);
 
 			CHECK_TRUE(ts1 == ts3);
 		}
 		UNITTEST_TEST(operator_add_equal)
 		{
-			xtimespan ts1(2000);
+			timespan_t ts1(2000);
 
-			xtimespan ts2(1000);
+			timespan_t ts2(1000);
 
 			ts1 += ts2;
 
-			xtimespan ts3(3000);
+			timespan_t ts3(3000);
 
 			CHECK_TRUE(ts1 == ts3);
 		}
@@ -284,41 +284,41 @@ UNITTEST_SUITE_BEGIN(timespan)
 		//==============================================================================
 		UNITTEST_TEST(global_operator_xtimespan_subtract_xtimespan)
 		{
-			xtimespan ts1(3000);
+			timespan_t ts1(3000);
 
-			xtimespan ts2(1000);
+			timespan_t ts2(1000);
 
-			xtimespan ts3 = ts1 - ts2;
+			timespan_t ts3 = ts1 - ts2;
 
-			xtimespan ts4(2000);
+			timespan_t ts4(2000);
 
 			CHECK_TRUE(ts3 == ts4);
 		}
 		UNITTEST_TEST(global_operator_xtimespan_add_xtimespan)
 		{
-			xtimespan ts1(2000);
+			timespan_t ts1(2000);
 
-			xtimespan ts2(1000);
+			timespan_t ts2(1000);
 
-			xtimespan ts3 = ts1 + ts2;
+			timespan_t ts3 = ts1 + ts2;
 
-			xtimespan ts4(3000);
+			timespan_t ts4(3000);
 
 			CHECK_TRUE(ts3 == ts4);
 		}
 		UNITTEST_TEST(global_operator_xtimespan_small_xtimespan)
 		{
-			xtimespan ts1(1000);
+			timespan_t ts1(1000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
-			xtimespan ts3(2000);
+			timespan_t ts3(2000);
 
-			xbool isSmall1 = (ts1 < ts2);
+			bool isSmall1 = (ts1 < ts2);
 
-			xbool isSmall2 = (ts2 < ts3);
+			bool isSmall2 = (ts2 < ts3);
 			
-			xbool isSmall3 = (ts2 < ts1);
+			bool isSmall3 = (ts2 < ts1);
 			
 			CHECK_TRUE(isSmall1);
 
@@ -328,17 +328,17 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(global_operator_xtimespan_large_xtimespan)
 		{
-			xtimespan ts1(2000);
+			timespan_t ts1(2000);
 
-			xtimespan ts2(1000);
+			timespan_t ts2(1000);
 
-			xtimespan ts3(1000);
+			timespan_t ts3(1000);
 
-			xbool isLarge1 = (ts1 > ts2);
+			bool isLarge1 = (ts1 > ts2);
 
-			xbool isLarge2 = (ts2 > ts1);
+			bool isLarge2 = (ts2 > ts1);
 
-			xbool isLarge3 = (ts2 > ts3);
+			bool isLarge3 = (ts2 > ts3);
 
 			CHECK_TRUE(isLarge1);
 
@@ -348,17 +348,17 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(global_operator_xtimespan_noLarge_xtimespan)
 		{
-			xtimespan ts1(1000);
+			timespan_t ts1(1000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
-			xtimespan ts3(2000);
+			timespan_t ts3(2000);
 
-			xbool isSmall1 = (ts1 <= ts2);
+			bool isSmall1 = (ts1 <= ts2);
 			
-			xbool isSmall2 = (ts2 <= ts3);
+			bool isSmall2 = (ts2 <= ts3);
 
-			xbool isSmall3 = (ts2 <= ts1);
+			bool isSmall3 = (ts2 <= ts1);
 
 			CHECK_TRUE(isSmall1);
 
@@ -368,17 +368,17 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(global_operator_xtimespan_noSmall_xtimespan)
 		{
-            xtimespan ts1(1000);
+            timespan_t ts1(1000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
-			xtimespan ts3(2000);
+			timespan_t ts3(2000);
 
-			xbool isLarge1 = (ts2 >= ts1);
+			bool isLarge1 = (ts2 >= ts1);
 
-			xbool isLarge2 = (ts3 >= ts2);
+			bool isLarge2 = (ts3 >= ts2);
 
-			xbool isLarge3 = (ts1 >= ts2);
+			bool isLarge3 = (ts1 >= ts2);
 
 			CHECK_TRUE(isLarge1);
 
@@ -388,11 +388,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 	    }
 		UNITTEST_TEST(global_operator_xtimespan_equal_xtimespan)
 		{
-			xtimespan ts1(2000);
+			timespan_t ts1(2000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
-			xtimespan ts3(3000);
+			timespan_t ts3(3000);
 
 			CHECK_TRUE(ts1 == ts2);
 
@@ -400,11 +400,11 @@ UNITTEST_SUITE_BEGIN(timespan)
 		}
 		UNITTEST_TEST(global_operator_xtimespan_noEqual_xtimespan)
 		{
-			xtimespan ts1(1000);
+			timespan_t ts1(1000);
 
-			xtimespan ts2(2000);
+			timespan_t ts2(2000);
 
-			xtimespan ts3(2000);
+			timespan_t ts3(2000);
 
 			CHECK_TRUE(ts2 != ts1);
 

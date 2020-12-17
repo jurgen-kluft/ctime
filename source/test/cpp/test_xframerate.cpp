@@ -9,9 +9,9 @@ UNITTEST_SUITE_BEGIN(framerate)
 {
 	UNITTEST_FIXTURE(main)
 	{
-		class xtime_source_test : public xtime_source
+		class xtime_source_test : public time_source_t
 		{
-			xtick			mTicks;
+			tick_t			mTicks;
 		public:
 			xtime_source_test()
 				: mTicks(0)
@@ -24,12 +24,12 @@ UNITTEST_SUITE_BEGIN(framerate)
 				mTicks = 0;
 			}
 
-			void			update(xtick ticks)
+			void			update(tick_t ticks)
 			{
 				mTicks += ticks;
 			}
 
-			virtual xtick	getTimeInTicks()
+			virtual tick_t	getTimeInTicks()
 			{
 				return mTicks;
 			}
@@ -64,12 +64,12 @@ UNITTEST_SUITE_BEGIN(framerate)
 
 		UNITTEST_TEST(constructor)
 		{
-			xframerate fps;
+			framerate_t fps;
 		}
 
 		UNITTEST_TEST(restart)
 		{
-			xframerate fps;
+			framerate_t fps;
 
 			f32 f;
 			CHECK_FALSE(fps.getFrameRate(f));
@@ -78,7 +78,7 @@ UNITTEST_SUITE_BEGIN(framerate)
 
 		UNITTEST_TEST(markframe)
 		{
-			xframerate fps;
+			framerate_t fps;
 
 			f32 f;
 			CHECK_FALSE(fps.getFrameRate(f));

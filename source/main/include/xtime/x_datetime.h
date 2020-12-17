@@ -1,14 +1,13 @@
 #ifndef __X_TIME_DATETIME_H__
 #define __X_TIME_DATETIME_H__
 #include "xbase/x_target.h"
-#ifdef USE_PRAGMA_ONCE 
-#pragma once 
+#ifdef USE_PRAGMA_ONCE
+#pragma once
 #endif
 
 //==============================================================================
 //  INCLUDES
 //==============================================================================
-
 
 //==============================================================================
 // xCore namespace
@@ -18,72 +17,76 @@ namespace xcore
 	//==============================================================================
 	// Classes
 	//==============================================================================
-	class xtimespan;
+	class timespan_t;
 
 	//==============================================================================
 	// Types
 	//==============================================================================
-	typedef s64 xtick;
+	typedef s64 tick_t;
 
 	enum EDayOfWeek
 	{
-		Sunday		= 0,
-		Monday		= 1,
-		Tuesday		= 2,
-		Wednesday	= 3,
-		Thursday	= 4,
-		Friday		= 5,
-		Saturday	= 6,
+		Sunday = 0,
+		Monday = 1,
+		Tuesday = 2,
+		Wednesday = 3,
+		Thursday = 4,
+		Friday = 5,
+		Saturday = 6,
 		DaysPerWeek = 7,
-		Sun			= Sunday+DaysPerWeek,
-		Mon			= Monday+DaysPerWeek,
-		Tue			= Tuesday+DaysPerWeek,
-		Wed			= Wednesday+DaysPerWeek,
-		Thu			= Thursday+DaysPerWeek,
-		Fri			= Friday+DaysPerWeek,
-		Sat			= Saturday+DaysPerWeek,
+		Sun = Sunday + DaysPerWeek,
+		Mon = Monday + DaysPerWeek,
+		Tue = Tuesday + DaysPerWeek,
+		Wed = Wednesday + DaysPerWeek,
+		Thu = Thursday + DaysPerWeek,
+		Fri = Friday + DaysPerWeek,
+		Sat = Saturday + DaysPerWeek,
 	};
-	inline EDayOfWeek	gAsShortNotation(EDayOfWeek dow)
+	inline EDayOfWeek gAsShortNotation(EDayOfWeek dow)
 	{
-		if (dow<DaysPerWeek) return (EDayOfWeek)((s32)dow + DaysPerWeek);
-		else return dow;
+		if (dow < DaysPerWeek)
+			return (EDayOfWeek)((s32)dow + DaysPerWeek);
+		else
+			return dow;
 	}
 
 	enum EMonth
 	{
-		January		= 1,
-		February	= 2,
-		March		= 3,
-		April		= 4,
-		May			= 5,
-		June		= 6,
-		July		= 7,
-		August		= 8,
-		September	= 9,
-		Oktober		= 10,
-		November	= 11,
-		December	= 12,
+		January = 1,
+		February = 2,
+		March = 3,
+		April = 4,
+		May = 5,
+		June = 6,
+		July = 7,
+		August = 8,
+		September = 9,
+		Oktober = 10,
+		November = 11,
+		December = 12,
 		MonthsPerYear = 12,
-		Jan_		= January + MonthsPerYear,
-		Feb_		= February + MonthsPerYear,
-		Mar_		= March + MonthsPerYear,
-		Apr_		= April + MonthsPerYear,
-		May_		= May + MonthsPerYear,
-		Jun_		= June  + MonthsPerYear,
-		Jul_		= July + MonthsPerYear,
-		Aug_		= August + MonthsPerYear,
-		Sep_		= September + MonthsPerYear,
-		Okt_		= Oktober + MonthsPerYear,
-		Nov_		= November + MonthsPerYear,
-		Dec_		= December + MonthsPerYear,
+		Jan_ = January + MonthsPerYear,
+		Feb_ = February + MonthsPerYear,
+		Mar_ = March + MonthsPerYear,
+		Apr_ = April + MonthsPerYear,
+		May_ = May + MonthsPerYear,
+		Jun_ = June + MonthsPerYear,
+		Jul_ = July + MonthsPerYear,
+		Aug_ = August + MonthsPerYear,
+		Sep_ = September + MonthsPerYear,
+		Okt_ = Oktober + MonthsPerYear,
+		Nov_ = November + MonthsPerYear,
+		Dec_ = December + MonthsPerYear,
 	};
-	inline EMonth	gAsShortNotation(EMonth month)
+	inline EMonth gAsShortNotation(EMonth month)
 	{
-		if (month<=MonthsPerYear) return (EMonth)((s32)month + MonthsPerYear);
-		else return month;
+		if (month <= MonthsPerYear)
+			return (EMonth)((s32)month + MonthsPerYear);
+		else
+			return month;
 	}
 
-    /**
+	/**
      * ------------------------------------------------------------------------------
 	 *  Author:
 	 *      Virtuos
@@ -91,105 +94,103 @@ namespace xcore
 	 *      A class for date and time operations
 	 * ------------------------------------------------------------------------------
 	 */
-	class xdatetime
+	class datetime_t
 	{
 	public:
-							xdatetime();
-							xdatetime(u64 ticks);
-							xdatetime(s32 year, s32 month, s32 day);
-							xdatetime(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second);
-							xdatetime(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second, s32 millisecond);
+		datetime_t();
+		datetime_t(u64 ticks);
+		datetime_t(s32 year, s32 month, s32 day);
+		datetime_t(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second);
+		datetime_t(s32 year, s32 month, s32 day, s32 hour, s32 minute, s32 second, s32 millisecond);
 
-		xdatetime			date() const;
-		xtimespan			timeOfDay() const;
-		EDayOfWeek			dayOfWeek() const;
-		EDayOfWeek			dayOfWeekShort() const;
-		s32					dayOfYear() const;
+		datetime_t date() const;
+		timespan_t timeOfDay() const;
+		EDayOfWeek dayOfWeek() const;
+		EDayOfWeek dayOfWeekShort() const;
+		s32 dayOfYear() const;
 
-		s32					year() const;
-		EMonth				month() const;
-		EMonth				monthShort() const;
-		s32					day() const;
-		s32					hour() const;
-		s32					minute() const;
-		s32					second() const;
-		s32					millisecond() const;
+		s32 year() const;
+		EMonth month() const;
+		EMonth monthShort() const;
+		s32 day() const;
+		s32 hour() const;
+		s32 minute() const;
+		s32 second() const;
+		s32 millisecond() const;
 
-		u64					ticks() const;
+		u64 ticks() const;
 
-		xdatetime&			add(const xtimespan& value);
+		datetime_t &add(const timespan_t &value);
 
-		xdatetime&			addYears(s32 value);
-		xdatetime&			addMonths(s32 months);
-		xdatetime&			addDays(s32 value);
-		xdatetime&			addHours(s32 value);
-		xdatetime&			addMilliseconds(s32 value);
-		xdatetime&			addMinutes(s32 value);
-		xdatetime&			addSeconds(s32 value);
+		datetime_t &addYears(s32 value);
+		datetime_t &addMonths(s32 months);
+		datetime_t &addDays(s32 value);
+		datetime_t &addHours(s32 value);
+		datetime_t &addMilliseconds(s32 value);
+		datetime_t &addMinutes(s32 value);
+		datetime_t &addSeconds(s32 value);
 
-		xdatetime&			addTicks(u64 value);
+		datetime_t &addTicks(u64 value);
 
-		xdatetime&			subtract(xtimespan value);
-		xtimespan			subtract(xdatetime value) const;
+		datetime_t &subtract(timespan_t value);
+		timespan_t subtract(datetime_t value) const;
 
-		s32					compareTo(const xdatetime& value) const							{ return sCompare(*this, value); }
-		xbool				equals(const xdatetime& value) const							{ return sCompare(*this, value)==0; }
+		s32 compareTo(const datetime_t &value) const { return sCompare(*this, value); }
+		bool equals(const datetime_t &value) const { return sCompare(*this, value) == 0; }
 
-		u64					toBinary() const;
-		u64					toFileTime() const;
+		u64 toBinary() const;
+		u64 toFileTime() const;
 
-		void				swap(xdatetime& t);
+		void swap(datetime_t &t);
 
-		static xdatetime	sNow();												// Local time
-		static xdatetime	sNowUtc();											// UTC time
-		static xdatetime	sToday();
+		static datetime_t sNow();	 // Local time
+		static datetime_t sNowUtc(); // UTC time
+		static datetime_t sToday();
 
-		static xdatetime	sFromBinary(u64 binary)											{ return xdatetime(binary); }
-		static xdatetime	sFromFileTime(u64 fileTime);
+		static datetime_t sFromBinary(u64 binary) { return datetime_t(binary); }
+		static datetime_t sFromFileTime(u64 fileTime);
 
-		static s32			sDaysInMonth(s32 year, s32 month);
-		static s32			sDaysInYear(s32 year);
-		static xbool		sIsLeapYear(s32 year);
+		static s32 sDaysInMonth(s32 year, s32 month);
+		static s32 sDaysInYear(s32 year);
+		static bool sIsLeapYear(s32 year);
 
-		static s32			sCompare(const xdatetime& t1, const xdatetime& t2);
+		static s32 sCompare(const datetime_t &t1, const datetime_t &t2);
 
-		static const xdatetime	sMaxValue;
-		static const xdatetime	sMinValue;
+		static const datetime_t sMaxValue;
+		static const datetime_t sMinValue;
 
 	private:
-		inline s64			__ticks() const													{ return mTicks & X_CONSTANT_64(0x3fffffffffffffff); }
+		inline s64 __ticks() const { return mTicks & X_CONSTANT_64(0x3fffffffffffffff); }
 
-		// 
-		xdatetime&			add(s32 value, s32 scale);
+		//
+		datetime_t &add(s32 value, s32 scale);
 
 		union
 		{
-			u64				mTicks;
+			u64 mTicks;
 			struct
 			{
-				u32				mMSB;
-				u32				mLSB;
+				u32 mMSB;
+				u32 mLSB;
 			};
 		};
 	};
 
 	// Global operators
-	extern xdatetime		operator  -(const xdatetime&  d, const xtimespan&  t);
-	extern xdatetime		operator  +(const xdatetime&  d, const xtimespan&  t);
+	extern datetime_t operator-(const datetime_t &d, const timespan_t &t);
+	extern datetime_t operator+(const datetime_t &d, const timespan_t &t);
 
-	extern xbool			operator  <(const xdatetime& t1, const xdatetime& t2);
-	extern xbool			operator  >(const xdatetime& t1, const xdatetime& t2);
-	extern xbool			operator <=(const xdatetime& t1, const xdatetime& t2);
-	extern xbool			operator >=(const xdatetime& t1, const xdatetime& t2);
-	extern xbool			operator !=(const xdatetime& d1, const xdatetime& d2);
-	extern xbool			operator ==(const xdatetime& d1, const xdatetime& d2);
-
+	extern bool operator<(const datetime_t &t1, const datetime_t &t2);
+	extern bool operator>(const datetime_t &t1, const datetime_t &t2);
+	extern bool operator<=(const datetime_t &t1, const datetime_t &t2);
+	extern bool operator>=(const datetime_t &t1, const datetime_t &t2);
+	extern bool operator!=(const datetime_t &d1, const datetime_t &d2);
+	extern bool operator==(const datetime_t &d1, const datetime_t &d2);
 
 	//==============================================================================
 	// END xCore namespace
 	//==============================================================================
-};
-
+}; // namespace xcore
 
 //==============================================================================
 // END __X_TIME_DATETIME_H__

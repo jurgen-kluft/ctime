@@ -5,7 +5,7 @@
 
 namespace xcore
 {
-	xframerate::xframerate()
+	framerate_t::framerate_t()
 		: m_fFrameRate(0.0f)
 		, m_dwSecondCount(0)
 		, m_dwNumFrames(0.0f)
@@ -13,7 +13,7 @@ namespace xcore
 		m_tLastFPSTime = x_GetTime();
 	}
 
-	void		xframerate::restart()
+	void		framerate_t::restart()
 	{
 		m_fFrameRate = 0.0f;
 		m_dwSecondCount = 0;
@@ -21,11 +21,11 @@ namespace xcore
 		m_tLastFPSTime = x_GetTime();
 	}
 
-	void		xframerate::markFrame()
+	void		framerate_t::markFrame()
 	{
 		m_dwNumFrames += 1.0f;
 
-		xtick tTime = x_GetTime();
+		tick_t tTime = x_GetTime();
 
 		// Only re-compute the FPS (frames per second) once per second
 		if ( (tTime - m_tLastFPSTime) >= x_GetTicksPerSecond() )
@@ -37,7 +37,7 @@ namespace xcore
 		}
 	}
 
-	bool		xframerate::getFrameRate(f32& fps) const
+	bool		framerate_t::getFrameRate(f32& fps) const
 	{
 		fps = m_fFrameRate;
 		return (m_dwSecondCount > 0);

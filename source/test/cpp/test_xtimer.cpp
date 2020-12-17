@@ -12,9 +12,9 @@ UNITTEST_SUITE_BEGIN(timer)
 {
 	UNITTEST_FIXTURE(main)
 	{
-		class xtime_source_test : public xtime_source
+		class xtime_source_test : public time_source_t
 		{
-			xtick			mTicks;
+			tick_t			mTicks;
 		public:
 			xtime_source_test()
 				: mTicks(0)
@@ -27,17 +27,17 @@ UNITTEST_SUITE_BEGIN(timer)
 				mTicks = 0;
 			}
 
-			void			set(xtick t)
+			void			set(tick_t t)
 			{
 				mTicks = t;
 			}
 
-			void			update(xtick ticks)
+			void			update(tick_t ticks)
 			{
 				mTicks += ticks;
 			}
 
-			virtual xtick	getTimeInTicks()
+			virtual tick_t	getTimeInTicks()
 			{
 				return mTicks;
 			}
@@ -64,7 +64,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		{
 			sTimeSource.reset();
 
-			xtimer timer;
+			timer_t timer;
 			CHECK_FALSE(timer.isRunning());
 			CHECK_EQUAL(0, timer.read());
 		}
@@ -73,7 +73,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		{
 			xtime::x_Init();
 
-			xtimer t1;
+			timer_t t1;
 
 			t1.start();
 			while (t1.readMs() < 180.0) {
@@ -97,7 +97,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		{
 			sTimeSource.reset();
 
-			xtimer timer;
+			timer_t timer;
 			CHECK_FALSE(timer.isRunning());
 			CHECK_EQUAL(0, timer.read());
 
@@ -109,7 +109,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		{
 			sTimeSource.reset();
 
-			xtimer timer;
+			timer_t timer;
 			CHECK_FALSE(timer.isRunning());
 			CHECK_EQUAL(0, timer.read());
 
@@ -124,7 +124,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		{
 			sTimeSource.reset();
 
-			xtimer timer;
+			timer_t timer;
 			CHECK_FALSE(timer.isRunning());
 			CHECK_EQUAL(0, timer.read());
 			CHECK_EQUAL(0, timer.trip());
@@ -147,7 +147,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		{
 			sTimeSource.reset();
 
-			xtimer timer;
+			timer_t timer;
 			CHECK_FALSE(timer.isRunning());
 			CHECK_EQUAL(0, timer.read());
 			CHECK_EQUAL(0, timer.trip());
@@ -174,11 +174,11 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_GetTime)
 		{
 			sTimeSource.reset();
-			xtick tps = x_GetTicksPerSecond();
+			tick_t tps = x_GetTicksPerSecond();
 			sTimeSource.set(tps);
 
-			xtick time1 = x_GetTime();
-			xtick time2 = x_GetTime();
+			tick_t time1 = x_GetTime();
+			tick_t time2 = x_GetTime();
 
 			CHECK_TRUE(time1 == tps);
 			CHECK_TRUE(time1 == time2);
@@ -186,7 +186,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_GetTimeSec)
 		{
 			sTimeSource.reset();
-			xtick tps = x_GetTicksPerSecond();
+			tick_t tps = x_GetTicksPerSecond();
 			sTimeSource.set(tps);
 
 			f64 timeSec1 = x_GetTimeSec();

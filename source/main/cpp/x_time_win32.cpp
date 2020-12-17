@@ -21,7 +21,7 @@
 
 namespace xcore
 {
-	class xdatetime_source_win32 : public xdatetime_source
+	class xdatetime_source_win32 : public datetime_source_t
 	{
 	public:
 		virtual u64			getSystemTimeUtc()
@@ -32,7 +32,7 @@ namespace xcore
 			::tm gmTime;
 			gmtime_s(&gmTime, &rawtime);
 
-			xdatetime dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
+			datetime_t dt(gmTime.tm_year + 1900, gmTime.tm_mon + 1, gmTime.tm_mday, gmTime.tm_hour, gmTime.tm_min, gmTime.tm_sec);
 			return (u64)dt.ticks();
 		}
 
@@ -49,13 +49,13 @@ namespace xcore
 			SYSTEMTIME st;
 			//GetSystemTime(&st);
 			GetLocalTime(&st);
-			xdatetime dt(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+			datetime_t dt(st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
 #if 0
 			::time_t rawtime;
 			::time( &rawtime );
 			::tm localTime;
 			::localtime_s( &localTime, &rawtime );
-			xdatetime dt(localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
+			datetime_t dt(localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec);
 #endif
 			return (u64)dt.ticks();
 		}
@@ -109,11 +109,11 @@ namespace xcore
 	 *       QueryPerformanceCounter QueryPerformanceFrequency
 	 * ------------------------------------------------------------------------------
 	 */
-	class xtime_source_win32 : public xtime_source
+	class xtime_source_win32 : public time_source_t
 	{
 		f64				mPCFreqPerSec;
-		xtick			mBaseTimeTick;
-		xtick			mLastTicks;
+		tick_t			mBaseTimeTick;
+		tick_t			mLastTicks;
 
 	public:
 		void			init()
@@ -125,7 +125,7 @@ namespace xcore
 			QueryPerformanceFrequency(&clockFreq); 
 
 			mPCFreqPerSec   = (f64)clockFreq.QuadPart;
-			mBaseTimeTick   = (xtick)counter.QuadPart;
+			mBaseTimeTick   = (tick_t)counter.QuadPart;
 			mLastTicks		= 0;
 		}
 
@@ -146,13 +146,13 @@ namespace xcore
 		 *       xcritical_section
 		 * ------------------------------------------------------------------------------
 		 */
-		virtual xtick	getTimeInTicks()
+		virtual tick_t	getTimeInTicks()
 		{
 			ASSERT(mBaseTimeTick != 0);
 
 			LARGE_INTEGER   counter;
 			QueryPerformanceCounter(&counter);
-			xtick ticks = (xtick)(counter.QuadPart) - mBaseTimeTick;
+			tick_t ticks = (tick_t)(counter.QuadPart) - mBaseTimeTick;
 
 			// Try to help the PC bug
 			if (ticks < mLastTicks)     

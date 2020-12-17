@@ -13,19 +13,19 @@ namespace xtime
 
 namespace xcore
 {
-	typedef		s64		xtick;
+	typedef		s64		tick_t;
 
 	extern f64		x_GetTimeSec        (void);
 	extern s64		x_GetTicksPerSecond (void);
 
-	extern xtick	x_GetTime           (void);
-	extern f64		x_TicksToSec        (xtick inTicks);
-	extern f64		x_TicksToMs         (xtick inTicks);
-	extern f64		x_TicksToUs         (xtick inTicks);
+	extern tick_t	x_GetTime           (void);
+	extern f64		x_TicksToSec        (tick_t inTicks);
+	extern f64		x_TicksToMs         (tick_t inTicks);
+	extern f64		x_TicksToUs         (tick_t inTicks);
 
-	extern xtick	x_SecondsToTicks		(f64 inS);
-	extern xtick	x_MillisecondsToTicks	(f64 inMs);
-	extern xtick	x_MicrosecondsToTicks	(f64 inUs);
+	extern tick_t	x_SecondsToTicks		(f64 inS);
+	extern tick_t	x_MillisecondsToTicks	(f64 inMs);
+	extern tick_t	x_MicrosecondsToTicks	(f64 inUs);
 
 	//==============================================================================
 	// INLINE
@@ -35,7 +35,7 @@ namespace xcore
 	*   Author:
 	*       Jurgen
 	*   Summary:
-	*       Convert a period of time's measurement from xtick to second.
+	*       Convert a period of time's measurement from tick_t to second.
 	*   Arguments:
 	*       Ticks that have elapsed.
 	*   Returns:
@@ -44,7 +44,7 @@ namespace xcore
 	*       x_GetTicksPerSecond
 	* ------------------------------------------------------------------------------
 	*/
-	inline f64		x_TicksToSec(xtick inTicks)
+	inline f64		x_TicksToSec(tick_t inTicks)
 	{
 		return ((f64)inTicks) / x_GetTicksPerSecond();
 	}
@@ -54,7 +54,7 @@ namespace xcore
 	*   Author:
 	*       Jurgen
 	*   Summary:
-	*       Convert a period of time's measurement from xtick to millisecond.
+	*       Convert a period of time's measurement from tick_t to millisecond.
 	*   Arguments:
 	*       Ticks that have elapsed.
 	*   Returns:
@@ -63,7 +63,7 @@ namespace xcore
 	*       x_GetTicksPerMs
 	* ------------------------------------------------------------------------------
 	*/
-	inline f64		x_TicksToMs(xtick inTicks)
+	inline f64		x_TicksToMs(tick_t inTicks)
 	{
 		static f64 ms = 1000.0;
 		return (((f64)inTicks) / x_GetTicksPerSecond()) * ms;
@@ -75,7 +75,7 @@ namespace xcore
 	*   Author:
 	*       Jurgen
 	*   Summary:
-	*       Convert a period of time's measurement from xtick to millisecond.
+	*       Convert a period of time's measurement from tick_t to millisecond.
 	*   Arguments:
 	*       Ticks that have elapsed.
 	*   Returns:
@@ -84,7 +84,7 @@ namespace xcore
 	*       x_GetTicksPerMs
 	* ------------------------------------------------------------------------------
 	*/
-	inline f64		x_TicksToUs(xtick inTicks)
+	inline f64		x_TicksToUs(tick_t inTicks)
 	{
 		static f64 us = 1000000.0;
 		return (((f64)inTicks) / x_GetTicksPerSecond()) * us;
@@ -110,21 +110,21 @@ namespace xcore
 		return x_TicksToSec(x_GetTime());
 	}
 
-	inline xtick	x_SecondsToTicks(f64 inS)
+	inline tick_t	x_SecondsToTicks(f64 inS)
 	{
-		return (xtick)(inS * x_GetTicksPerSecond());
+		return (tick_t)(inS * x_GetTicksPerSecond());
 	}
 
-	inline xtick	x_MillisecondsToTicks(f64 inMs)
+	inline tick_t	x_MillisecondsToTicks(f64 inMs)
 	{
 		static f64 ms = 1000.0;
-		return (xtick)(inMs * (x_GetTicksPerSecond() / ms));
+		return (tick_t)(inMs * (x_GetTicksPerSecond() / ms));
 	}
 
-	inline xtick	x_MicrosecondsToTicks(f64 inUs)
+	inline tick_t	x_MicrosecondsToTicks(f64 inUs)
 	{
 		static f64 us = 1000000.0;
-		return (xtick)(inUs * (x_GetTicksPerSecond() / us));
+		return (tick_t)(inUs * (x_GetTicksPerSecond() / us));
 	}
 
 };

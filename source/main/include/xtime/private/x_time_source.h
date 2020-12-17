@@ -1,38 +1,23 @@
 #ifndef __X_TIME_SOURCE_H__
 #define __X_TIME_SOURCE_H__
 #include "xbase/x_target.h"
-#ifdef USE_PRAGMA_ONCE 
-#pragma once 
+#ifdef USE_PRAGMA_ONCE
+#pragma once
 #endif
 
-//==============================================================================
-//  INCLUDES
-//==============================================================================
-
-
-//==============================================================================
-// xCore namespace
-//==============================================================================
 namespace xcore
 {
-	class xtime_source
-	{
-	public:
-		virtual			~xtime_source()		{}
+    class time_source_t
+    {
+    public:
+        virtual ~time_source_t() {}
 
-		virtual s64		getTimeInTicks() = 0;
-		virtual s64		getTicksPerSecond() = 0;
-	};
-	
-	extern void		x_SetTimeSource		(xtime_source*);
+        virtual s64 getTimeInTicks() = 0;
+        virtual s64 getTicksPerSecond() = 0;
+    };
 
-	//==============================================================================
-	// END xCore namespace
-	//==============================================================================
-};
+    extern void x_SetTimeSource(time_source_t *);
 
+}; // namespace xcore
 
-//==============================================================================
-// END __X_TIME_SOURCE_H__
-//==============================================================================
 #endif

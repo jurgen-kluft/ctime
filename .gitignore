@@ -1,13 +1,15 @@
 #ignore all files
-*.*
+*
+!*/
+
 target/
 t2-output/
 vendor/
 tags
 
 #except the following files
-!tundra.lua
-
+!.gitignore
+!.clang-format
 !*.cpp
 !*.hpp
 !*.c
@@ -17,6 +19,7 @@ tags
 !*.pl
 
 !*.go
+!*.lua
 
 !*.cs
 !*.csproj

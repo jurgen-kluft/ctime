@@ -19,7 +19,6 @@ tags
 !*.pl
 
 !*.go
-!*.lua
 
 !*.cs
 !*.csproj

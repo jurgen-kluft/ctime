@@ -1,7 +1,7 @@
-#include "xunittest/xunittest.h"
+#include "cunittest/xunittest.h"
 
-#include "xtime/x_frame_rate.h"
-#include "xtime/private/x_time_source.h"
+#include "ctime/c_frame_rate.h"
+#include "ctime/private/c_time_source.h"
 
 using namespace ncore;
 

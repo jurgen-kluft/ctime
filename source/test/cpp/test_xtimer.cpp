@@ -1,10 +1,10 @@
 
-#include "xunittest/xunittest.h"
+#include "cunittest/xunittest.h"
 
-#include "xtime/x_timer.h"
-#include "xtime/x_time.h"
+#include "ctime/c_timer.h"
+#include "ctime/c_time.h"
 
-#include "xtime/private/x_time_source.h"
+#include "ctime/private/c_time_source.h"
 
 using namespace ncore;
 
@@ -198,7 +198,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_TicksToUs)
 		{
 			f64 us1 = x_TicksToUs(200);
-			f64 us2 = (((f64)200 * 1000000)/x_GetTicksPerSecond());
+			f64 us2 = (((f64)200 * 1000000)/c_GetTicksPerSecond());
 
 			CHECK_TRUE(us1);
 			CHECK_TRUE(us1 == us2);
@@ -206,7 +206,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_TicksToMs)
 		{
 			f64 ms1 = x_TicksToMs(200);
-			f64 ms2 = (((f64)200 * 1000)/x_GetTicksPerSecond());
+			f64 ms2 = (((f64)200 * 1000)/c_GetTicksPerSecond());
 
 			CHECK_TRUE(ms1);
 			CHECK_TRUE(ms1 == ms2);
@@ -214,7 +214,7 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_TicksToSec)
 		{
 			f64 ms1 = x_TicksToSec(200);
-			f64 ms2 = (f64(200))/x_GetTicksPerSecond();
+			f64 ms2 = (f64(200))/c_GetTicksPerSecond();
 
 			CHECK_TRUE(ms1);
 			CHECK_TRUE(ms1 == ms2);

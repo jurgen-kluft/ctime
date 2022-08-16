@@ -4,7 +4,7 @@
 #include "xtime/x_timespan.h"
 #include "xtime/x_time.h"
 
-using namespace xcore;
+using namespace ncore;
 
 UNITTEST_SUITE_BEGIN(datetime)
 {
@@ -76,7 +76,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 		}
 		UNITTEST_FIXTURE_TEARDOWN() 
 		{
-			x_SetDateTimeSource(NULL);
+			x_SetDateTimeSource(nullptr);
 		}
 
 		UNITTEST_TEST(RealNow)
@@ -189,7 +189,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 		UNITTEST_TEST(add)
 		{
-			datetime_t dt1 = xcore::datetime_t::sNow();
+			datetime_t dt1 = ncore::datetime_t::sNow();
 
 			u64 tick = dt1.ticks();
 
@@ -211,7 +211,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 		}
 		UNITTEST_TEST(addYears)
 		{
-			datetime_t dt1 = xcore::datetime_t::sNow();
+			datetime_t dt1 = ncore::datetime_t::sNow();
 
 			s32 year = dt1.year();
 
@@ -222,7 +222,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 		UNITTEST_TEST(addMonths)
 		{
-			datetime_t dt1 = xcore::datetime_t::sNow();
+			datetime_t dt1 = ncore::datetime_t::sNow();
 
 			s32 month = dt1.month();
 
@@ -356,7 +356,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 		}
 		UNITTEST_TEST(addTicks)
 		{
-			datetime_t dt1 = xcore::datetime_t::sNow();
+			datetime_t dt1 = ncore::datetime_t::sNow();
 
 			u64 tick = dt1.ticks();
 

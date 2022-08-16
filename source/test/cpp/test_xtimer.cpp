@@ -6,7 +6,7 @@
 
 #include "xtime/private/x_time_source.h"
 
-using namespace xcore;
+using namespace ncore;
 
 UNITTEST_SUITE_BEGIN(timer)
 {
@@ -57,7 +57,7 @@ UNITTEST_SUITE_BEGIN(timer)
 
 		UNITTEST_FIXTURE_TEARDOWN()
 		{
-			x_SetTimeSource(NULL);
+			x_SetTimeSource(nullptr);
 		}
 
 		UNITTEST_TEST(constructor)
@@ -153,7 +153,7 @@ UNITTEST_SUITE_BEGIN(timer)
 			CHECK_EQUAL(0, timer.trip());
 
 			timer.start();
-			for (xcore::s32 i=0; i<10; ++i)
+			for (ncore::s32 i=0; i<10; ++i)
 			{
 				CHECK_TRUE(timer.isRunning());
 				CHECK_EQUAL(0, timer.read());

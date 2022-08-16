@@ -12,9 +12,9 @@
 #include "xtime/private/x_time_source.h"
 #include "xtime/private/x_datetime_source.h"
 
-namespace xcore
+namespace ncore
 {
-	class xdatetime_source_mac : public datetime_source_t
+	class datetime_source_mac : public datetime_source_t
 	{
 	public:
 		virtual u64			getSystemTimeUtc()
@@ -133,7 +133,7 @@ namespace xcore
 	/**
 	 * Time source for Mac OS
 	 */
-	class xtime_source_mac : public time_source_t
+	class time_source_mac : public time_source_t
 	{
 		f64				mFreqPerSec;
 		tick_t			mBaseTimeTick;
@@ -176,25 +176,27 @@ namespace xcore
 			return mFreqPerSec;
 		}
 	};
+
+
+	namespace ntime
+	{
+		void init(void)
+		{
+			static ncore::time_source_mac sTimeSource;
+			sTimeSource.init();
+			ncore::g_SetTimeSource(&sTimeSource);
+
+			static ncore::datetime_source_mac sDateTimeSource;
+			ncore::g_SetDateTimeSource(&sDateTimeSource);
+		}
+
+		void exit(void)
+		{
+			ncore::g_SetTimeSource(nullptr);
+			ncore::g_SetDateTimeSource(nullptr);
+		}
+	}
 };
 
-namespace xtime
-{
-	void x_Init(void)
-	{
-		static xcore::xtime_source_mac sTimeSource;
-		sTimeSource.init();
-		xcore::x_SetTimeSource(&sTimeSource);
-
-		static xcore::xdatetime_source_mac sDateTimeSource;
-		xcore::x_SetDateTimeSource(&sDateTimeSource);
-	}
-
-	void x_Exit(void)
-	{
-		xcore::x_SetTimeSource(NULL);
-		xcore::x_SetDateTimeSource(NULL);
-	}
-}
 
 #endif /// TARGET_MAC

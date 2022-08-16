@@ -3,7 +3,7 @@
 #include "xtime/x_time.h"
 #include "xtime/x_frame_rate.h"
 
-namespace xcore
+namespace ncore
 {
 	framerate_t::framerate_t()
 		: m_fFrameRate(0.0f)

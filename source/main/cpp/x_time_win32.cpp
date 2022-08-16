@@ -19,9 +19,9 @@
 #include "xtime/private/x_time_source.h"
 #include "xtime/private/x_datetime_source.h"
 
-namespace xcore
+namespace ncore
 {
-	class xdatetime_source_win32 : public datetime_source_t
+	class datetime_source_win32 : public datetime_source_t
 	{
 	public:
 		virtual u64			getSystemTimeUtc()
@@ -109,7 +109,7 @@ namespace xcore
 	 *       QueryPerformanceCounter QueryPerformanceFrequency
 	 * ------------------------------------------------------------------------------
 	 */
-	class xtime_source_win32 : public time_source_t
+	class time_source_win32 : public time_source_t
 	{
 		f64				mPCFreqPerSec;
 		tick_t			mBaseTimeTick;
@@ -166,25 +166,27 @@ namespace xcore
 			return (s64)mPCFreqPerSec;
 		}
 	};
+
+	namespace xtime
+	{
+		void init(void)
+		{
+			static ncore::time_source_win32 sTimeSource;
+			sTimeSource.init();
+			ncore::g_SetTimeSource(&sTimeSource);
+
+			static ncore::datetime_source_win32 sDateTimeSource;
+			ncore::g_SetDateTimeSource(&sDateTimeSource);
+		}
+
+		void exit(void)
+		{
+			ncore::g_SetTimeSource(nullptr);
+			ncore::g_SetDateTimeSource(nullptr);
+		}
+	}
+
 };
 
-namespace xtime
-{
-	void x_Init(void)
-	{
-		static xcore::xtime_source_win32 sTimeSource;
-		sTimeSource.init();
-		xcore::x_SetTimeSource(&sTimeSource);
-
-		static xcore::xdatetime_source_win32 sDateTimeSource;
-		xcore::x_SetDateTimeSource(&sDateTimeSource);
-	}
-
-	void x_Exit(void)
-	{
-		xcore::x_SetTimeSource(NULL);
-		xcore::x_SetDateTimeSource(NULL);
-	}
-}
 
 #endif // TARGET_PC

@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 inline timer_t::timer_t(void)
-    : mStartTime(0), mTotalTime(0), mIsRunning(xFALSE), mNumTrips(0)
+    : mStartTime(0), mTotalTime(0), mIsRunning(False), mNumTrips(0)
 {
 }
 
@@ -18,7 +18,7 @@ inline void timer_t::start(void)
 //------------------------------------------------------------------------------
 inline void timer_t::reset(void)
 {
-    mIsRunning = xFALSE;
+    mIsRunning = False;
     mStartTime = 0;
     mTotalTime = 0;
     mNumTrips = 0;
@@ -30,7 +30,7 @@ inline tick_t timer_t::stop(void)
     if (mIsRunning)
     {
         mTotalTime += x_GetTime() - mStartTime;
-        mIsRunning = xFALSE;
+        mIsRunning = False;
     }
 
     return mTotalTime;

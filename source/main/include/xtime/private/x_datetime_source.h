@@ -1,11 +1,11 @@
-#ifndef __X_TIME_DATETIME_SOURCE_H__
-#define __X_TIME_DATETIME_SOURCE_H__
+#ifndef __CTIME_DATETIME_SOURCE_H__
+#define __CTIME_DATETIME_SOURCE_H__
 #include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE
 #pragma once
 #endif
 
-namespace xcore
+namespace ncore
 {
     class datetime_source_t
     {
@@ -21,8 +21,8 @@ namespace xcore
         virtual u64 getFileTimeFromSystemTime(u64 inSystemTime) = 0;
     };
 
-    extern void x_SetDateTimeSource(datetime_source_t *);
+    extern void g_SetDateTimeSource(datetime_source_t *);
 
-}; // namespace xcore
+}; // namespace ncore
 
 #endif

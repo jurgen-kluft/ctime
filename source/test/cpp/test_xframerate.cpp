@@ -3,7 +3,7 @@
 #include "xtime/x_frame_rate.h"
 #include "xtime/private/x_time_source.h"
 
-using namespace xcore;
+using namespace ncore;
 
 UNITTEST_SUITE_BEGIN(framerate)
 {
@@ -59,7 +59,7 @@ UNITTEST_SUITE_BEGIN(framerate)
 
 		UNITTEST_FIXTURE_TEARDOWN()
 		{
-			x_SetTimeSource(NULL);
+			x_SetTimeSource(nullptr);
 		}
 
 		UNITTEST_TEST(constructor)

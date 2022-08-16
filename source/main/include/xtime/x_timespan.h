@@ -1,11 +1,11 @@
-#ifndef __X_TIME_TIMESPAN_H__
-#define __X_TIME_TIMESPAN_H__
+#ifndef __CTIME_TIMESPAN_H__
+#define __CTIME_TIMESPAN_H__
 #include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE
 #pragma once
 #endif
 
-namespace xcore
+namespace ncore
 {
     class datetime_t;
 
@@ -98,6 +98,6 @@ namespace xcore
 
     extern timespan_t operator-(const datetime_t &d1, const datetime_t &d2);
 
-}; // namespace xcore
+}; // namespace ncore
 
 #endif

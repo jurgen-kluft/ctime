@@ -1,5 +1,5 @@
-#ifndef __X_TIME_TIMER_H__
-#define __X_TIME_TIMER_H__
+#ifndef __CTIME_TIMER_H__
+#define __CTIME_TIMER_H__
 #include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE
 #pragma once
@@ -7,7 +7,7 @@
 
 #include "xtime/x_time.h"
 
-namespace xcore
+namespace ncore
 {
     //==============================================================================
     // Types
@@ -90,6 +90,6 @@ namespace xcore
 
 #include "private/x_timer_inline.h"
 
-}; // namespace xcore
+}; // namespace ncore
 
 #endif

@@ -1,5 +1,5 @@
 
-#include "cunittest/xunittest.h"
+#include "cunittest/cunittest.h"
 
 #include "ctime/c_timer.h"
 #include "ctime/c_time.h"
@@ -71,7 +71,7 @@ UNITTEST_SUITE_BEGIN(timer)
 
 		UNITTEST_TEST(RealTest)
 		{
-			xtime::x_Init();
+			ctime::x_Init();
 
 			timer_t t1;
 
@@ -89,7 +89,7 @@ UNITTEST_SUITE_BEGIN(timer)
 			f64 us = t1.readUs();
 			CHECK_TRUE(us > 180000.0 && us < 220000.0);
 
-			xtime::x_Exit();
+			ctime::x_Exit();
 			x_SetTimeSource(&sTimeSource);
 		}
 

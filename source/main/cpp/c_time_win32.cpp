@@ -167,7 +167,7 @@ namespace ncore
 		}
 	};
 
-	namespace xtime
+	namespace ctime
 	{
 		void init(void)
 		{

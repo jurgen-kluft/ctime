@@ -1,4 +1,4 @@
-#include "cunittest/xunittest.h"
+#include "cunittest/cunittest.h"
 #include "ctime/c_datetime.h"
 #include "ctime/private/c_datetime_source.h"
 #include "ctime/c_timespan.h"
@@ -81,7 +81,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 		UNITTEST_TEST(RealNow)
 		{
-			xtime::x_Init();
+			ctime::x_Init();
 
 			datetime_t start = datetime_t::sNow();
 			datetime_t end;
@@ -98,7 +98,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 			u32 ms = (u32)span.totalMilliseconds();
 			CHECK_TRUE(ms >= 150);
 
-			xtime::x_Exit();
+			ctime::x_Exit();
 			x_SetDateTimeSource(&sDateTimeSource);
 		}
 

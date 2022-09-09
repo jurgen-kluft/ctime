@@ -66,7 +66,7 @@ namespace ncore
 			u32	uMonth	= 0;
 			u32	uDay	= 0;
 
-			while (xTRUE)
+			while (True)
 			{
 				bool	boLeap			= false;
 				u32		uNumDaysInYear	= 365;

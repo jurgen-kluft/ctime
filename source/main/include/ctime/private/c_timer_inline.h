@@ -11,7 +11,7 @@ inline void timer_t::start(void)
         return;
 
     mStartTime = x_GetTime();
-    mIsRunning = xTRUE;
+    mIsRunning = True;
     mNumTrips++;
 }
 

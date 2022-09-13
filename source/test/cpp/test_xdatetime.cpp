@@ -10,8 +10,8 @@ UNITTEST_SUITE_BEGIN(datetime)
 {
 	UNITTEST_FIXTURE(main)
 	{
-		static const s64 TicksPerDay			= X_CONSTANT_64(0xc92a69c000);
-		static const s64 TicksPerHour			= X_CONSTANT_64(0x861c46800);
+		static const s64 TicksPerDay			= D_CONSTANT_64(0xc92a69c000);
+		static const s64 TicksPerHour			= D_CONSTANT_64(0x861c46800);
 		static const s64 TicksPerMillisecond	= 10000;
 		static const s64 TicksPerMinute			= 600000000;
 		static const s64 TicksPerSecond			= 10000000;

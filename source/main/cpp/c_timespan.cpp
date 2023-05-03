@@ -466,6 +466,6 @@ namespace ncore
     bool operator!=(const timespan_t& t1, const timespan_t& t2) { return t1.ticks() != t2.ticks(); }
 
     //==============================================================================
-    // END xCore namespace
+    // END ccore namespace
     //==============================================================================
 }; // namespace ncore

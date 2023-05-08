@@ -1,4 +1,4 @@
-#include "cbase/c_target.h"
+#include "ccore/c_target.h"
 #ifdef TARGET_PC
 
 #define WIN32_LEAN_AND_MEAN
@@ -10,7 +10,7 @@
 #include <mmsystem.h>
 #include <time.h>
 
-#include "cbase/c_debug.h"
+#include "ccore/c_debug.h"
 
 #include "ctime/c_time.h"
 #include "ctime/c_timespan.h"

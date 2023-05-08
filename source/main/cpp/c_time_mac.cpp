@@ -1,9 +1,9 @@
-#include "cbase/c_target.h"
+#include "ccore/c_target.h"
 #ifdef TARGET_MAC
 
 #include <time.h>
 
-#include "cbase/c_debug.h"
+#include "ccore/c_debug.h"
 
 #include "ctime/c_time.h"
 #include "ctime/c_timespan.h"

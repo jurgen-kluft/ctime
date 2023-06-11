@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 inline timer_t::timer_t(void)
-    : mStartTime(0), mTotalTime(0), mIsRunning(False), mNumTrips(0)
+    : mStartTime(0), mTotalTime(0), mIsRunning(false), mNumTrips(0)
 {
 }
 
@@ -10,15 +10,15 @@ inline void timer_t::start(void)
     if (mIsRunning)
         return;
 
-    mStartTime = x_GetTime();
-    mIsRunning = True;
+    mStartTime = getTime();
+    mIsRunning = true;
     mNumTrips++;
 }
 
 //------------------------------------------------------------------------------
 inline void timer_t::reset(void)
 {
-    mIsRunning = False;
+    mIsRunning = false;
     mStartTime = 0;
     mTotalTime = 0;
     mNumTrips = 0;
@@ -29,8 +29,8 @@ inline tick_t timer_t::stop(void)
 {
     if (mIsRunning)
     {
-        mTotalTime += x_GetTime() - mStartTime;
-        mIsRunning = False;
+        mTotalTime += getTime() - mStartTime;
+        mIsRunning = false;
     }
 
     return mTotalTime;
@@ -40,7 +40,7 @@ inline tick_t timer_t::stop(void)
 inline tick_t timer_t::read(void) const
 {
     if (mIsRunning)
-        return mTotalTime + (x_GetTime() - mStartTime);
+        return mTotalTime + (getTime() - mStartTime);
 
     return mTotalTime;
 }
@@ -52,7 +52,7 @@ inline tick_t timer_t::trip(void)
 
     if (mIsRunning)
     {
-        tick_t currentTime = x_GetTime();
+        tick_t currentTime = getTime();
 
         ticks = mTotalTime + (currentTime - mStartTime);
 
@@ -84,48 +84,48 @@ inline bool timer_t::isRunning(void) const
 //------------------------------------------------------------------------------
 inline f64 timer_t::tripSec(void)
 {
-    return x_TicksToSec(trip());
+    return ticksToSec(trip());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::tripMs(void)
 {
-    return x_TicksToMs(trip());
+    return ticksToMs(trip());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::tripUs(void)
 {
-    return x_TicksToUs(trip());
+    return ticksToUs(trip());
 }
 //------------------------------------------------------------------------------
 
 inline f64 timer_t::readSec(void) const
 {
-    return x_TicksToSec(read());
+    return ticksToSec(read());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::readMs(void) const
 {
-    return x_TicksToMs(read());
+    return ticksToMs(read());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::readUs(void) const
 {
-    return x_TicksToUs(read());
+    return ticksToUs(read());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::stopSec(void)
 {
-    return x_TicksToSec(stop());
+    return ticksToSec(stop());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::stopMs(void)
 {
-    return x_TicksToMs(stop());
+    return ticksToMs(stop());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::stopUs(void)
 {
-    return x_TicksToUs(stop());
+    return ticksToUs(stop());
 }
 //------------------------------------------------------------------------------
 inline f64 timer_t::getAverageMs(void) const

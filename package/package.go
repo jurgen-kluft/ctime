@@ -1,8 +1,9 @@
 package ctime
 
 import (
-	ccore "github.com/jurgen-kluft/ccore/package"
+	cbase "github.com/jurgen-kluft/cbase/package"
 	denv "github.com/jurgen-kluft/ccode/denv"
+	ccore "github.com/jurgen-kluft/ccore/package"
 	cunittest "github.com/jurgen-kluft/cunittest/package"
 )
 
@@ -11,6 +12,7 @@ func GetPackage() *denv.Package {
 	// Dependencies
 	cunittestpkg := cunittest.GetPackage()
 	ccorepkg := ccore.GetPackage()
+	cbasepkg := cbase.GetPackage()
 
 	// The main (ctime) package
 	mainpkg := denv.NewPackage("ctime")
@@ -25,6 +27,7 @@ func GetPackage() *denv.Package {
 	maintest := denv.SetupDefaultCppTestProject("ctime_test", "github.com\\jurgen-kluft\\ctime")
 	maintest.Dependencies = append(maintest.Dependencies, cunittestpkg.GetMainLib())
 	maintest.Dependencies = append(maintest.Dependencies, ccorepkg.GetMainLib())
+	maintest.Dependencies = append(maintest.Dependencies, cbasepkg.GetMainLib())
 	maintest.Dependencies = append(maintest.Dependencies, mainlib)
 
 	mainpkg.AddMainLib(mainlib)

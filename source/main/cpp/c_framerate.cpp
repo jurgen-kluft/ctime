@@ -10,7 +10,7 @@ namespace ncore
 		, m_dwSecondCount(0)
 		, m_dwNumFrames(0.0f)
 	{
-		m_tLastFPSTime = ntime::getTime();
+		m_tLastFPSTime = getTime();
 	}
 
 	void		framerate_t::restart()
@@ -18,19 +18,19 @@ namespace ncore
 		m_fFrameRate = 0.0f;
 		m_dwSecondCount = 0;
 		m_dwNumFrames = 0.0f;
-		m_tLastFPSTime = ntime::getTime();
+		m_tLastFPSTime = getTime();
 	}
 
 	void		framerate_t::markFrame()
 	{
 		m_dwNumFrames += 1.0f;
 
-		tick_t tTime = ntime::getTime();
+		tick_t tTime = getTime();
 
 		// Only re-compute the FPS (frames per second) once per second
-		if ( (tTime - m_tLastFPSTime) >= ntime::getTicksPerSecond() )
+		if ( (tTime - m_tLastFPSTime) >= getTicksPerSecond() )
 		{
-			m_fFrameRate = (f32)(m_dwNumFrames * ntime::getTicksPerSecond()) / (f32)( tTime - m_tLastFPSTime );
+			m_fFrameRate = (f32)(m_dwNumFrames * getTicksPerSecond()) / (f32)( tTime - m_tLastFPSTime );
 			m_tLastFPSTime = tTime;
 			m_dwNumFrames = 0.0f;
 			m_dwSecondCount++;

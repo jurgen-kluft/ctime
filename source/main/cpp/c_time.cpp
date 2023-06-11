@@ -16,15 +16,14 @@ namespace ncore
 
     void g_SetTimeSource(time_source_t* src) { ntime::sTimeSource = src; }
 
-    tick_t g_GetTime(void) { return ntime::sTimeSource->getTimeInTicks(); }
-
-    s64 g_GetTicksPerSecond(void) { return ntime::sTimeSource->getTicksPerSecond(); }
-
     /**
      * datetime_t source
      */
     static datetime_source_t* sDateTimeSource = nullptr;
     void                      g_SetDateTimeSource(datetime_source_t* src) { sDateTimeSource = src; }
+
+    s64    getTicksPerSecond(void) { return ntime::sTimeSource->getTicksPerSecond(); }
+    tick_t getTime(void) { return ntime::sTimeSource->getTimeInTicks(); }
 
     /**
      * datetime_t

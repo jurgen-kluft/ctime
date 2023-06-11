@@ -54,12 +54,12 @@ UNITTEST_SUITE_BEGIN(framerate)
 
 		UNITTEST_FIXTURE_SETUP()
 		{
-			x_SetTimeSource(&sTimeSource);
+			g_SetTimeSource(&sTimeSource);
 		}
 
 		UNITTEST_FIXTURE_TEARDOWN()
 		{
-			x_SetTimeSource(nullptr);
+			g_SetTimeSource(nullptr);
 		}
 
 		UNITTEST_TEST(constructor)

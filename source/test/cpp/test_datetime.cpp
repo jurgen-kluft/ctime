@@ -72,16 +72,16 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 		UNITTEST_FIXTURE_SETUP() 
 		{
-			x_SetDateTimeSource(&sDateTimeSource);
+			g_SetDateTimeSource(&sDateTimeSource);
 		}
 		UNITTEST_FIXTURE_TEARDOWN() 
 		{
-			x_SetDateTimeSource(nullptr);
+			g_SetDateTimeSource(nullptr);
 		}
 
 		UNITTEST_TEST(RealNow)
 		{
-			ctime::x_Init();
+			ntime::init();
 
 			datetime_t start = datetime_t::sNow();
 			datetime_t end;
@@ -98,8 +98,8 @@ UNITTEST_SUITE_BEGIN(datetime)
 			u32 ms = (u32)span.totalMilliseconds();
 			CHECK_TRUE(ms >= 150);
 
-			ctime::x_Exit();
-			x_SetDateTimeSource(&sDateTimeSource);
+			ntime::exit();
+			g_SetDateTimeSource(&sDateTimeSource);
 		}
 
 		UNITTEST_TEST(Now)

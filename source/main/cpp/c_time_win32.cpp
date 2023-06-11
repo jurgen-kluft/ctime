@@ -85,8 +85,6 @@ namespace ncore
 
 	/**
      * ------------------------------------------------------------------------------
-	 *   Author:
-	 *       Virtuos
 	 *   Summary:
 	 *       Set sPCFreqPerMs,sPCFreqPerSec,sBaseTimeTick 's values, which are processor
 	 *       dependent.
@@ -131,8 +129,6 @@ namespace ncore
 
 		/**
          * ------------------------------------------------------------------------------
-		 *   Author:
-		 *       Virtuos
 		 *   Summary:
 		 *       Get elapsed time from timer initialized in second.
 		 *   Arguments:

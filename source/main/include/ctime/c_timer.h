@@ -16,8 +16,6 @@ namespace ncore
 
     /**
      * ------------------------------------------------------------------------------
-     *  Author:
-     *      Virtuos
      *  Description:
      *      The timer class is a handy way to measure how long has past since a particular event.
      *      It is most often used for performance measurement but could also be used for other 
@@ -34,7 +32,7 @@ namespace ncore
      * <CODE>
      *       void main(void)
      *       {
-     *           xticks Acc=0;
+     *           tick_t Acc=0;
      *           timer_t timer;
      *           timer_t wholeTime;
      * 
@@ -47,7 +45,7 @@ namespace ncore
      *               someFunction();
      *           }
      *           
-     *           x_printf("Whole Time %f average time %f", wholeTime.stopSec(), x_TicksToSec(Acc) / (i-1));
+     *           printf("Whole Time %f average time %f", wholeTime.stopSec(), ticksToSec(Acc) / (i-1));
      *       }
      * </CODE>
      * ------------------------------------------------------------------------------

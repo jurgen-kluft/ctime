@@ -3,7 +3,6 @@
 
 #include "ctime/c_timer.h"
 #include "ctime/c_time.h"
-
 #include "ctime/private/c_time_source.h"
 
 using namespace ncore;
@@ -52,12 +51,12 @@ UNITTEST_SUITE_BEGIN(timer)
 
 		UNITTEST_FIXTURE_SETUP()
 		{
-			x_SetTimeSource(&sTimeSource);
+			g_SetTimeSource(&sTimeSource);
 		}
 
 		UNITTEST_FIXTURE_TEARDOWN()
 		{
-			x_SetTimeSource(nullptr);
+			g_SetTimeSource(nullptr);
 		}
 
 		UNITTEST_TEST(constructor)
@@ -71,7 +70,7 @@ UNITTEST_SUITE_BEGIN(timer)
 
 		UNITTEST_TEST(RealTest)
 		{
-			ctime::x_Init();
+			ntime::init();
 
 			timer_t t1;
 
@@ -89,8 +88,8 @@ UNITTEST_SUITE_BEGIN(timer)
 			f64 us = t1.readUs();
 			CHECK_TRUE(us > 180000.0 && us < 220000.0);
 
-			ctime::x_Exit();
-			x_SetTimeSource(&sTimeSource);
+			ntime::exit();
+			g_SetTimeSource(&sTimeSource);
 		}
 
 		UNITTEST_TEST(start)
@@ -174,11 +173,11 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_GetTime)
 		{
 			sTimeSource.reset();
-			tick_t tps = x_GetTicksPerSecond();
+			tick_t tps = getTicksPerSecond();
 			sTimeSource.set(tps);
 
-			tick_t time1 = x_GetTime();
-			tick_t time2 = x_GetTime();
+			tick_t time1 = getTime();
+			tick_t time2 = getTime();
 
 			CHECK_TRUE(time1 == tps);
 			CHECK_TRUE(time1 == time2);
@@ -186,35 +185,35 @@ UNITTEST_SUITE_BEGIN(timer)
 		UNITTEST_TEST(global_x_GetTimeSec)
 		{
 			sTimeSource.reset();
-			tick_t tps = x_GetTicksPerSecond();
+			tick_t tps = getTicksPerSecond();
 			sTimeSource.set(tps);
 
-			f64 timeSec1 = x_GetTimeSec();
+			f64 timeSec1 = getTimeSec();
 			CHECK_TRUE(timeSec1 == 1);
 
-			f64 timeSec2 = x_GetTimeSec();
+			f64 timeSec2 = getTimeSec();
 			CHECK_TRUE(timeSec1 == timeSec2);
 		}
 		UNITTEST_TEST(global_x_TicksToUs)
 		{
-			f64 us1 = x_TicksToUs(200);
-			f64 us2 = (((f64)200 * 1000000)/c_GetTicksPerSecond());
+			f64 us1 = ticksToUs(200);
+			f64 us2 = (((f64)200 * 1000000)/getTicksPerSecond());
 
 			CHECK_TRUE(us1);
 			CHECK_TRUE(us1 == us2);
 		}
 		UNITTEST_TEST(global_x_TicksToMs)
 		{
-			f64 ms1 = x_TicksToMs(200);
-			f64 ms2 = (((f64)200 * 1000)/c_GetTicksPerSecond());
+			f64 ms1 = ticksToMs(200);
+			f64 ms2 = (((f64)200 * 1000)/getTicksPerSecond());
 
 			CHECK_TRUE(ms1);
 			CHECK_TRUE(ms1 == ms2);
 		}
 		UNITTEST_TEST(global_x_TicksToSec)
 		{
-			f64 ms1 = x_TicksToSec(200);
-			f64 ms2 = (f64(200))/c_GetTicksPerSecond();
+			f64 ms1 = ticksToSec(200);
+			f64 ms2 = (f64(200))/getTicksPerSecond();
 
 			CHECK_TRUE(ms1);
 			CHECK_TRUE(ms1 == ms2);

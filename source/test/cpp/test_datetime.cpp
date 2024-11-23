@@ -10,8 +10,8 @@ UNITTEST_SUITE_BEGIN(datetime)
 {
 	UNITTEST_FIXTURE(main)
 	{
-		static const s64 TicksPerDay			= D_CONSTANT_64(0xc92a69c000);
-		static const s64 TicksPerHour			= D_CONSTANT_64(0x861c46800);
+		static const s64 TicksPerDay			= D_CONSTANT_S64(0xc92a69c000);
+		static const s64 TicksPerHour			= D_CONSTANT_S64(0x861c46800);
 		static const s64 TicksPerMillisecond	= 10000;
 		static const s64 TicksPerMinute			= 600000000;
 		static const s64 TicksPerSecond			= 10000000;
@@ -70,11 +70,11 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 
 
-		UNITTEST_FIXTURE_SETUP() 
+		UNITTEST_FIXTURE_SETUP()
 		{
 			g_SetDateTimeSource(&sDateTimeSource);
 		}
-		UNITTEST_FIXTURE_TEARDOWN() 
+		UNITTEST_FIXTURE_TEARDOWN()
 		{
 			g_SetDateTimeSource(nullptr);
 		}
@@ -169,7 +169,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 			CHECK_TRUE(dt1.dayOfYear() == 2);
 
 			datetime_t dt2(2011,3,5);
-			
+
 			CHECK_TRUE(dt2.dayOfYear() == 64);
 
 			datetime_t dt3(2012,3,5);
@@ -238,8 +238,8 @@ UNITTEST_SUITE_BEGIN(datetime)
 			{
 				dt1.addMonths(5);
 
-				CHECK_TRUE(dt1.month() == (month -7));	
-			}	
+				CHECK_TRUE(dt1.month() == (month -7));
+			}
 		}
 		UNITTEST_TEST(addDays)
 		{
@@ -299,7 +299,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 			datetime_t dt3(2011,5,1,20,10,20);
 
 			CHECK_TRUE(dt2 == dt3);
-			
+
 			datetime_t dt4 = dt2.addHours(10);
 
 			datetime_t dt5(2011,5,2,6,10,20);
@@ -329,7 +329,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 			datetime_t dt2 = dt1.addMinutes(10);
 
 		    datetime_t dt3(2011,5,1,5,20,20);
-			
+
 			CHECK_TRUE(dt2 == dt3);
 
 			datetime_t dt4 = dt1.addMinutes(50);
@@ -462,7 +462,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 			for(s32 j = 0; j < 4; j++)
 			{
 				s32 sDay2 = datetime_t::sDaysInMonth(2011,Month2[j]);
-				
+
 				CHECK_TRUE(sDay2 == 30);
 			}
 			s32 sDay3 = datetime_t::sDaysInMonth(2012,2);
@@ -562,7 +562,7 @@ UNITTEST_SUITE_BEGIN(datetime)
 
 			datetime_t dt5(2011,4,29,6,30,50);
 
-			timespan_t ts2(13,0,0,0);	
+			timespan_t ts2(13,0,0,0);
 
 			timespan_t ts3 = dt4 - dt5;
 

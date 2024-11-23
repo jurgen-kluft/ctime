@@ -138,7 +138,7 @@ namespace ncore
         static const datetime_t sMinValue;
 
     private:
-        inline s64 __ticks() const { return mTicks & D_CONSTANT_64(0x3fffffffffffffff); }
+        inline s64 __ticks() const { return mTicks & D_CONSTANT_S64(0x3fffffffffffffff); }
 
         //
         datetime_t& add(s32 value, s32 scale);

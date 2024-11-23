@@ -39,14 +39,14 @@ namespace ncore
     // static const s32 DaysTo1899			= 693593;
 
     // static const u64 MinTicks				= 0;
-    static const u64 MaxTicks = D_CONSTANT_64(0x2bca2875f4373fff);
+    static const u64 MaxTicks = D_CONSTANT_S64(0x2bca2875f4373fff);
 
 #ifdef D_ASSERT
-    static const s64 MaxMillis = D_CONSTANT_64(0x11efae44cb400);
+    static const s64 MaxMillis = D_CONSTANT_S64(0x11efae44cb400);
 #endif
 
-    static const s64 TicksPerDay         = D_CONSTANT_64(0xc92a69c000);
-    static const s64 TicksPerHour        = D_CONSTANT_64(0x861c46800);
+    static const s64 TicksPerDay         = D_CONSTANT_S64(0xc92a69c000);
+    static const s64 TicksPerHour        = D_CONSTANT_S64(0x861c46800);
     static const s64 TicksPerMicrosecond = 10;
     static const s64 TicksPerMillisecond = 10000;
     static const s64 TicksPerMinute      = 600000000;
@@ -689,7 +689,7 @@ namespace ncore
     datetime_t& datetime_t::add(s32 value, s32 scale)
     {
         s64 num = (s64)value * scale;
-        ASSERTS((num > D_CONSTANT_64(-315537897600000)) && (num < MaxMillis), "Argument Out Of Range, AddValue");
+        ASSERTS((num > D_CONSTANT_S64(-315537897600000)) && (num < MaxMillis), "Argument Out Of Range, AddValue");
         return addTicks(num * TicksPerMillisecond);
     }
 

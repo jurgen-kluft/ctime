@@ -5,8 +5,8 @@
 
 namespace ncore
 {
-    const u64 timespan_t::sTicksPerDay         = D_CONSTANT_64(864000000000);
-    const u64 timespan_t::sTicksPerHour        = D_CONSTANT_64(36000000000);
+    const u64 timespan_t::sTicksPerDay         = D_CONSTANT_S64(864000000000);
+    const u64 timespan_t::sTicksPerHour        = D_CONSTANT_S64(36000000000);
     const u64 timespan_t::sTicksPerMillisecond = 10000;
     const u64 timespan_t::sTicksPerMinute      = 600000000;
     const u64 timespan_t::sTicksPerSecond      = 10000000;
@@ -16,16 +16,16 @@ namespace ncore
     const s32 timespan_t::sMillisPerMinute = 60000;
     const s32 timespan_t::sMillisPerSecond = 1000;
 
-    const timespan_t timespan_t::sMaxValue(D_CONSTANT_64(0x2bca2875f4373fff));
+    const timespan_t timespan_t::sMaxValue(D_CONSTANT_S64(0x2bca2875f4373fff));
     const timespan_t timespan_t::sMinValue(0);
     const timespan_t timespan_t::sZero(0);
 
-    const s64 MaxMilliSeconds = D_CONSTANT_64(922337203685477);
-    const s64 MinMilliSeconds = D_CONSTANT_64(-922337203685477);
+    const s64 MaxMilliSeconds = D_CONSTANT_S64(922337203685477);
+    const s64 MinMilliSeconds = D_CONSTANT_S64(-922337203685477);
 
 #ifdef D_ASSERT
-    const s64 MaxSeconds = D_CONSTANT_64(922337203685);
-    const s64 MinSeconds = D_CONSTANT_64(-922337203685);
+    const s64 MaxSeconds = D_CONSTANT_S64(922337203685);
+    const s64 MinSeconds = D_CONSTANT_S64(-922337203685);
 #endif
 
     static timespan_t sInterval(u64 value, s32 scale)

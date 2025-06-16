@@ -1,8 +1,8 @@
 package ctime
 
 import (
-	cbase "github.com/jurgen-kluft/cbase/package"
 	denv "github.com/jurgen-kluft/ccode/denv"
+	ccore "github.com/jurgen-kluft/ccore/package"
 	cunittest "github.com/jurgen-kluft/cunittest/package"
 )
 
@@ -16,20 +16,20 @@ func GetPackage() *denv.Package {
 
 	// dependencies
 	cunittestpkg := cunittest.GetPackage()
-	cbasepkg := cbase.GetPackage()
+	ccorepkg := ccore.GetPackage()
 
 	// main package
 	mainpkg := denv.NewPackage(repo_path, repo_name)
 	mainpkg.AddPackage(cunittestpkg)
-	mainpkg.AddPackage(cbasepkg)
+	mainpkg.AddPackage(ccorepkg)
 
 	// main library
 	mainlib := denv.SetupCppLibProject(mainpkg, name)
-	mainlib.AddDependencies(cbasepkg.GetMainLib()...)
+	mainlib.AddDependencies(ccorepkg.GetMainLib()...)
 
 	// test library
 	testlib := denv.SetupCppTestLibProject(mainpkg, name)
-	testlib.AddDependencies(cunittestpkg.GetTestLib()...)
+	testlib.AddDependencies(ccorepkg.GetTestLib()...)
 
 	// unittest project
 	maintest := denv.SetupCppTestProject(mainpkg, name)
